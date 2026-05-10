@@ -6,6 +6,7 @@ import { Footer } from '@/components/layout/Footer'
 import { FloatingQuoteWrapper } from '@/components/ui/FloatingQuoteWrapper'
 import { CookieConsent } from '@/components/ui/CookieConsent'
 import { Analytics } from '@/components/analytics/Analytics'
+import { Analytics as VercelAnalytics } from '@vercel/analytics/next'
 import { SITE } from '@/lib/site'
 
 const display = Cormorant_Garamond({
@@ -292,6 +293,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <CookieConsent />
         <Analytics />
+        <VercelAnalytics />
       </body>
     </html>
   )
