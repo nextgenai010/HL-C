@@ -65,6 +65,9 @@ export function Footer() {
         <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-white/50">
           <p>© {year} {SITE.name}. Alle rettigheder forbeholdes.</p>
           <div className="flex items-center gap-6">
+            <Link href="/privatliv" className="text-white/50 hover:text-white/80 transition-colors">
+              Privatlivspolitik
+            </Link>
             <Link href="/cookies" className="text-white/50 hover:text-white/80 transition-colors">
               Cookiepolitik
             </Link>

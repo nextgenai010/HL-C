@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import Link from 'next/link'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -252,6 +253,17 @@ export function ContactForm({ dark = false }: { dark?: boolean }) {
           {submitting ? 'Sender ...' : 'Send besked'}
         </button>
       </div>
+
+      <p className={`text-xs leading-relaxed ${dark ? 'text-white/40' : 'text-dark/55'}`}>
+        Når du sender beskeden, behandler vi dine oplysninger som beskrevet i vores{' '}
+        <Link
+          href="/privatliv"
+          className={`underline underline-offset-2 hover:text-gold ${dark ? 'text-white/55' : 'text-dark/75'}`}
+        >
+          privatlivspolitik
+        </Link>
+        . Vi bruger dem kun til at besvare din henvendelse.
+      </p>
     </form>
   )
 }
