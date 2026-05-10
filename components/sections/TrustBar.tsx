@@ -6,7 +6,7 @@ import { motion, useInView, type Variants } from 'framer-motion'
 const ITEMS = [
   { label: 'Verificeret Tømrermester', icon: '✦' },
   { label: 'Svendebrev', icon: '✦' },
-  { label: '+10 års erfaring', icon: '✦' },
+  { label: '+5 års erfaring', icon: '✦' },
   { label: 'Tømrer af fag · Herlev', icon: '✦' },
 ]
 

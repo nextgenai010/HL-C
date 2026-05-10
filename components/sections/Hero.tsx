@@ -18,7 +18,7 @@ const TRUST_ITEMS = [
     ),
   },
   {
-    title: '+10 års erfaring',
+    title: '+5 års erfaring',
     sub: 'Lokalt forankret i Herlev',
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
