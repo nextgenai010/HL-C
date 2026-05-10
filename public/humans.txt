@@ -1,0 +1,12 @@
+/* TEAM */
+Tømrermester: Jonatan Hintze Ladewig Christiansen
+Kontakt: jonatan [at] hlchristiansen.dk
+By: Herlev, Danmark
+
+/* SITE */
+Last update: 2026/05
+Sprog: Dansk
+Doctype: HTML5
+IDE: Next.js 14 (App Router)
+Hosting: Vercel
+Designet af: NextgenAI · https://nextgen-ai.dk
