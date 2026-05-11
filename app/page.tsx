@@ -6,7 +6,6 @@ import { ServicesPreview } from '@/components/sections/ServicesPreview'
 import { FeaturedProject } from '@/components/sections/FeaturedProject'
 import { AboutSnippet } from '@/components/sections/AboutSnippet'
 import { ProcessSteps } from '@/components/sections/ProcessSteps'
-import { AreasServed } from '@/components/sections/AreasServed'
 import { FAQSection } from '@/components/sections/FAQSection'
 import { QuoteCTA } from '@/components/sections/QuoteCTA'
 import { SITE } from '@/lib/site'
@@ -43,7 +42,6 @@ export default function Home() {
       <FeaturedProject />
       <AboutSnippet />
       <ProcessSteps />
-      <AreasServed />
       <FAQSection />
       <QuoteCTA />
       <script

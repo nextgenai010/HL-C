@@ -4,6 +4,7 @@ import { Resend } from 'resend'
 import { SITE } from '@/lib/site'
 
 export const runtime = 'nodejs'
+export const maxDuration = 30
 
 const schema = z.object({
   name: z.string().min(2),
@@ -16,6 +17,18 @@ const schema = z.object({
 const FROM = process.env.CONTACT_FROM_EMAIL ?? 'tilbud@hlchristiansen.dk'
 const TO = process.env.CONTACT_TO_EMAIL ?? SITE.email
 
+const MAX_FILES = 3
+const MAX_FILE_SIZE = 1.5 * 1024 * 1024 // 1.5MB
+const ALLOWED_TYPES = [
+  'image/jpeg',
+  'image/jpg',
+  'image/png',
+  'image/webp',
+  'image/heic',
+  'image/heif',
+  'application/pdf',
+]
+
 function escapeHtml(input: string) {
   return input
     .replace(/&/g, '&amp;')
@@ -25,7 +38,18 @@ function escapeHtml(input: string) {
     .replace(/'/g, '&#039;')
 }
 
-function ownerHtml(d: z.infer<typeof schema>) {
+function formatBytes(bytes: number) {
+  if (bytes < 1024) return `${bytes} B`
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
+}
+
+function ownerHtml(d: z.infer<typeof schema>, files: { name: string; size: number }[]) {
+  const filesRow = files.length
+    ? `<tr><td style="padding:8px 0;color:#666;vertical-align:top">Vedhæftninger</td><td style="padding:8px 0">${files
+        .map((f) => `${escapeHtml(f.name)} <span style="color:#999">(${formatBytes(f.size)})</span>`)
+        .join('<br>')}</td></tr>`
+    : ''
   return `
 <div style="font-family:Inter,Arial,sans-serif;max-width:560px;margin:0 auto;padding:24px;background:#f7f6f3;color:#1a1b1d">
   <div style="border-top:3px solid #c8a96a;background:#fff;padding:28px">
@@ -36,6 +60,7 @@ function ownerHtml(d: z.infer<typeof schema>) {
       <tr><td style="padding:8px 0;color:#666">Telefon</td><td style="padding:8px 0"><a href="tel:${escapeHtml(d.phone)}" style="color:#1a1b1d">${escapeHtml(d.phone)}</a></td></tr>
       <tr><td style="padding:8px 0;color:#666">Email</td><td style="padding:8px 0"><a href="mailto:${escapeHtml(d.email)}" style="color:#1a1b1d">${escapeHtml(d.email)}</a></td></tr>
       <tr><td style="padding:8px 0;color:#666;vertical-align:top">Besked</td><td style="padding:8px 0;white-space:pre-wrap">${escapeHtml(d.message)}</td></tr>
+      ${filesRow}
     </table>
   </div>
   <p style="font-size:11px;color:#999;margin:16px 0 0;text-align:center">Sendt fra kontaktformularen på ${SITE.name}</p>
@@ -65,9 +90,44 @@ function customerHtml(d: z.infer<typeof schema>) {
 
 export async function POST(req: Request) {
   let data: z.infer<typeof schema>
+  let attachments: { filename: string; content: Buffer }[] = []
+  let fileMeta: { name: string; size: number }[] = []
+
   try {
-    const json = await req.json()
-    data = schema.parse(json)
+    const contentType = req.headers.get('content-type') ?? ''
+
+    if (contentType.includes('application/json')) {
+      // Backwards-compatible: pure JSON without files
+      const json = await req.json()
+      data = schema.parse(json)
+    } else {
+      // multipart/form-data with optional files
+      const formData = await req.formData()
+      data = schema.parse({
+        name: formData.get('name'),
+        phone: formData.get('phone'),
+        email: formData.get('email'),
+        type: formData.get('type'),
+        message: formData.get('message'),
+      })
+
+      const raw = formData.getAll('files').filter((f): f is File => f instanceof File)
+      if (raw.length > MAX_FILES) {
+        return NextResponse.json({ ok: false, error: 'too-many-files' }, { status: 400 })
+      }
+      for (const f of raw) {
+        if (f.size === 0) continue
+        if (f.size > MAX_FILE_SIZE) {
+          return NextResponse.json({ ok: false, error: 'file-too-large' }, { status: 400 })
+        }
+        if (!ALLOWED_TYPES.includes(f.type)) {
+          return NextResponse.json({ ok: false, error: 'file-type-not-allowed' }, { status: 400 })
+        }
+        const buf = Buffer.from(await f.arrayBuffer())
+        attachments.push({ filename: f.name, content: buf })
+        fileMeta.push({ name: f.name, size: f.size })
+      }
+    }
   } catch {
     return NextResponse.json({ ok: false, error: 'invalid' }, { status: 400 })
   }
@@ -86,7 +146,8 @@ export async function POST(req: Request) {
       to: [TO],
       replyTo: data.email,
       subject: `Ny forespørgsel: ${data.type} — ${data.name}`,
-      html: ownerHtml(data),
+      html: ownerHtml(data, fileMeta),
+      attachments: attachments.length ? attachments : undefined,
     })
 
     if (ownerRes.error) {

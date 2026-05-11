@@ -160,8 +160,8 @@ export default function KontaktSide() {
             <div className="mt-12 md:mt-16 border-l-2 border-gold pl-6 max-w-2xl">
               <p className="label-caps text-gold mb-2">Hvad du selv kan gøre klar</p>
               <p className="text-dark/70 leading-relaxed text-sm">
-                Hvis du har billeder af opgaven, mål eller skitser, må du meget gerne
-                sende dem med. Det gør den første snak hurtigere — men det er ikke et
+                Du kan vedhæfte billeder af opgaven, skitser eller PDF&apos;er direkte i
+                formularen — det gør den første snak hurtigere. Men det er ikke et
                 krav. Vi finder ud af det sammen.
               </p>
             </div>

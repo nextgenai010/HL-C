@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { ChevronDown, Check } from 'lucide-react'
+import { ChevronDown, Check, Paperclip, X, FileText, Image as ImageIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { YDELSER } from '@/lib/services'
 
@@ -23,6 +23,17 @@ const OPTIONS = [
   ...YDELSER.map((y) => y.title),
   'Andet / jeg er ikke sikker',
 ]
+
+const MAX_FILES = 3
+const MAX_FILE_SIZE = 1.5 * 1024 * 1024 // 1.5MB
+const ACCEPT = 'image/jpeg,image/jpg,image/png,image/webp,image/heic,image/heif,application/pdf'
+const ACCEPTED_TYPES = ACCEPT.split(',')
+
+function formatBytes(bytes: number) {
+  if (bytes < 1024) return `${bytes} B`
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
+}
 
 function CustomSelect({
   value,
@@ -118,6 +129,9 @@ export function ContactForm({ dark = false }: { dark?: boolean }) {
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
+  const [files, setFiles] = useState<File[]>([])
+  const [fileError, setFileError] = useState<string | null>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
   const {
     register,
     handleSubmit,
@@ -126,17 +140,52 @@ export function ContactForm({ dark = false }: { dark?: boolean }) {
     reset,
   } = useForm<FormData>({ resolver: zodResolver(schema) })
 
+  function addFiles(incoming: FileList | File[]) {
+    setFileError(null)
+    const arr = Array.from(incoming)
+    const next = [...files]
+    for (const f of arr) {
+      if (next.length >= MAX_FILES) {
+        setFileError(`Du kan vedhæfte op til ${MAX_FILES} filer.`)
+        break
+      }
+      if (!ACCEPTED_TYPES.includes(f.type)) {
+        setFileError(`${f.name} har et format, vi ikke understøtter. Brug JPG, PNG, WEBP, HEIC eller PDF.`)
+        continue
+      }
+      if (f.size > MAX_FILE_SIZE) {
+        setFileError(`${f.name} er for stor. Maks ${formatBytes(MAX_FILE_SIZE)} per fil.`)
+        continue
+      }
+      if (next.some((existing) => existing.name === f.name && existing.size === f.size)) {
+        continue
+      }
+      next.push(f)
+    }
+    setFiles(next)
+  }
+
+  function removeFile(idx: number) {
+    setFiles((cur) => cur.filter((_, i) => i !== idx))
+    setFileError(null)
+  }
+
   async function onSubmit(data: FormData) {
     setSubmitting(true)
     setSubmitError(null)
     try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      })
+      const fd = new FormData()
+      fd.append('name', data.name)
+      fd.append('phone', data.phone)
+      fd.append('email', data.email)
+      fd.append('type', data.type)
+      fd.append('message', data.message)
+      files.forEach((f) => fd.append('files', f))
+
+      const res = await fetch('/api/contact', { method: 'POST', body: fd })
       if (!res.ok) throw new Error('request-failed')
       reset()
+      setFiles([])
       setSubmitted(true)
     } catch {
       setSubmitError(
@@ -234,6 +283,86 @@ export function ContactForm({ dark = false }: { dark?: boolean }) {
           placeholder="Beskriv gerne opgaven, omfang og tidshorisont"
         />
       </Field>
+
+      {/* Vedhæftninger */}
+      <div className="pt-2">
+        <span className={`label-caps ${dark ? 'text-white/50' : 'text-dark/70'}`}>
+          Vedhæftninger <span className="normal-case tracking-normal text-[10px] opacity-60">(valgfrit)</span>
+        </span>
+
+        <input
+          ref={fileInputRef}
+          type="file"
+          multiple
+          accept={ACCEPT}
+          className="sr-only"
+          onChange={(e) => {
+            if (e.target.files) addFiles(e.target.files)
+            e.target.value = ''
+          }}
+        />
+
+        <button
+          type="button"
+          onClick={() => fileInputRef.current?.click()}
+          disabled={files.length >= MAX_FILES}
+          className={cn(
+            'mt-2 group flex w-full items-center justify-between gap-3 border border-dashed px-4 py-3 transition-colors',
+            dark
+              ? 'border-white/20 hover:border-gold text-white/70 hover:text-white disabled:opacity-50 disabled:hover:border-white/20'
+              : 'border-dark/20 hover:border-gold text-dark/70 hover:text-dark disabled:opacity-50 disabled:hover:border-dark/20',
+          )}
+        >
+          <span className="flex items-center gap-3">
+            <Paperclip size={15} className="text-gold shrink-0" />
+            <span className="text-sm">
+              {files.length === 0
+                ? 'Tilføj billeder eller PDF'
+                : `Tilføj flere · ${files.length} af ${MAX_FILES} valgt`}
+            </span>
+          </span>
+          <span className={`text-[10px] uppercase tracking-wider ${dark ? 'text-white/40' : 'text-dark/40'}`}>
+            Maks {formatBytes(MAX_FILE_SIZE)} pr. fil
+          </span>
+        </button>
+
+        {files.length > 0 && (
+          <ul className={`mt-3 space-y-2 ${dark ? '' : ''}`}>
+            {files.map((f, i) => (
+              <li
+                key={`${f.name}-${i}`}
+                className={cn(
+                  'flex items-center gap-3 px-3 py-2 border text-sm',
+                  dark ? 'border-white/10 bg-white/5 text-white/85' : 'border-dark/10 bg-gray-light/60 text-dark/85',
+                )}
+              >
+                <span className="text-gold shrink-0">
+                  {f.type === 'application/pdf' ? <FileText size={15} /> : <ImageIcon size={15} />}
+                </span>
+                <span className="flex-1 truncate">{f.name}</span>
+                <span className={`text-xs shrink-0 ${dark ? 'text-white/40' : 'text-dark/45'}`}>
+                  {formatBytes(f.size)}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => removeFile(i)}
+                  aria-label={`Fjern ${f.name}`}
+                  className={cn(
+                    'shrink-0 transition-colors',
+                    dark ? 'text-white/40 hover:text-gold-light' : 'text-dark/40 hover:text-gold',
+                  )}
+                >
+                  <X size={14} />
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {fileError && (
+          <p className={`mt-2 text-xs ${dark ? 'text-gold-light' : 'text-gold'}`}>{fileError}</p>
+        )}
+      </div>
 
       {submitError && (
         <p
