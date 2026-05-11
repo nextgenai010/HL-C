@@ -10,7 +10,8 @@ export function Footer() {
     <footer className="bg-dark text-white grain">
       <div className="container-content py-14 sm:py-20 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 sm:gap-12">
-          <div className="md:col-span-5">
+          {/* Brand */}
+          <div className="md:col-span-4">
             <div className="flex items-center gap-2 font-display text-2xl">
               <span aria-hidden className="text-gold">✦</span>
               <span>
@@ -25,6 +26,7 @@ export function Footer() {
             </p>
           </div>
 
+          {/* Ydelser */}
           <div className="md:col-span-3">
             <p className="label-caps text-gold mb-5">Ydelser</p>
             <ul className="space-y-3 text-sm text-white/80">
@@ -38,7 +40,27 @@ export function Footer() {
             </ul>
           </div>
 
-          <div className="md:col-span-4">
+          {/* Information */}
+          <div className="md:col-span-2">
+            <p className="label-caps text-gold mb-5">Information</p>
+            <ul className="space-y-3 text-sm text-white/80">
+              <li>
+                <Link href="/om-os" className="link-underline hover:text-white">Om os</Link>
+              </li>
+              <li>
+                <Link href="/projekter" className="link-underline hover:text-white">Projekter</Link>
+              </li>
+              <li>
+                <Link href="/ofte-stillede-spoergsmaal" className="link-underline hover:text-white">FAQ</Link>
+              </li>
+              <li>
+                <Link href="/kontakt" className="link-underline hover:text-white">Kontakt</Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Kontakt */}
+          <div className="md:col-span-3">
             <p className="label-caps text-gold mb-5">Kontakt</p>
             <ul className="space-y-4 text-sm text-white/85">
               <li className="flex items-start gap-3">
@@ -47,7 +69,7 @@ export function Footer() {
               </li>
               <li className="flex items-start gap-3">
                 <Mail size={16} className="mt-0.5 text-gold shrink-0" />
-                <a href={`mailto:${SITE.email}`} className="link-underline">{SITE.email}</a>
+                <a href={`mailto:${SITE.email}`} className="link-underline break-all">{SITE.email}</a>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin size={16} className="mt-0.5 text-gold shrink-0" />

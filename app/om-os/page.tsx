@@ -91,14 +91,20 @@ export default function OmOs() {
             <GoldDivider className="mt-6" />
             <p className="mt-8 text-dark/75 leading-relaxed">
               Jonatan tog sit svendebrev som tømrer og har siden bygget Tømrerfirmaet
-              H L Christiansen op omkring det enkle princip: hver opgave fortjener
-              samme grad af opmærksomhed. Vi har vores rødder i {SITE.location} og
-              dækker hele Storkøbenhavn.
+              H L Christiansen op omkring et enkelt princip: hver opgave fortjener
+              samme grad af opmærksomhed — uanset om det er en hel tagudskiftning
+              eller en enkelt dør, der skal sidde rigtigt.
             </p>
             <p className="mt-4 text-dark/75 leading-relaxed">
-              I dag arbejder vi med alt fra nybyg og tilbygninger til tag, facader og
-              mindre renoveringer — altid med udgangspunkt i godt håndværk og klare
-              aftaler.
+              Vi har vores rødder i {SITE.location} og kører dagligt ud til opgaver
+              i hele Storkøbenhavn. I dag arbejder vi med alt fra nybyg og
+              tilbygninger til tag, facader, vinduer, døre og terrasser — altid med
+              udgangspunkt i godt håndværk og klare aftaler.
+            </p>
+            <p className="mt-4 text-dark/75 leading-relaxed">
+              Vi er ikke det største tømrerfirma i området. Men vi er det, vi tror
+              på: et hold der står inde for hvert led, taler ærligt om pris og
+              tidsplan, og afleverer arbejde der holder.
             </p>
           </Reveal>
         </div>
@@ -154,6 +160,57 @@ export default function OmOs() {
         </div>
       </section>
 
+      <section className="bg-gray-light py-14 sm:py-20 md:py-32">
+        <div className="container-content grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
+          <Reveal className="lg:col-span-5">
+            <p className="label-caps text-gold mb-4">Sådan arbejder vi</p>
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl leading-[1.05]">
+              Tæt dialog.<br />
+              <span className="italic">Ren proces.</span>
+            </h2>
+            <GoldDivider className="mt-6" />
+            <p className="mt-6 text-dark/65 leading-relaxed">
+              Vi tror på, at det bedste håndværk kommer ud af en god dialog. Du skal
+              vide, hvad der sker — også når der er noget vi finder bag overfladen,
+              der ikke var planlagt.
+            </p>
+          </Reveal>
+
+          <Reveal className="lg:col-span-7" delay={0.1}>
+            <div className="space-y-8">
+              {[
+                {
+                  title: 'Vi mødes inden vi giver tilbud',
+                  desc: 'Vi tager altid ud at se på opgaven, hvor det giver mening. Et besøg på 20-30 minutter gør tilbuddet langt mere præcist — og giver dig en fornemmelse af, hvem du arbejder sammen med.',
+                },
+                {
+                  title: 'Skriftligt tilbud uden skjulte poster',
+                  desc: 'Du får et klart tilbud, hvor du kan se, hvad du betaler for. Ingen vage formuleringer, ingen "vi tager den derfra" på pris. Hvis vi finder noget undervejs, taler vi om det først.',
+                },
+                {
+                  title: 'Vi rydder op hver dag',
+                  desc: 'Pladsen efterlades, så du kan bo i den, hvis det er nødvendigt. Affald kommer i container eller direkte til genbrugsplads — vi efterlader ikke noget bag os.',
+                },
+                {
+                  title: 'Aflevering er ikke afsluttet',
+                  desc: 'Når vi siger, det er færdigt, betyder det også, at vi står ved det. Dukker der noget op senere, kommer vi tilbage og kigger. Det er for os en del af at lave ordentligt arbejde.',
+                },
+              ].map((point, i) => (
+                <div key={point.title} className="grid grid-cols-12 gap-4 border-t border-gold/30 pt-6">
+                  <p className="col-span-2 sm:col-span-1 label-caps text-gold">
+                    {String(i + 1).padStart(2, '0')}
+                  </p>
+                  <div className="col-span-10 sm:col-span-11">
+                    <h3 className="font-display text-2xl sm:text-3xl leading-tight">{point.title}</h3>
+                    <p className="mt-3 text-dark/70 leading-relaxed">{point.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       <section className="bg-white py-14 sm:py-20 md:py-32">
         <div className="container-content">
           <Reveal className="max-w-2xl">
@@ -162,6 +219,11 @@ export default function OmOs() {
               Tre ord. <span className="italic">Ét udtryk.</span>
             </h2>
             <GoldDivider className="mt-6" />
+            <p className="mt-6 text-dark/65 leading-relaxed">
+              Værdier er nemme at skrive på en hjemmeside. Det er noget andet at stå
+              ved dem, når en opgave bliver svær. For os er der tre ting, vi ikke
+              fraviger — uanset hvad.
+            </p>
           </Reveal>
 
           <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">

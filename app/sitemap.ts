@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/ydelser', priority: 0.9, changeFrequency: 'monthly' as const },
     { path: '/projekter', priority: 0.8, changeFrequency: 'monthly' as const },
     { path: '/kontakt', priority: 0.9, changeFrequency: 'yearly' as const },
+    { path: '/ofte-stillede-spoergsmaal', priority: 0.7, changeFrequency: 'monthly' as const },
     { path: '/privatliv', priority: 0.3, changeFrequency: 'yearly' as const },
     { path: '/cookies', priority: 0.2, changeFrequency: 'yearly' as const },
   ].map((r) => ({
