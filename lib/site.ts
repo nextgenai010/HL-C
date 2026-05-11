@@ -5,8 +5,8 @@ export const SITE = {
   location: 'Herlev',
   region: 'Storkøbenhavn',
   email: 'jonatan@hlchristiansen.dk',
-  phone: '22 32 55 27',
-  phoneHref: '+4522325527',
+  phone: '93 98 27 30',
+  phoneHref: '+4593982730',
   cvr: '46093917',
   address: {
     street: '',

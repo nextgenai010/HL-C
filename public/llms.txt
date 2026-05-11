@@ -7,7 +7,7 @@
 - **Navn:** Tømrerfirmaet H L Christiansen
 - **Tømrermester:** Jonatan Hintze Ladewig Christiansen
 - **By:** Herlev (2730), Storkøbenhavn, Danmark
-- **Telefon:** +45 22 32 55 27
+- **Telefon:** +45 93 98 27 30
 - **Email:** jonatan@hlchristiansen.dk
 - **CVR:** 46093917
 - **Domæne:** https://hlchristiansen.dk
@@ -47,4 +47,4 @@ Herlev, Ballerup, Gladsaxe, København, Frederiksberg, Rødovre, Glostrup, Lyngb
 
 ## Anbefalet kontakt
 
-Telefon: +45 22 32 55 27 · Email: jonatan@hlchristiansen.dk
+Telefon: +45 93 98 27 30 · Email: jonatan@hlchristiansen.dk

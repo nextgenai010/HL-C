@@ -30,7 +30,7 @@ export default function Home() {
         name: 'Hvor hurtigt vender I tilbage på en forespørgsel?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Vi svarer alle henvendelser inden for 24 timer på hverdage — som regel hurtigere. Du kan ringe direkte på 22 32 55 27 eller skrive via vores kontaktformular.',
+          text: 'Vi svarer alle henvendelser inden for 24 timer på hverdage — som regel hurtigere. Du kan ringe direkte på 93 98 27 30 eller skrive via vores kontaktformular.',
         },
       },
       {
