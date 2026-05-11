@@ -1,14 +1,24 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, MessageSquarePlus } from 'lucide-react'
+import { X, MessageSquarePlus, Paperclip, FileText, Image as ImageIcon } from 'lucide-react'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { cn } from '@/lib/utils'
 import { YDELSER } from '@/lib/services'
 import { CustomSelectWidget } from './CustomSelectWidget'
+
+const MAX_FILES = 2
+const MAX_FILE_SIZE = 1.5 * 1024 * 1024
+const ACCEPT = 'image/jpeg,image/jpg,image/png,image/webp,image/heic,image/heif,application/pdf'
+const ACCEPTED_TYPES = ACCEPT.split(',')
+
+function formatBytes(bytes: number) {
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
+}
 
 const schema = z.object({
   name: z.string().min(2, 'Angiv dit navn'),
@@ -27,10 +37,32 @@ export function FloatingQuote() {
   const [open, setOpen] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [files, setFiles] = useState<File[]>([])
+  const [fileError, setFileError] = useState<string | null>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const { register, handleSubmit, control, formState: { errors }, reset } = useForm<FormData>({
     resolver: zodResolver(schema),
   })
+
+  function addFiles(incoming: FileList | File[]) {
+    setFileError(null)
+    const arr = Array.from(incoming)
+    const next = [...files]
+    for (const f of arr) {
+      if (next.length >= MAX_FILES) { setFileError(`Maks ${MAX_FILES} filer.`); break }
+      if (!ACCEPTED_TYPES.includes(f.type)) { setFileError(`Format ikke understøttet.`); continue }
+      if (f.size > MAX_FILE_SIZE) { setFileError(`For stor — maks 1,5 MB.`); continue }
+      if (next.some((e) => e.name === f.name && e.size === f.size)) continue
+      next.push(f)
+    }
+    setFiles(next)
+  }
+
+  function removeFile(idx: number) {
+    setFiles((cur) => cur.filter((_, i) => i !== idx))
+    setFileError(null)
+  }
 
   useEffect(() => {
     function onScroll() {
@@ -43,13 +75,17 @@ export function FloatingQuote() {
   async function onSubmit(data: FormData) {
     setSubmitting(true)
     try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      })
+      const fd = new globalThis.FormData()
+      fd.append('name', data.name)
+      fd.append('phone', data.phone)
+      fd.append('email', data.email)
+      fd.append('type', data.type)
+      fd.append('message', data.message)
+      files.forEach((f) => fd.append('files', f))
+      const res = await fetch('/api/contact', { method: 'POST', body: fd })
       if (!res.ok) throw new Error()
       reset()
+      setFiles([])
       setSubmitted(true)
     } catch {
       // silent fail — user can try full contact page
@@ -60,7 +96,7 @@ export function FloatingQuote() {
 
   function close() {
     setOpen(false)
-    setTimeout(() => setSubmitted(false), 400)
+    setTimeout(() => { setSubmitted(false); setFiles([]); setFileError(null) }, 400)
   }
 
   const input = 'w-full border-0 border-b border-dark/15 bg-transparent py-2.5 text-dark text-sm font-body outline-none transition-colors focus:border-gold placeholder:text-dark/35'
@@ -168,6 +204,50 @@ export function FloatingQuote() {
                       className={cn(input, 'resize-none', errors.message && 'border-gold')}
                     />
                     {errors.message && <p className="mt-1 text-[10px] text-gold">{errors.message.message}</p>}
+                  </div>
+
+                  {/* File upload */}
+                  <div>
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      multiple
+                      accept={ACCEPT}
+                      className="sr-only"
+                      onChange={(e) => { if (e.target.files) addFiles(e.target.files); e.target.value = '' }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => fileInputRef.current?.click()}
+                      disabled={files.length >= MAX_FILES}
+                      className="flex items-center gap-2 text-dark/50 hover:text-gold text-xs transition-colors disabled:opacity-40"
+                    >
+                      <Paperclip size={13} className="shrink-0" />
+                      <span>
+                        {files.length === 0
+                          ? 'Vedhæft billeder / PDF'
+                          : `Tilføj · ${files.length}/${MAX_FILES} valgt`}
+                      </span>
+                    </button>
+
+                    {files.length > 0 && (
+                      <ul className="mt-2 space-y-1">
+                        {files.map((f, i) => (
+                          <li key={`${f.name}-${i}`} className="flex items-center gap-2 text-[11px] text-dark/60 bg-gray-50 px-2 py-1 border border-dark/8">
+                            <span className="text-gold shrink-0">
+                              {f.type === 'application/pdf' ? <FileText size={11} /> : <ImageIcon size={11} />}
+                            </span>
+                            <span className="flex-1 truncate">{f.name}</span>
+                            <span className="shrink-0 text-dark/35">{formatBytes(f.size)}</span>
+                            <button type="button" onClick={() => removeFile(i)} aria-label={`Fjern ${f.name}`} className="shrink-0 text-dark/35 hover:text-gold transition-colors">
+                              <X size={11} />
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+
+                    {fileError && <p className="mt-1 text-[10px] text-gold">{fileError}</p>}
                   </div>
 
                   <div className="pt-1">
