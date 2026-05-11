@@ -15,7 +15,7 @@ export function PageHero({ eyebrow, title, description, className }: Props) {
   return (
     <section
       className={cn(
-        'bg-dark text-white grain pt-36 md:pt-44 pb-20 md:pb-28 relative overflow-hidden',
+        'bg-dark text-white grain pt-28 sm:pt-36 md:pt-44 pb-16 sm:pb-20 md:pb-28 relative overflow-hidden',
         className,
       )}
     >
@@ -40,7 +40,7 @@ export function PageHero({ eyebrow, title, description, className }: Props) {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display text-5xl md:text-6xl lg:text-7xl leading-[0.95] max-w-4xl"
+          className="font-display text-[2.5rem] sm:text-5xl md:text-6xl lg:text-7xl leading-[1.0] sm:leading-[0.95] max-w-4xl"
           dangerouslySetInnerHTML={{ __html: title }}
         />
         <GoldDivider className="mt-8" variant="gold-light" />
@@ -49,7 +49,7 @@ export function PageHero({ eyebrow, title, description, className }: Props) {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-8 text-white/75 text-base md:text-lg max-w-2xl leading-relaxed"
+            className="mt-6 sm:mt-8 text-white/75 text-sm sm:text-base md:text-lg max-w-2xl leading-relaxed"
           >
             {description}
           </motion.p>

@@ -33,10 +33,10 @@ export default function KontaktSide() {
     mainEntity: { '@id': 'https://hlchristiansen.dk/#business' },
   }
   return (
-    <section className="bg-dark min-h-screen pt-24 md:pt-28 pb-8 md:pb-12">
+    <section className="bg-dark min-h-screen pt-20 sm:pt-24 md:pt-28 pb-12 md:pb-12">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(contactLd) }} />
-      <div className="container-content grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+      <div className="container-content grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-8 lg:gap-12">
 
         {/* Left — contact info */}
         <Reveal className="lg:col-span-5">

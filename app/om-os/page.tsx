@@ -70,7 +70,7 @@ export default function OmOs() {
         description={`Tømrerfirmaet H L Christiansen er drevet af Jonatan Hintze Ladewig Christiansen — uddannet tømrer med svendebrev og rod i ${SITE.location}. Vi påtager os både det store nybyg og den lille reparation, og tager samme ansvar uanset omfang.`}
       />
 
-      <section className="bg-white py-24 md:py-32">
+      <section className="bg-white py-14 sm:py-20 md:py-32">
         <div className="container-content grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           <Reveal className="lg:col-span-6">
             <div className="relative aspect-[4/5] bg-gray-light overflow-hidden">
@@ -104,7 +104,7 @@ export default function OmOs() {
         </div>
       </section>
 
-      <section className="bg-dark py-24 md:py-32">
+      <section className="bg-dark py-14 sm:py-20 md:py-32">
         <div className="container-content">
           <Reveal className="max-w-2xl">
             <p className="label-caps text-gold mb-4">✦ Bevis for faget</p>
@@ -120,7 +120,7 @@ export default function OmOs() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <div className="mt-12 border-2 border-gold bg-white p-8 md:p-14 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+            <div className="mt-10 sm:mt-12 border-2 border-gold bg-white p-6 sm:p-8 md:p-14 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
               <div className="md:col-span-5">
                 <div className="relative aspect-[3/4] overflow-hidden">
                   <Image
@@ -154,7 +154,7 @@ export default function OmOs() {
         </div>
       </section>
 
-      <section className="bg-white py-24 md:py-32">
+      <section className="bg-white py-14 sm:py-20 md:py-32">
         <div className="container-content">
           <Reveal className="max-w-2xl">
             <p className="label-caps text-gold mb-4">Værdier</p>

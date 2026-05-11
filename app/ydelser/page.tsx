@@ -50,8 +50,8 @@ export default function YdelserOversigt() {
         description="Vi tager os af hele spektret fra nybyg til tag, facader og terrasser. Hvert område har sin egen disciplin, men udgangspunktet er det samme: rent arbejde, tætte samlinger og et hold der forstår at bygge med tid."
       />
 
-      <section className="bg-white py-20 md:py-28">
-        <div className="container-content space-y-8">
+      <section className="bg-white py-14 sm:py-20 md:py-28">
+        <div className="container-content space-y-6 sm:space-y-8">
           {YDELSER.map((y, i) => (
             <Reveal key={y.slug} delay={i * 0.05}>
               <Link
@@ -71,12 +71,12 @@ export default function YdelserOversigt() {
                     className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                   />
                 </div>
-                <div className="md:col-span-7 p-8 md:p-12 flex flex-col justify-center">
+                <div className="md:col-span-7 p-6 sm:p-8 md:p-12 flex flex-col justify-center">
                   <p className="label-caps text-gold mb-3">
                     Ydelse {String(i + 1).padStart(2, '0')}
                   </p>
-                  <div className="flex items-start justify-between gap-4">
-                    <h2 className="font-display text-3xl md:text-4xl leading-tight">
+                  <div className="flex items-start justify-between gap-3 sm:gap-4">
+                    <h2 className="font-display text-2xl sm:text-3xl md:text-4xl leading-tight">
                       {y.title}
                     </h2>
                     <ArrowUpRight

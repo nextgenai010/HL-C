@@ -86,7 +86,7 @@ export function FeaturedProject() {
         </div>
 
         {/* Text — right column */}
-        <div className="flex flex-col justify-center px-8 md:px-12 lg:px-14 py-12 lg:py-0">
+        <div className="flex flex-col justify-center px-6 sm:px-8 md:px-12 lg:px-14 py-10 sm:py-12 lg:py-0">
 
           {/* Headline — line by line clip-path reveal */}
           <h2 className="font-display text-[clamp(2rem,3.2vw,3rem)] leading-[1.05] text-white mb-5">

@@ -149,24 +149,30 @@ export function ServicesPreview() {
         .yds-card:hover .yds-desc { max-height: 60px; }
 
         @media (max-width: 900px) {
+          .yds-grid { grid-template-rows: auto !important; padding: 0 20px !important; }
           .yds-card { grid-column: auto !important; grid-row: auto !important; aspect-ratio: 4/3; height: auto !important; }
-          .yds-card:first-child { grid-column: 1 / -1 !important; aspect-ratio: 16/7; }
+          .yds-card:first-child { grid-column: 1 / -1 !important; aspect-ratio: 16/9; }
+          .yds-section { padding: 70px 0 60px !important; }
         }
-        @media (max-width: 560px) {
-          .yds-card { aspect-ratio: 4/3 !important; }
-          .yds-card:first-child { aspect-ratio: 4/3 !important; }
+        @media (max-width: 640px) {
+          .yds-grid { grid-template-columns: 1fr !important; padding: 0 16px !important; }
+          .yds-card { grid-column: auto !important; aspect-ratio: 4/3 !important; }
+          .yds-card:first-child { grid-column: auto !important; aspect-ratio: 4/3 !important; }
+          .yds-content { padding: 22px 22px 20px !important; }
+          .yds-desc { display: none !important; }
         }
       `}</style>
 
       <motion.section
         ref={sectionRef}
+        className="yds-section"
         initial={{ opacity: 0, y: 32 }}
         animate={sectionInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.9, ease }}
         style={{ background: '#FFFFFF', padding: '100px 0 80px', overflow: 'hidden' }}
       >
         {/* Intro */}
-        <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+        <div className="yds-intro" style={{ textAlign: 'center', marginBottom: '60px', padding: '0 20px' }}>
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={sectionInView ? { opacity: 1, y: 0 } : {}}
@@ -199,6 +205,7 @@ export function ServicesPreview() {
         {/* Photo grid */}
         <div
           ref={gridRef}
+          className="yds-grid"
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(12, 1fr)',

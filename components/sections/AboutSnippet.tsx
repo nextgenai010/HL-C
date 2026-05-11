@@ -36,7 +36,7 @@ export function AboutSnippet() {
       <div className="container-content grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
         {/* Image — parallax container */}
-        <div className="lg:col-span-5 relative aspect-[4/5] bg-gray-light overflow-hidden">
+        <div className="lg:col-span-5 relative aspect-[4/3] md:aspect-[4/4] lg:aspect-[4/5] bg-gray-light overflow-hidden">
           {/* Image loads normally — parallax via scale+y transform only */}
           <motion.div
             style={{ y: imageY, scale: imageScale }}

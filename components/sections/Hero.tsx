@@ -134,7 +134,7 @@ export function Hero() {
         {/* ── CONTENT ── */}
         <motion.div
           style={{ y: contentY, opacity: contentOpacity }}
-          className="absolute inset-0 z-10 flex flex-col justify-center px-6 md:pl-16 lg:pl-20 xl:pl-24 pb-32 pt-24 max-w-[580px] md:max-w-[640px]"
+          className="absolute inset-0 z-10 flex flex-col justify-center px-5 sm:px-6 md:pl-16 lg:pl-20 xl:pl-24 pb-24 sm:pb-32 pt-20 sm:pt-24 max-w-[580px] md:max-w-[640px]"
         >
           {/* Eyebrow */}
           <motion.div
@@ -156,7 +156,7 @@ export function Hero() {
           </motion.div>
 
           {/* Headline */}
-          <h1 className="font-display font-light text-[clamp(2.8rem,4.6vw,4.75rem)] leading-[1.04] tracking-[-0.015em] mb-6">
+          <h1 className="font-display font-light text-[clamp(2.4rem,4.6vw,4.75rem)] leading-[1.05] sm:leading-[1.04] tracking-[-0.015em] mb-5 sm:mb-6">
             <span className="block overflow-hidden">
               <motion.span
                 className="block"
@@ -209,7 +209,7 @@ export function Hero() {
           >
             <Link
               href="/projekter"
-              className="group inline-flex items-center gap-2.5 px-8 py-3.5 font-label text-[12px] font-semibold uppercase tracking-[0.16em] bg-gold-light text-dark transition-all duration-300 hover:bg-white hover:text-dark"
+              className="group inline-flex items-center gap-2 sm:gap-2.5 px-5 sm:px-8 py-3 sm:py-3.5 font-label text-[11px] sm:text-[12px] font-semibold uppercase tracking-[0.14em] sm:tracking-[0.16em] bg-gold-light text-dark transition-all duration-300 hover:bg-white hover:text-dark"
             >
               Se vores arbejde
               <svg className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
@@ -218,7 +218,7 @@ export function Hero() {
             </Link>
             <Link
               href="/kontakt"
-              className="inline-flex items-center px-8 py-3.5 font-label text-[12px] font-semibold uppercase tracking-[0.16em] text-white border border-white/30 bg-white/5 backdrop-blur-sm transition-all duration-300 hover:bg-white/12 hover:border-white/55"
+              className="inline-flex items-center px-5 sm:px-8 py-3 sm:py-3.5 font-label text-[11px] sm:text-[12px] font-semibold uppercase tracking-[0.14em] sm:tracking-[0.16em] text-white border border-white/30 bg-white/5 backdrop-blur-sm transition-all duration-300 hover:bg-white/12 hover:border-white/55"
             >
               Kontakt os
             </Link>
@@ -235,7 +235,7 @@ export function Hero() {
           {TRUST_ITEMS.map((item, i) => (
             <div
               key={i}
-              className="flex-1 flex items-center gap-3 px-6 md:px-10 py-4 md:py-5 group transition-all duration-300"
+              className="flex-1 flex items-center gap-2 sm:gap-3 px-3 sm:px-6 md:px-10 py-3 sm:py-4 md:py-5 group transition-all duration-300"
               style={{
                 background: i === 0
                   ? 'linear-gradient(135deg, rgba(212,175,55,0.12) 0%, rgba(18,19,20,0.55) 100%)'
@@ -250,10 +250,10 @@ export function Hero() {
                 {item.icon}
               </span>
               <div className="min-w-0">
-                <p className="font-label text-[11px] md:text-[12px] font-semibold uppercase tracking-[0.12em] text-white/90 leading-none mb-[5px]">
+                <p className="font-label text-[10px] sm:text-[11px] md:text-[12px] font-semibold uppercase tracking-[0.08em] sm:tracking-[0.12em] text-white/90 leading-tight sm:leading-none mb-0 sm:mb-[5px]">
                   {item.title}
                 </p>
-                <p className="font-body text-[10px] md:text-[11px] text-white/40 leading-none group-hover:text-white/55 transition-colors duration-300 truncate">
+                <p className="hidden sm:block font-body text-[10px] md:text-[11px] text-white/40 leading-none group-hover:text-white/55 transition-colors duration-300 truncate">
                   {item.sub}
                 </p>
               </div>

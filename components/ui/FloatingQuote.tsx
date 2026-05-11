@@ -66,7 +66,7 @@ export function FloatingQuote() {
   const input = 'w-full border-0 border-b border-dark/15 bg-transparent py-2.5 text-dark text-sm font-body outline-none transition-colors focus:border-gold placeholder:text-dark/35'
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end gap-3 max-w-[calc(100vw-2rem)]">
 
       {/* Widget */}
       <AnimatePresence>
@@ -76,7 +76,7 @@ export function FloatingQuote() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.95 }}
             transition={{ duration: 0.35, ease }}
-            className="w-[340px] bg-white shadow-2xl border border-dark/8 overflow-hidden"
+            className="w-[min(340px,calc(100vw-2rem))] bg-white shadow-2xl border border-dark/8 overflow-hidden"
             style={{ boxShadow: '0 8px 48px rgba(0,0,0,0.18)' }}
           >
             {/* Header */}
@@ -195,12 +195,12 @@ export function FloatingQuote() {
             exit={{ opacity: 0, scale: 0.8, y: 16 }}
             transition={{ duration: 0.4, ease }}
             onClick={() => setOpen(o => !o)}
-            className="flex items-center gap-2.5 bg-gold hover:bg-gold-light text-white px-5 py-3.5 shadow-lg transition-colors duration-300"
+            className="flex items-center gap-2 sm:gap-2.5 bg-gold hover:bg-gold-light text-white px-4 sm:px-5 py-3 sm:py-3.5 shadow-lg transition-colors duration-300"
             style={{ boxShadow: '0 4px 24px rgba(212,175,55,0.35)' }}
             aria-label="Få et tilbud"
           >
-            <MessageSquarePlus size={17} />
-            <span className="label-caps text-white">Få et tilbud</span>
+            <MessageSquarePlus size={16} />
+            <span className="label-caps text-white text-[10px] sm:text-xs">Få et tilbud</span>
           </motion.button>
         )}
       </AnimatePresence>

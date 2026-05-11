@@ -108,8 +108,8 @@ export default function YdelseSide({ params }: { params: Params }) {
 
       <PageHero eyebrow={`Ydelse · ${y.title}`} title={y.title} description={y.intro} />
 
-      <section className="bg-white py-20 md:py-28">
-        <div className="container-content grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+      <section className="bg-white py-14 sm:py-20 md:py-28">
+        <div className="container-content grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-12 lg:gap-16">
           <div className="lg:col-span-7">
             <Reveal>
               <div className="relative aspect-[16/10] bg-gray-light overflow-hidden">
@@ -141,16 +141,16 @@ export default function YdelseSide({ params }: { params: Params }) {
         </div>
       </section>
 
-      <section className="bg-gray-light py-20 md:py-28">
+      <section className="bg-gray-light py-14 sm:py-20 md:py-28">
         <div className="container-content">
           <Reveal className="max-w-xl">
             <p className="label-caps text-gold mb-4">Proces</p>
-            <h2 className="font-display text-3xl md:text-5xl leading-[1.05]">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl leading-[1.05]">
               Fire trin. <span className="italic">Klar rytme.</span>
             </h2>
             <GoldDivider className="mt-6" />
           </Reveal>
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="mt-10 sm:mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
             {PROCESS.map((p, i) => (
               <Reveal key={p.nr} delay={i * 0.1}>
                 <div className="border-t border-gold pt-5">

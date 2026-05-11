@@ -8,8 +8,8 @@ export function Footer() {
   const year = new Date().getFullYear()
   return (
     <footer className="bg-dark text-white grain">
-      <div className="container-content py-20 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
+      <div className="container-content py-14 sm:py-20 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 sm:gap-12">
           <div className="md:col-span-5">
             <div className="flex items-center gap-2 font-display text-2xl">
               <span aria-hidden className="text-gold">✦</span>
@@ -62,9 +62,9 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-white/50">
+        <div className="mt-12 sm:mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-white/50">
           <p>© {year} {SITE.name}. Alle rettigheder forbeholdes.</p>
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6">
             <Link href="/privatliv" className="text-white/50 hover:text-white/80 transition-colors">
               Privatlivspolitik
             </Link>
