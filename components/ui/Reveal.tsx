@@ -13,19 +13,19 @@ type RevealProps = HTMLMotionProps<'div'> & {
 const ease = [0.16, 1, 0.3, 1] as const
 
 const offsets = {
-  up:    { y: 48 },
-  down:  { y: -48 },
-  left:  { x: -48 },
-  right: { x: 48 },
+  up:    { y: 24 },
+  down:  { y: -24 },
+  left:  { x: -24 },
+  right: { x: 24 },
   none:  {},
 }
 
 export function Reveal({
   delay = 0,
-  duration = 0.85,
+  duration = 0.6,
   from = 'up',
   clip = false,
-  amount = 0.15,
+  amount = 0.08,
   children,
   ...rest
 }: RevealProps) {
@@ -44,6 +44,7 @@ export function Reveal({
       }}
       viewport={{ once: true, amount }}
       transition={{ duration, ease, delay }}
+      style={{ willChange: 'transform, opacity' }}
       {...rest}
     >
       {children}

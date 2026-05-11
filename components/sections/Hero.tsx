@@ -101,7 +101,7 @@ export function Hero() {
             alt="Tømrermester H.L. Christiansen i arbejde"
             fill
             priority
-            quality={90}
+            quality={75}
             className="object-cover"
             style={{ objectPosition: 'center 58%' }}
             sizes="100vw"
