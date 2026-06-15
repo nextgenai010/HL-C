@@ -239,7 +239,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         email: SITE.email,
       },
     ],
-    sameAs: [],
+    sameAs: [SITE.instagram],
   }
 
   const websiteLd = {
@@ -259,7 +259,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     name: SITE.name,
     url: SITE_URL,
     logo: `${SITE_URL}/images/logo/logo-trans.png`,
-    sameAs: [],
+    sameAs: [SITE.instagram],
   }
 
   return (

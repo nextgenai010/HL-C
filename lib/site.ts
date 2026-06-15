@@ -19,4 +19,5 @@ export const SITE = {
   },
   tagline: 'Verificeret tømrermester med svendebrev',
   responsePromise: 'Svar inden for 24 timer',
+  instagram: 'https://www.instagram.com/h.l.christiansen',
 }

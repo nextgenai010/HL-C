@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Mail, Phone, MapPin } from 'lucide-react'
+import { Mail, Phone, MapPin, Instagram } from 'lucide-react'
 import { SITE } from '@/lib/site'
 import { YDELSER } from '@/lib/services'
 import { GoldDivider } from '@/components/ui/GoldDivider'
@@ -24,6 +24,16 @@ export function Footer() {
               <br />
               Håndværk med omhu i {SITE.location} og omegn.
             </p>
+            <a
+              href={SITE.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Følg H L Christiansen på Instagram"
+              className="mt-7 inline-flex items-center gap-2.5 text-sm text-white/70 hover:text-white transition-colors"
+            >
+              <Instagram size={18} className="text-gold shrink-0" />
+              Følg os på Instagram
+            </a>
           </div>
 
           {/* Ydelser */}
@@ -54,7 +64,7 @@ export function Footer() {
                 <Link href="/ofte-stillede-spoergsmaal" className="link-underline hover:text-white">Spørgsmål &amp; svar</Link>
               </li>
               <li>
-                <Link href="/kontakt" className="link-underline hover:text-white">Kontakt os</Link>
+                <Link href="/kontakt" className="link-underline hover:text-white">Skriv til os</Link>
               </li>
             </ul>
           </div>
