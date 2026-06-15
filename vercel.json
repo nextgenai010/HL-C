@@ -48,6 +48,12 @@
   ],
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.hlchristiansen.dk" }],
+      "destination": "https://hlchristiansen.dk/:path*",
+      "permanent": true
+    },
+    {
       "source": "/home",
       "destination": "/",
       "permanent": true

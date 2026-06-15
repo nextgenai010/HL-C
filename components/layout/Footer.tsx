@@ -45,16 +45,16 @@ export function Footer() {
             <p className="label-caps text-gold mb-5">Information</p>
             <ul className="space-y-3 text-sm text-white/80">
               <li>
-                <Link href="/om-os" className="link-underline hover:text-white">Om os</Link>
+                <Link href="/om-os" className="link-underline hover:text-white">Om firmaet</Link>
               </li>
               <li>
-                <Link href="/projekter" className="link-underline hover:text-white">Projekter</Link>
+                <Link href="/projekter" className="link-underline hover:text-white">Vores projekter</Link>
               </li>
               <li>
-                <Link href="/ofte-stillede-spoergsmaal" className="link-underline hover:text-white">FAQ</Link>
+                <Link href="/ofte-stillede-spoergsmaal" className="link-underline hover:text-white">Spørgsmål &amp; svar</Link>
               </li>
               <li>
-                <Link href="/kontakt" className="link-underline hover:text-white">Kontakt</Link>
+                <Link href="/kontakt" className="link-underline hover:text-white">Kontakt os</Link>
               </li>
             </ul>
           </div>

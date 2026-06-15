@@ -12,8 +12,8 @@ import { SITE } from '@/lib/site'
 import { FAQ_HOME } from '@/lib/faq'
 
 export const metadata: Metadata = {
-  title: `Tømrermester i ${SITE.location} & Storkøbenhavn — Svendebrev & 24-timers svar`,
-  description: `Tømrerfirmaet H L Christiansen er en verificeret tømrermester med svendebrev i ${SITE.location}. Vi udfører nybyg, renovering, tag, vinduer, facader og terrasser i hele Storkøbenhavn. Få et uforpligtende tilbud — svar inden for 24 timer.`,
+  title: { absolute: `Tømrermester i ${SITE.location} – Svendebrev & 24 timers svar` },
+  description: `Verificeret tømrermester med svendebrev i ${SITE.location}. Nybyg, renovering, tag, vinduer & terrasser i hele Storkøbenhavn. Gratis tilbud – svar inden 24 timer.`,
   alternates: { canonical: '/' },
   openGraph: {
     url: 'https://hlchristiansen.dk/',

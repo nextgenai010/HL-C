@@ -196,8 +196,9 @@ export function Hero() {
             transition={{ duration: 0.8, ease, delay: 0.72 }}
             className="font-body text-[15px] font-light leading-[1.8] text-white/60 max-w-[400px] mb-10"
           >
-            Vi leverer præcist og omhyggeligt tømrerarbejde til private og
-            erhverv — fra nybyg til renovering. Kvalitet, der holder i årevis.
+            Verificeret tømrermester med svendebrev i Herlev og hele
+            Storkøbenhavn. Fra nybyg til renovering leverer vi håndværk med
+            karakter — og svar inden 24 timer.
           </motion.p>
 
           {/* Buttons */}

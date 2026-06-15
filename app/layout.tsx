@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     default: `${SITE.name} — Tømrermester i ${SITE.location} & Storkøbenhavn`,
     template: `%s · ${SITE.name}`,
   },
-  description: `Verificeret tømrermester med svendebrev i ${SITE.location}. Vi udfører nybyg, renovering, tag, vinduer, døre, facader og terrasser i hele Storkøbenhavn. Svar inden for 24 timer.`,
+  description: `Verificeret tømrermester med svendebrev i ${SITE.location}. Nybyg, renovering, tag, vinduer & terrasser i hele Storkøbenhavn. Svar inden 24 timer.`,
   applicationName: SITE.name,
   authors: [{ name: SITE.name, url: 'https://hlchristiansen.dk' }],
   creator: SITE.name,
