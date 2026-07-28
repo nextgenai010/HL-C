@@ -7,47 +7,17 @@ import { useRef, useEffect } from 'react'
 
 const ease = [0.16, 1, 0.3, 1] as const
 
-const TRUST_ITEMS = [
-  {
-    title: 'Svendebrev',
-    sub: 'Verificeret tømrermester',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-        <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/>
-      </svg>
-    ),
-  },
-  {
-    title: '+5 års erfaring',
-    sub: 'Lokalt forankret i Herlev',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-        <circle cx="12" cy="12" r="9"/>
-        <path d="M12 7v5l3.5 3.5"/>
-      </svg>
-    ),
-  },
-  {
-    title: 'Svar inden 24 timer',
-    sub: 'Gratis og uforpligtende',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-        <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
-      </svg>
-    ),
-  },
-]
-
 export function Hero() {
   const ref = useRef<HTMLElement>(null)
   const dotRef = useRef<HTMLDivElement>(null)
   const ringRef = useRef<HTMLDivElement>(null)
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
-  const contentY       = useTransform(scrollYProgress, [0, 1], ['0%', '12%'])
+  const contentY       = useTransform(scrollYProgress, [0, 1], ['0%', '10%'])
   const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
   const imageY         = useTransform(scrollYProgress, [0, 1], ['0%', '8%'])
   const imageScale     = useTransform(scrollYProgress, [0, 1], [1, 1.04])
+  const cueOpacity     = useTransform(scrollYProgress, [0, 0.15], [1, 0])
 
   // Custom gold cursor
   useEffect(() => {
@@ -109,22 +79,26 @@ export function Hero() {
         </motion.div>
 
         {/* ── GRADIENTS ── */}
-        {/* Primary: left solid → transparent — creates the smooth split */}
+        {/* Horizontal: deep #232426 on the left → eases off to the right so the working carpenter shows clearly */}
         <div aria-hidden className="absolute inset-0 z-[2] pointer-events-none"
           style={{
-            background: 'linear-gradient(to right, #232426 0%, #232426 28%, rgba(35,36,38,0.97) 36%, rgba(35,36,38,0.82) 48%, rgba(35,36,38,0.45) 62%, rgba(35,36,38,0.12) 78%, transparent 100%)',
+            background: 'linear-gradient(to right, rgba(35,36,38,0.88) 0%, rgba(35,36,38,0.66) 28%, rgba(35,36,38,0.4) 52%, rgba(35,36,38,0.16) 74%, rgba(35,36,38,0.06) 100%)',
           }}
         />
-        {/* Top vignette — darkens top edge so navbar reads cleanly */}
-        <div aria-hidden className="absolute top-0 left-0 right-0 h-40 z-[2] pointer-events-none"
-          style={{ background: 'linear-gradient(to bottom, rgba(35,36,38,0.7) 0%, transparent 100%)' }}
+        {/* Vertical scrim: deep at top (navbar) and bottom (scroll cue + smooth transition into next section) */}
+        <div aria-hidden className="absolute inset-0 z-[2] pointer-events-none"
+          style={{
+            background: 'linear-gradient(to bottom, rgba(35,36,38,0.8) 0%, rgba(35,36,38,0.22) 34%, rgba(35,36,38,0.22) 58%, rgba(18,19,20,0.92) 100%)',
+          }}
         />
-        {/* Bottom vignette — trust bar legibility */}
-        <div aria-hidden className="absolute bottom-0 left-0 right-0 h-52 z-[2] pointer-events-none"
-          style={{ background: 'linear-gradient(to top, rgba(20,21,22,0.85) 0%, transparent 100%)' }}
+        {/* Deep radial behind the centred text so it sits on the rich dark tone and stays legible */}
+        <div aria-hidden className="absolute inset-0 z-[2] pointer-events-none"
+          style={{
+            background: 'radial-gradient(ellipse 70% 62% at 50% 46%, rgba(20,21,22,0.6) 0%, rgba(20,21,22,0.28) 58%, transparent 82%)',
+          }}
         />
-        {/* Mobile: darken whole image so text is readable */}
-        <div aria-hidden className="md:hidden absolute inset-0 z-[3] pointer-events-none bg-dark/65" />
+        {/* Mobile: extra darkening so centred text is readable on the narrow crop */}
+        <div aria-hidden className="md:hidden absolute inset-0 z-[3] pointer-events-none bg-dark/45" />
 
         {/* ── GRAIN TEXTURE ── */}
         <div aria-hidden className="absolute inset-0 z-[3] pointer-events-none opacity-[0.04] mix-blend-overlay"
@@ -134,25 +108,32 @@ export function Hero() {
         {/* ── CONTENT ── */}
         <motion.div
           style={{ y: contentY, opacity: contentOpacity }}
-          className="absolute inset-0 z-10 flex flex-col justify-center px-5 sm:px-6 md:pl-16 lg:pl-20 xl:pl-24 pb-24 sm:pb-32 pt-20 sm:pt-24 max-w-[580px] md:max-w-[640px]"
+          className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-5 sm:px-6 pt-20 pb-24"
         >
-          {/* Eyebrow */}
+          {/* Eyebrow — symmetric line · text · line */}
           <motion.div
-            initial={{ opacity: 0, x: -16 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease }}
-            className="flex items-center gap-4 mb-8"
+            className="flex items-center justify-center gap-4 mb-8"
           >
             <motion.span
               aria-hidden
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: 0.55, ease, delay: 0.1 }}
-              className="block w-7 h-px bg-gold-light origin-left flex-shrink-0"
+              className="block w-7 h-px bg-gold-light/70 origin-right flex-shrink-0"
             />
             <span className="font-label text-[10px] uppercase tracking-[0.22em] text-gold-light">
               Verificeret Tømrermester · Svendebrev
             </span>
+            <motion.span
+              aria-hidden
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.55, ease, delay: 0.1 }}
+              className="block w-7 h-px bg-gold-light/70 origin-left flex-shrink-0"
+            />
           </motion.div>
 
           {/* Headline */}
@@ -185,7 +166,7 @@ export function Hero() {
             initial={{ width: 0 }}
             animate={{ width: 52 }}
             transition={{ duration: 1.0, ease, delay: 0.5 }}
-            className="block h-px bg-gold-light/50 mb-7"
+            className="block h-px bg-gold-light/50 mb-7 mx-auto"
             style={{ width: 0 }}
           />
 
@@ -194,7 +175,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease, delay: 0.72 }}
-            className="font-body text-[15px] font-light leading-[1.8] text-white/60 max-w-[400px] mb-10"
+            className="font-body text-[15px] font-light leading-[1.8] text-white/65 max-w-[440px] mx-auto mb-10"
           >
             Verificeret tømrermester med svendebrev i Herlev og hele
             Storkøbenhavn. Fra nybyg til renovering leverer vi håndværk med
@@ -206,7 +187,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease, delay: 0.88 }}
-            className="flex flex-wrap gap-3"
+            className="flex flex-wrap justify-center gap-3"
           >
             <Link
               href="/projekter"
@@ -226,40 +207,27 @@ export function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* ── TRUST BAR — floats over hero bottom ── */}
+        {/* ── SCROLL CUE — floats over hero bottom, fades on scroll ── */}
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease, delay: 1.1 }}
-          className="absolute bottom-0 left-0 right-0 z-20 flex"
+          style={{ opacity: cueOpacity }}
+          className="absolute bottom-7 sm:bottom-9 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-3 pointer-events-none"
         >
-          {TRUST_ITEMS.map((item, i) => (
-            <div
-              key={i}
-              className="flex-1 flex items-center gap-2 sm:gap-3 px-3 sm:px-6 md:px-10 py-3 sm:py-4 md:py-5 group transition-all duration-300"
-              style={{
-                background: i === 0
-                  ? 'linear-gradient(135deg, rgba(212,175,55,0.12) 0%, rgba(18,19,20,0.55) 100%)'
-                  : 'rgba(18,19,20,0.45)',
-                backdropFilter: 'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)',
-                borderTop: `1px solid ${i === 0 ? 'rgba(212,175,55,0.35)' : 'rgba(255,255,255,0.08)'}`,
-                borderRight: i < TRUST_ITEMS.length - 1 ? '1px solid rgba(255,255,255,0.06)' : undefined,
-              }}
-            >
-              <span className="flex-shrink-0 text-gold-light opacity-75 group-hover:opacity-100 transition-opacity duration-300">
-                {item.icon}
-              </span>
-              <div className="min-w-0">
-                <p className="font-label text-[10px] sm:text-[11px] md:text-[12px] font-semibold uppercase tracking-[0.08em] sm:tracking-[0.12em] text-white/90 leading-tight sm:leading-none mb-0 sm:mb-[5px]">
-                  {item.title}
-                </p>
-                <p className="hidden sm:block font-body text-[10px] md:text-[11px] text-white/40 leading-none group-hover:text-white/55 transition-colors duration-300 truncate">
-                  {item.sub}
-                </p>
-              </div>
-            </div>
-          ))}
+          <motion.span
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease, delay: 1.15 }}
+            className="font-label text-[9px] uppercase tracking-[0.28em] text-white/45"
+          >
+            Scroll
+          </motion.span>
+          <span aria-hidden className="relative block h-9 w-px overflow-hidden bg-white/15">
+            <motion.span
+              className="absolute inset-x-0 top-0 block h-3 bg-gradient-to-b from-gold-light to-transparent"
+              initial={{ y: '-100%' }}
+              animate={{ y: '340%' }}
+              transition={{ duration: 1.9, ease: 'easeInOut', repeat: Infinity, repeatDelay: 0.4, delay: 1.4 }}
+            />
+          </span>
         </motion.div>
       </section>
     </>
