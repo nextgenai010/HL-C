@@ -24,7 +24,7 @@ export function FeaturedProject() {
     <section className="bg-dark overflow-hidden">
 
       {/* Top label bar */}
-      <div className="container-content pt-14 md:pt-20 pb-8 flex items-center justify-between">
+      <div className="container-content pt-12 md:pt-20 pb-6 md:pb-8 flex items-center justify-between">
         <Reveal>
           <p className="label-caps text-gold">✦ Udvalgt arbejde</p>
         </Reveal>
@@ -88,7 +88,7 @@ export function FeaturedProject() {
         </div>
 
         {/* Text — right column */}
-        <div className="flex flex-col justify-center px-6 sm:px-8 md:px-12 lg:px-14 py-10 sm:py-12 lg:py-0">
+        <div className="flex flex-col justify-center px-6 sm:px-8 md:px-12 lg:px-14 py-8 sm:py-12 lg:py-0">
 
           {/* Headline — line by line clip-path reveal */}
           <h2 className="font-display text-[clamp(2rem,3.2vw,3rem)] leading-[1.05] text-white mb-5">
@@ -163,7 +163,7 @@ export function FeaturedProject() {
         </div>
       </div>
 
-      <div className="pb-14 md:pb-20" />
+      <div className="pb-10 md:pb-20" />
     </section>
   )
 }

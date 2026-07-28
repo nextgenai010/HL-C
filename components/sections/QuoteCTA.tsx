@@ -17,7 +17,7 @@ export function QuoteCTA() {
   const inView = useInView(ref, { once: true, amount: 0.08 })
 
   return (
-    <section ref={ref} className="relative bg-white py-20 md:py-28 overflow-hidden">
+    <section ref={ref} className="relative bg-white py-14 md:py-28 overflow-hidden">
 
       {/* Diagonal gold accent — top left */}
       <motion.div

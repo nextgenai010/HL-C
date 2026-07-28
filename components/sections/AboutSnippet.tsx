@@ -32,8 +32,8 @@ export function AboutSnippet() {
   const imageScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.06, 1.03, 1.0])
 
   return (
-    <section ref={sectionRef} className="bg-white py-24 md:py-32 overflow-hidden">
-      <div className="container-content grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+    <section ref={sectionRef} className="bg-white py-16 md:py-32 overflow-hidden">
+      <div className="container-content grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
 
         {/* Image — parallax container */}
         <div className="lg:col-span-5 relative aspect-[4/3] md:aspect-[4/4] lg:aspect-[4/5] bg-gray-light overflow-hidden">

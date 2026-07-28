@@ -149,17 +149,21 @@ export function ServicesPreview() {
         .yds-card:hover .yds-desc { max-height: 60px; }
 
         @media (max-width: 900px) {
-          .yds-grid { grid-template-rows: auto !important; padding: 0 20px !important; }
-          .yds-card { grid-column: auto !important; grid-row: auto !important; aspect-ratio: 4/3; height: auto !important; }
-          .yds-card:first-child { grid-column: 1 / -1 !important; aspect-ratio: 16/9; }
-          .yds-section { padding: 70px 0 60px !important; }
+          .yds-grid { grid-template-columns: 1fr 1fr !important; grid-template-rows: auto !important; gap: 8px !important; padding: 0 20px !important; }
+          .yds-cell { grid-column: auto !important; grid-row: auto !important; height: auto !important; aspect-ratio: 4 / 3 !important; }
+          .yds-cell:first-child { grid-column: 1 / -1 !important; aspect-ratio: 16 / 9 !important; }
+          .yds-section { padding: 64px 0 52px !important; }
+          .yds-intro { margin-bottom: 44px !important; }
+          .yds-cta { margin-top: 40px !important; }
         }
         @media (max-width: 640px) {
-          .yds-grid { grid-template-columns: 1fr !important; padding: 0 16px !important; }
-          .yds-card { grid-column: auto !important; aspect-ratio: 4/3 !important; }
-          .yds-card:first-child { grid-column: auto !important; aspect-ratio: 4/3 !important; }
+          .yds-grid { grid-template-columns: 1fr !important; gap: 10px !important; padding: 0 16px !important; }
+          .yds-cell, .yds-cell:first-child { grid-column: auto !important; aspect-ratio: 4 / 3 !important; }
           .yds-content { padding: 22px 22px 20px !important; }
           .yds-desc { display: none !important; }
+          .yds-section { padding: 56px 0 44px !important; }
+          .yds-intro { margin-bottom: 36px !important; }
+          .yds-cta { margin-top: 32px !important; }
         }
       `}</style>
 
@@ -219,6 +223,7 @@ export function ServicesPreview() {
           {SERVICES.map((s, i) => (
             <motion.div
               key={s.id}
+              className="yds-cell"
               custom={i}
               variants={cardVariants}
               initial="hidden"
@@ -263,6 +268,7 @@ export function ServicesPreview() {
 
         {/* CTA */}
         <motion.div
+          className="yds-cta"
           initial={{ opacity: 0, y: 16 }}
           animate={gridInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease, delay: 0.7 }}

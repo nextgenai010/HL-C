@@ -21,7 +21,7 @@ export function FAQSection() {
   const headerInView = useInView(headerRef, { once: true, amount: 0.3 })
 
   return (
-    <section ref={ref} className="bg-white py-20 md:py-28 border-t border-gray-mid">
+    <section ref={ref} className="bg-white py-14 md:py-28 border-t border-gray-mid">
       <div className="container-content grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
 
         {/* Left — header */}
