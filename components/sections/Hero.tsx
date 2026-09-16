@@ -2,8 +2,10 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { useRef, useEffect } from 'react'
+import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion'
+import { useRef, useEffect, useState } from 'react'
+
+import { HeroQuoteForm } from '@/components/ui/HeroQuoteForm'
 
 const ease = [0.16, 1, 0.3, 1] as const
 
@@ -12,12 +14,30 @@ export function Hero() {
   const dotRef = useRef<HTMLDivElement>(null)
   const ringRef = useRef<HTMLDivElement>(null)
 
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
-  const contentY       = useTransform(scrollYProgress, [0, 1], ['0%', '10%'])
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
-  const imageY         = useTransform(scrollYProgress, [0, 1], ['0%', '8%'])
-  const imageScale     = useTransform(scrollYProgress, [0, 1], [1, 1.04])
-  const cueOpacity     = useTransform(scrollYProgress, [0, 0.15], [1, 0])
+  const quoteRef = useRef<HTMLDivElement>(null)
+  const [animated, setAnimated] = useState(false)
+  const [revealed, setRevealed] = useState(false)
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] })
+  const contentX = useTransform(scrollYProgress, [0, 0.65], ['0%', '-24%'])
+  const contentScale = useTransform(scrollYProgress, [0, 0.65], [1, 0.9])
+  const quoteX = useTransform(scrollYProgress, [0.18, 0.7], [100, 0])
+  const quoteOpacity = useTransform(scrollYProgress, [0.18, 0.6], [0, 1])
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.04])
+  const cueOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0])
+
+  useEffect(() => {
+    const query = window.matchMedia('(min-width: 1024px) and (prefers-reduced-motion: no-preference)')
+    const update = () => setAnimated(query.matches)
+    update()
+    query.addEventListener('change', update)
+    return () => query.removeEventListener('change', update)
+  }, [])
+
+  useMotionValueEvent(scrollYProgress, 'change', value => setRevealed(value >= 0.6))
+  const accessible = !animated || revealed
+  useEffect(() => {
+    if (quoteRef.current) quoteRef.current.inert = !accessible
+  }, [accessible])
 
   // Custom gold cursor
   useEffect(() => {
@@ -58,12 +78,14 @@ export function Hero() {
 
       <section
         ref={ref}
-        className="relative w-full h-[100svh] bg-dark text-white overflow-hidden"
+        id="home-hero"
+        className="hero-scroll relative w-full bg-dark text-white"
       >
+        <div className="hero-scene">
 
         {/* ── PHOTO — full bleed, gradient does all the work ── */}
         <motion.div
-          style={{ y: imageY, scale: imageScale }}
+          style={{ scale: animated ? imageScale : 1 }}
           className="absolute inset-0 origin-center"
         >
           <Image
@@ -107,8 +129,8 @@ export function Hero() {
 
         {/* ── CONTENT ── */}
         <motion.div
-          style={{ y: contentY, opacity: contentOpacity }}
-          className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-5 sm:px-6 pt-20 pb-24"
+          style={{ x: animated ? contentX : 0, scale: animated ? contentScale : 1 }}
+          className="hero-copy z-10 flex flex-col items-center justify-center text-center px-5 sm:px-6 pt-20 pb-24"
         >
           {/* Eyebrow — symmetric line · text · line */}
           <motion.div
@@ -191,7 +213,7 @@ export function Hero() {
           >
             <Link
               href="/projekter"
-              className="group inline-flex items-center gap-2 sm:gap-2.5 px-5 sm:px-8 py-3 sm:py-3.5 font-label text-[11px] sm:text-[12px] font-semibold uppercase tracking-[0.14em] sm:tracking-[0.16em] bg-gold-light text-dark transition-all duration-300 hover:bg-white hover:text-dark"
+              className="btn-soft group inline-flex items-center gap-2 sm:gap-2.5 px-5 sm:px-8 py-3 sm:py-3.5 font-label text-[11px] sm:text-[12px] font-semibold uppercase tracking-[0.14em] sm:tracking-[0.16em] bg-gold-light text-dark transition-all duration-300 hover:bg-white hover:text-dark"
             >
               Se vores arbejde
               <svg className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
@@ -200,17 +222,23 @@ export function Hero() {
             </Link>
             <Link
               href="/kontakt"
-              className="inline-flex items-center px-5 sm:px-8 py-3 sm:py-3.5 font-label text-[11px] sm:text-[12px] font-semibold uppercase tracking-[0.14em] sm:tracking-[0.16em] text-white border border-white/30 bg-white/5 backdrop-blur-sm transition-all duration-300 hover:bg-white/12 hover:border-white/55"
+              className="btn-soft inline-flex items-center px-5 sm:px-8 py-3 sm:py-3.5 font-label text-[11px] sm:text-[12px] font-semibold uppercase tracking-[0.14em] sm:tracking-[0.16em] text-white border border-white/30 bg-white/5 backdrop-blur-sm transition-all duration-300 hover:bg-white/12 hover:border-white/55"
             >
-              Kontakt os
+              Kontakt
             </Link>
           </motion.div>
         </motion.div>
 
+        <div id="hero-tilbud" className="hero-quote-position" ref={quoteRef} aria-hidden={!accessible}>
+          <motion.div style={{ x: animated ? quoteX : 0, opacity: animated ? quoteOpacity : 1, pointerEvents: accessible ? 'auto' : 'none' }}>
+            <HeroQuoteForm />
+          </motion.div>
+        </div>
+
         {/* ── SCROLL CUE — floats over hero bottom, fades on scroll ── */}
         <motion.div
-          style={{ opacity: cueOpacity }}
-          className="absolute bottom-7 sm:bottom-9 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-3 pointer-events-none"
+          style={{ opacity: animated ? cueOpacity : 1 }}
+          className="hero-scroll-cue absolute bottom-7 sm:bottom-9 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-3 pointer-events-none"
         >
           <motion.span
             initial={{ opacity: 0, y: -6 }}
@@ -229,6 +257,7 @@ export function Hero() {
             />
           </span>
         </motion.div>
+        </div>
       </section>
     </>
   )

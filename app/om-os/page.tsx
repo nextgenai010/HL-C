@@ -1,3 +1,4 @@
+import { defaultOpenGraph } from '@/lib/metadata'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
   description: `Tømrerfirmaet H L Christiansen er drevet af tømrermester Jonatan Hintze Ladewig Christiansen i ${SITE.location}. Verificeret svendebrev, klare aftaler og håndværk uden skjulte poster.`,
   alternates: { canonical: '/om-os' },
   openGraph: {
+    ...defaultOpenGraph,
     url: 'https://hlchristiansen.dk/om-os',
     title: 'Om Tømrerfirmaet H L Christiansen — Svendebrev & Håndværk',
     description: `Verificeret tømrermester med svendebrev i ${SITE.location} & Storkøbenhavn. Læs om firmaet, værdier og håndværk.`,

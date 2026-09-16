@@ -1,3 +1,4 @@
+import { defaultOpenGraph } from '@/lib/metadata'
 import type { Metadata } from 'next'
 import { ScrollProgress } from '@/components/ui/ScrollProgress'
 import { Hero } from '@/components/sections/Hero'
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
   description: `Verificeret tømrermester med svendebrev i ${SITE.location}. Nybyg, renovering, tag, vinduer & terrasser i hele Storkøbenhavn. Gratis tilbud – svar inden 24 timer.`,
   alternates: { canonical: '/' },
   openGraph: {
+    ...defaultOpenGraph,
     url: 'https://hlchristiansen.dk/',
     title: `${SITE.name} — Tømrermester i ${SITE.location}`,
     description: `Verificeret tømrermester med svendebrev i ${SITE.location} & Storkøbenhavn. Nybyg, renovering, tag, vinduer, facader og terrasser.`,

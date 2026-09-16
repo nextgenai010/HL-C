@@ -14,17 +14,17 @@ export type Projekt = {
 export const PROJEKTER: Projekt[] = [
   {
     slug: 'terrasse-herlev-01',
-    title: 'Stor trædæk med haveudsigt',
+    title: 'Stort trædæk med haveudsigt',
     kategori: 'terrasser',
     kategoriLabel: 'Terrasser',
     location: 'Herlev',
     year: 2024,
-    description: 'Rummeligt trædæk i hardwood opført i forbindelse med eksisterende vinterhave. Naturlig integration i haven.',
+    description: 'Rummeligt trædæk i hårdttræ opført i forbindelse med eksisterende vinterhave. Naturlig integration i haven.',
     image: '/images/projekter/img_0281.jpg',
   },
   {
     slug: 'terrasse-ballerup-01',
-    title: 'Hardwood terrasse med kant',
+    title: 'Terrasse i hårdttræ med kant',
     kategori: 'terrasser',
     kategoriLabel: 'Terrasser',
     location: 'Ballerup',
@@ -39,7 +39,7 @@ export const PROJEKTER: Projekt[] = [
     kategoriLabel: 'Terrasser',
     location: 'Gladsaxe',
     year: 2024,
-    description: 'Fokus på præcision i hvert enkelt samling og afslutning — håndværk der holder.',
+    description: 'Fokus på præcision i hver enkelt samling og afslutning — håndværk der holder.',
     image: '/images/projekter/img_0283.jpg',
   },
   {
@@ -59,7 +59,7 @@ export const PROJEKTER: Projekt[] = [
     kategoriLabel: 'Nybyg',
     location: 'Herlev',
     year: 2025,
-    description: 'Solid konstruktion bygget fra bunden med fokus på holdbarte materialer og korrekt udførelse.',
+    description: 'Solid konstruktion bygget fra bunden med fokus på holdbare materialer og korrekt udførelse.',
     image: '/images/projekter/img_0285.jpg',
   },
   {

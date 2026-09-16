@@ -1,3 +1,4 @@
+import { defaultOpenGraph } from '@/lib/metadata'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
     'Seks tømrer-fagområder i Storkøbenhavn: nybyg & tilbygninger, renovering, tag & kviste, vinduer & døre, facader og terrasser. Udført af verificeret tømrermester med svendebrev.',
   alternates: { canonical: '/ydelser' },
   openGraph: {
+    ...defaultOpenGraph,
     url: 'https://hlchristiansen.dk/ydelser',
     title: 'Ydelser — Tømrermester H L Christiansen',
     description:

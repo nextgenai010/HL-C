@@ -1,3 +1,4 @@
+import { defaultOpenGraph } from '@/lib/metadata'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -10,14 +11,15 @@ import { Reveal } from '@/components/ui/Reveal'
 import { CTA } from '@/components/sections/CTA'
 import { PageHero } from '@/components/sections/PageHero'
 
-type Params = { slug: string }
+type Params = Promise<{ slug: string }>
 
 export function generateStaticParams() {
   return YDELSER.map((y) => ({ slug: y.slug }))
 }
 
-export function generateMetadata({ params }: { params: Params }): Metadata {
-  const y = YDELSER.find((y) => y.slug === params.slug)
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+  const { slug } = await params
+  const y = YDELSER.find((y) => y.slug === slug)
   if (!y) return {}
   const title = `${y.title} — Tømrermester i ${SITE.location} & Storkøbenhavn`
   const description = `${y.short} Udført af verificeret tømrermester med svendebrev — i ${SITE.location} og hele Storkøbenhavn.`
@@ -27,6 +29,7 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
     description,
     alternates: { canonical: `/ydelser/${y.slug}` },
     openGraph: {
+    ...defaultOpenGraph,
       url,
       title,
       description,
@@ -55,8 +58,9 @@ const PROCESS = [
   { nr: '04', label: 'Aflevering & garanti' },
 ]
 
-export default function YdelseSide({ params }: { params: Params }) {
-  const y = YDELSER.find((y) => y.slug === params.slug)
+export default async function YdelseSide({ params }: { params: Params }) {
+  const { slug } = await params
+  const y = YDELSER.find((y) => y.slug === slug)
   if (!y) notFound()
 
   const nextIdx = (YDELSER.findIndex((x) => x.slug === y.slug) + 1) % YDELSER.length

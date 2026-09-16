@@ -1,3 +1,4 @@
+import { defaultOpenGraph } from '@/lib/metadata'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
     'Svar på de oftest stillede spørgsmål om tilbud, proces, pris, garanti, områder og praktisk i forbindelse med tømrerarbejde i Herlev og Storkøbenhavn.',
   alternates: { canonical: '/ofte-stillede-spoergsmaal' },
   openGraph: {
+    ...defaultOpenGraph,
     url: 'https://hlchristiansen.dk/ofte-stillede-spoergsmaal',
     title: 'Ofte stillede spørgsmål — Tømrermester H L Christiansen',
     description:

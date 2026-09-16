@@ -4,20 +4,11 @@ import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
+import { contactSchema as schema, type ContactData as FormData, MAX_TOTAL_FILE_SIZE } from '@/lib/contact'
 import { ChevronDown, Check, Paperclip, X, FileText, Image as ImageIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { YDELSER } from '@/lib/services'
 
-const schema = z.object({
-  name: z.string().min(2, 'Angiv venligst dit navn'),
-  phone: z.string().min(6, 'Angiv venligst et telefonnummer'),
-  email: z.string().email('Angiv en gyldig email'),
-  type: z.string().min(1, 'Vælg en opgavetype'),
-  message: z.string().min(10, 'Uddyb gerne din forespørgsel'),
-})
-
-type FormData = z.infer<typeof schema>
 
 const OPTIONS = [
   ...YDELSER.map((y) => y.title),
@@ -64,6 +55,7 @@ function CustomSelect({
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
+        aria-label="Type opgave"
         aria-haspopup="listbox"
         aria-expanded={open}
         className={cn(
@@ -127,6 +119,8 @@ function CustomSelect({
 
 export function ContactForm({ dark = false }: { dark?: boolean }) {
   const [submitted, setSubmitted] = useState(false)
+  const successRef = useRef<HTMLDivElement>(null)
+  useEffect(() => { if (submitted) successRef.current?.focus() }, [submitted])
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
   const [files, setFiles] = useState<File[]>([])
@@ -160,6 +154,10 @@ export function ContactForm({ dark = false }: { dark?: boolean }) {
       if (next.some((existing) => existing.name === f.name && existing.size === f.size)) {
         continue
       }
+      if (next.reduce((sum, item) => sum + item.size, 0) + f.size > MAX_TOTAL_FILE_SIZE) {
+        setFileError('Filerne må højst fylde 4 MB i alt.')
+        continue
+      }
       next.push(f)
     }
     setFiles(next)
@@ -174,7 +172,7 @@ export function ContactForm({ dark = false }: { dark?: boolean }) {
     setSubmitting(true)
     setSubmitError(null)
     try {
-      const fd = new FormData()
+      const fd = new globalThis.FormData()
       fd.append('name', data.name)
       fd.append('phone', data.phone)
       fd.append('email', data.email)
@@ -198,7 +196,7 @@ export function ContactForm({ dark = false }: { dark?: boolean }) {
 
   if (submitted) {
     return (
-      <div className={`border-2 border-gold p-10 md:p-14 ${dark ? 'bg-white/5' : 'bg-white'}`}>
+      <div role="status" ref={successRef} tabIndex={-1} className={`border-2 border-gold p-10 md:p-14 ${dark ? 'bg-white/5' : 'bg-white'}`}>
         <p className="label-caps text-gold">✦ Tak for din besked</p>
         <h3 className={`mt-4 font-display text-3xl md:text-4xl leading-tight ${dark ? 'text-white' : ''}`}>
           Vi <span className="italic">vender tilbage</span> hurtigst muligt.
@@ -228,6 +226,7 @@ export function ContactForm({ dark = false }: { dark?: boolean }) {
           type="text"
           autoComplete="name"
           aria-invalid={!!errors.name}
+          aria-label="Navn"
           {...register('name')}
           className={cn(inputBase)}
           placeholder="Dit fulde navn"
@@ -241,7 +240,8 @@ export function ContactForm({ dark = false }: { dark?: boolean }) {
             autoComplete="tel"
             inputMode="tel"
             aria-invalid={!!errors.phone}
-            {...register('phone')}
+            aria-label="Telefon"
+          {...register('phone')}
             className={cn(inputBase)}
             placeholder="+45 ..."
           />
@@ -252,7 +252,8 @@ export function ContactForm({ dark = false }: { dark?: boolean }) {
             autoComplete="email"
             inputMode="email"
             aria-invalid={!!errors.email}
-            {...register('email')}
+            aria-label="Email"
+          {...register('email')}
             className={cn(inputBase)}
             placeholder="dig@email.dk"
           />
@@ -278,6 +279,7 @@ export function ContactForm({ dark = false }: { dark?: boolean }) {
         <textarea
           rows={3}
           aria-invalid={!!errors.message}
+          aria-label="Besked"
           {...register('message')}
           className={cn(inputBase, 'resize-none')}
           placeholder="Beskriv gerne opgaven, omfang og tidshorisont"
@@ -293,6 +295,7 @@ export function ContactForm({ dark = false }: { dark?: boolean }) {
         <input
           ref={fileInputRef}
           type="file"
+          aria-label="Vedhæft billeder eller PDF"
           multiple
           accept={ACCEPT}
           className="sr-only"
@@ -379,7 +382,7 @@ export function ContactForm({ dark = false }: { dark?: boolean }) {
           Svar inden for 24 timer
         </p>
         <button type="submit" disabled={submitting} className="btn-primary disabled:opacity-60">
-          {submitting ? 'Sender ...' : 'Send besked'}
+          <span>{submitting ? 'Sender ...' : 'Send besked'}</span>
         </button>
       </div>
 

@@ -149,7 +149,7 @@ export function FeaturedProject() {
           <Reveal delay={0.62}>
             <Link
               href="/projekter"
-              className="group inline-flex items-center gap-3 self-start border border-white/20 hover:border-gold/60 px-5 py-3 transition-all duration-300 hover:bg-gold/5"
+              className="btn-soft group inline-flex items-center gap-3 self-start border border-white/20 hover:border-gold/60 px-5 py-3 transition-all duration-300 hover:bg-gold/5"
             >
               <span className="font-label text-[11px] uppercase tracking-[0.2em] text-white/70 group-hover:text-gold-light transition-colors duration-300">
                 Se alle projekter

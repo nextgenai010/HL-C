@@ -5,9 +5,9 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { X, MessageSquarePlus, Paperclip, FileText, Image as ImageIcon } from 'lucide-react'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
+import { contactSchema as schema, type ContactData as FormData, MAX_TOTAL_FILE_SIZE } from '@/lib/contact'
 import { cn } from '@/lib/utils'
-import { YDELSER } from '@/lib/services'
+import Link from 'next/link'
 import { CustomSelectWidget } from './CustomSelectWidget'
 
 const MAX_FILES = 2
@@ -20,15 +20,6 @@ function formatBytes(bytes: number) {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
 }
 
-const schema = z.object({
-  name: z.string().min(2, 'Angiv dit navn'),
-  phone: z.string().min(6, 'Angiv et telefonnummer'),
-  email: z.string().email('Ugyldig email'),
-  type: z.string().min(1, 'Vælg en opgavetype'),
-  message: z.string().min(5, 'Beskriv kort opgaven'),
-})
-
-type FormData = z.infer<typeof schema>
 
 const ease = [0.16, 1, 0.3, 1] as const
 
@@ -37,6 +28,7 @@ export function FloatingQuote() {
   const [open, setOpen] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
   const [files, setFiles] = useState<File[]>([])
   const [fileError, setFileError] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -54,6 +46,10 @@ export function FloatingQuote() {
       if (!ACCEPTED_TYPES.includes(f.type)) { setFileError(`Format ikke understøttet.`); continue }
       if (f.size > MAX_FILE_SIZE) { setFileError(`For stor — maks 1,5 MB.`); continue }
       if (next.some((e) => e.name === f.name && e.size === f.size)) continue
+      if (next.reduce((sum, item) => sum + item.size, 0) + f.size > MAX_TOTAL_FILE_SIZE) {
+        setFileError('Filerne må højst fylde 4 MB i alt.')
+        continue
+      }
       next.push(f)
     }
     setFiles(next)
@@ -66,14 +62,17 @@ export function FloatingQuote() {
 
   useEffect(() => {
     function onScroll() {
-      setVisible(window.scrollY > 400)
+      const hero = document.getElementById('home-hero')
+      setVisible(window.scrollY > 400 && (!hero || hero.getBoundingClientRect().bottom < 100))
     }
+    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   async function onSubmit(data: FormData) {
     setSubmitting(true)
+    setSubmitError(null)
     try {
       const fd = new globalThis.FormData()
       fd.append('name', data.name)
@@ -88,7 +87,7 @@ export function FloatingQuote() {
       setFiles([])
       setSubmitted(true)
     } catch {
-      // silent fail — user can try full contact page
+      setSubmitError('Beskeden kunne ikke sendes. Prøv igen, eller brug kontaktsiden.')
     } finally {
       setSubmitting(false)
     }
@@ -108,11 +107,14 @@ export function FloatingQuote() {
       <AnimatePresence>
         {open && (
           <motion.div
+            role="dialog"
+            aria-label="Få et tilbud"
+            onKeyDown={(e) => { if (e.key === 'Escape') close() }}
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.95 }}
             transition={{ duration: 0.35, ease }}
-            className="w-[min(340px,calc(100vw-2rem))] bg-white shadow-2xl border border-dark/8 overflow-hidden"
+            className="w-[min(340px,calc(100vw-2rem))] bg-white shadow-2xl border border-dark/8 overflow-y-auto max-h-[calc(100dvh-7rem)]"
             style={{ boxShadow: '0 8px 48px rgba(0,0,0,0.18)' }}
           >
             {/* Header */}
@@ -151,7 +153,9 @@ export function FloatingQuote() {
                     <input
                       type="text"
                       placeholder="Navn"
-                      {...register('name')}
+                      autoFocus
+                      aria-label="Navn"
+          {...register('name')}
                       className={cn(input, errors.name && 'border-gold')}
                     />
                     {errors.name && <p className="mt-1 text-[10px] text-gold">{errors.name.message}</p>}
@@ -163,7 +167,8 @@ export function FloatingQuote() {
                       <input
                         type="tel"
                         placeholder="Telefon"
-                        {...register('phone')}
+                        aria-label="Telefon"
+          {...register('phone')}
                         className={cn(input, errors.phone && 'border-gold')}
                       />
                       {errors.phone && <p className="mt-1 text-[10px] text-gold">{errors.phone.message}</p>}
@@ -172,7 +177,8 @@ export function FloatingQuote() {
                       <input
                         type="email"
                         placeholder="Email"
-                        {...register('email')}
+                        aria-label="Email"
+          {...register('email')}
                         className={cn(input, errors.email && 'border-gold')}
                       />
                       {errors.email && <p className="mt-1 text-[10px] text-gold">{errors.email.message}</p>}
@@ -200,7 +206,8 @@ export function FloatingQuote() {
                     <textarea
                       rows={2}
                       placeholder="Beskriv kort opgaven"
-                      {...register('message')}
+                      aria-label="Besked"
+          {...register('message')}
                       className={cn(input, 'resize-none', errors.message && 'border-gold')}
                     />
                     {errors.message && <p className="mt-1 text-[10px] text-gold">{errors.message.message}</p>}
@@ -211,6 +218,7 @@ export function FloatingQuote() {
                     <input
                       ref={fileInputRef}
                       type="file"
+          aria-label="Vedhæft billeder eller PDF"
                       multiple
                       accept={ACCEPT}
                       className="sr-only"
@@ -250,6 +258,8 @@ export function FloatingQuote() {
                     {fileError && <p className="mt-1 text-[10px] text-gold">{fileError}</p>}
                   </div>
 
+                  {submitError && <p role="alert" className="text-sm text-dark border-l-2 border-gold pl-3">{submitError} <Link href="/kontakt" className="underline">Kontakt os</Link></p>}
+                  <p className="text-[11px] text-dark/60">Vi bruger kun oplysningerne til at besvare din henvendelse. <Link href="/privatliv" className="underline">Privatlivspolitik</Link>.</p>
                   <div className="pt-1">
                     <button
                       type="submit"

@@ -32,6 +32,12 @@ export function Navbar() {
     setScrolled(false)
   }, [pathname])
 
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => { if (event.key === 'Escape') setOpen(false) }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
   const solid = scrolled || open
 
   return (
@@ -59,7 +65,7 @@ export function Navbar() {
           </div>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-10">
+        <nav aria-label="Hovednavigation" className="hidden lg:flex items-center gap-10">
           {NAV.map((item) => {
             const active =
               item.href === '/' ? pathname === '/' : pathname.startsWith(item.href)
@@ -107,6 +113,7 @@ export function Navbar() {
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? 'Luk menu' : 'Åbn menu'}
           aria-expanded={open}
+          aria-controls="mobile-navigation"
           className={cn(
             'lg:hidden p-2 -mr-2 transition-colors',
             solid ? 'text-dark' : 'text-white',
@@ -117,6 +124,10 @@ export function Navbar() {
       </div>
 
       <div
+        id="mobile-navigation"
+        role="navigation"
+        aria-label="Mobilnavigation"
+        hidden={!open}
         className={cn(
           'lg:hidden overflow-hidden bg-white border-t border-gray-mid transition-[max-height,opacity] duration-500',
           open ? 'max-h-[480px] opacity-100' : 'max-h-0 opacity-0',

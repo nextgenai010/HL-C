@@ -1,37 +1,20 @@
 import type { Metadata, Viewport } from 'next'
-import { Cormorant_Garamond, DM_Sans, Barlow_Condensed } from 'next/font/google'
+import { Outfit, Manrope } from 'next/font/google'
 import './globals.css'
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
 import { FloatingQuoteWrapper } from '@/components/ui/FloatingQuoteWrapper'
 import { CookieConsent } from '@/components/ui/CookieConsent'
 import { Analytics } from '@/components/analytics/Analytics'
-import { Analytics as VercelAnalytics } from '@vercel/analytics/next'
 import { SITE } from '@/lib/site'
 
-const display = Cormorant_Garamond({
-  subsets: ['latin'],
-  weight: ['400', '500'],
-  style: ['normal', 'italic'],
-  variable: '--font-display',
-  display: 'swap',
-  preload: true,
+const display = Outfit({
+  subsets: ['latin'], weight: ['400', '500', '600'],
+  variable: '--font-display', display: 'swap',
 })
-
-const body = DM_Sans({
-  subsets: ['latin'],
-  weight: ['400', '500'],
-  variable: '--font-body',
-  display: 'swap',
-  preload: false,
-})
-
-const label = Barlow_Condensed({
-  subsets: ['latin'],
-  weight: ['500', '600'],
-  variable: '--font-label',
-  display: 'swap',
-  preload: false,
+const body = Manrope({
+  subsets: ['latin'], weight: ['400', '500', '600'],
+  variable: '--font-body', display: 'swap',
 })
 
 export const viewport: Viewport = {
@@ -83,9 +66,6 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: '/',
-    languages: {
-      'da-DK': '/',
-    },
   },
   openGraph: {
     type: 'website',
@@ -133,7 +113,7 @@ export const metadata: Metadata = {
     address: true,
   },
   verification: {
-    // Add Google Search Console verification token via env when available.
+    google: process.env.NEXT_PUBLIC_GSC_VERIFICATION || undefined,
   },
 }
 
@@ -158,7 +138,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     priceRange: '$$',
     currenciesAccepted: 'DKK',
     paymentAccepted: 'Bankoverførsel, Faktura, MobilePay',
-    foundingDate: '2018',
     founder: {
       '@type': 'Person',
       name: 'Jonatan Hintze Ladewig Christiansen',
@@ -260,10 +239,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   }
 
   return (
-    <html lang="da" className={`${display.variable} ${body.variable} ${label.variable}`}>
+    <html lang="da" className={`${display.variable} ${body.variable}`}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <meta name="geo.region" content="DK-84" />
         <meta name="geo.placename" content="Herlev" />
@@ -290,7 +267,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <CookieConsent />
         <Analytics />
-        <VercelAnalytics />
       </body>
     </html>
   )

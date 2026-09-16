@@ -8,7 +8,7 @@ const nextConfig = {
     minimumCacheTTL: 2592000,
   },
   compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
+    removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error', 'warn'] } : false,
   },
 }
 

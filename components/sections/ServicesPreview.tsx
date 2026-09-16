@@ -281,7 +281,7 @@ export function ServicesPreview() {
               fontFamily: 'var(--font-label, "Barlow Condensed", sans-serif)',
               fontSize: '12px', fontWeight: 500, letterSpacing: '0.3em',
               textTransform: 'uppercase', color: '#D4AF37',
-              border: '1px solid #D4AF37', padding: '14px 38px',
+              border: '1px solid #D4AF37', borderRadius: 6, padding: '14px 38px',
               textDecoration: 'none', transition: 'background 0.25s, color 0.25s',
               whiteSpace: 'nowrap',
             }}

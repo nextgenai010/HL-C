@@ -6,8 +6,8 @@ Domæne: [hlchristiansen.dk](https://hlchristiansen.dk)
 
 ## Tech stack
 
-- **Framework:** Next.js 14 (App Router) · React 18 · TypeScript
-- **Styling:** Tailwind CSS · Cormorant Garamond · DM Sans · Barlow Condensed
+- **Framework:** Next.js 15 (App Router) · React 18 · TypeScript
+- **Styling:** Tailwind CSS · Outfit · Manrope
 - **Animation:** Framer Motion
 - **Formular:** React Hook Form + Zod + Resend (transaktionel mail)
 - **Hosting:** Vercel
@@ -57,3 +57,21 @@ Se `.env.example`. Kort version:
 © Tømrerfirmaet H L Christiansen. Alle rettigheder forbeholdes.
 
 Designet og bygget af [NextgenAI](https://nextgen-ai.dk).
+
+## Lokal gennemgang og test
+
+Kør `npm run build` og derefter `npm run start -- --port 3100`.
+Åbn http://localhost:3100. `npm run dev` kan bruges ved videre redigering.
+
+`npm run test:visual` kører funktionelle Playwright-kontroller på desktop,
+tablet og mobil og gemmer screenshots under `test-results/`. Lokal Chrome
+bruges. Browser-tests erstatter kontakt-API'et med testsvaret og sender
+aldrig rigtige mails. API-tests sender kun ugyldige data.
+
+Designretningen er beskrevet i DESIGN.md. Formularerne deler
+`lib/contact.ts`. Next.js' PostCSS-afhængighed er overstyret til projektets
+rettede PostCSS 8-version; kontrollér override ved næste framework-opdatering.
+
+Før publicering skal virksomheden bekræfte faktuelle oplysninger om
+forsikring, erfaring, projekter og privatlivspraksis. Maillevering og
+produktionsopsætning skal valideres separat.

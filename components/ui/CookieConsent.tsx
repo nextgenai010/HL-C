@@ -3,20 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
-const STORAGE_KEY = 'cookie-consent'
-
-export type ConsentValue = 'accepted' | 'rejected'
-
-export function getConsent(): ConsentValue | null {
-  if (typeof window === 'undefined') return null
-  const v = window.localStorage.getItem(STORAGE_KEY)
-  return v === 'accepted' || v === 'rejected' ? v : null
-}
-
-function setConsent(value: ConsentValue) {
-  window.localStorage.setItem(STORAGE_KEY, value)
-  window.dispatchEvent(new CustomEvent('consent-changed', { detail: value }))
-}
+import { getConsent, setConsent, type ConsentValue } from '@/lib/consent'
 
 export function CookieConsent() {
   const [visible, setVisible] = useState(false)
@@ -24,10 +11,13 @@ export function CookieConsent() {
 
   useEffect(() => {
     setMounted(true)
+    const update = () => setVisible(false)
+    window.addEventListener('consent-changed', update)
     if (getConsent() === null) {
       const t = setTimeout(() => setVisible(true), 600)
-      return () => clearTimeout(t)
+      return () => { clearTimeout(t); window.removeEventListener('consent-changed', update) }
     }
+    return () => window.removeEventListener('consent-changed', update)
   }, [])
 
   if (!mounted || !visible) return null

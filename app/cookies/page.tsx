@@ -5,7 +5,7 @@ import { SITE } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'Cookiepolitik',
-  description: `Sådan bruger ${SITE.name} cookies på hjemmesiden — kun statistik via Google Analytics, og kun hvis du accepterer.`,
+  description: `Sådan bruger ${SITE.name} cookies på hjemmesiden — statistik via Google Analytics og Vercel, og kun hvis du accepterer.`,
   alternates: { canonical: '/cookies' },
   robots: { index: true, follow: true },
 }
@@ -32,7 +32,7 @@ export default function CookiesSide() {
           <div>
             <h2 className="font-display text-2xl text-white mb-3">Hvilke cookies bruger vi?</h2>
             <p className="mb-4">
-              På denne side bruger vi udelukkende statistik-cookies via Google Analytics 4 til at
+              På denne side bruger vi Google Analytics 4 og Vercel Web Analytics til at
               forstå, hvordan vores besøgende finder og navigerer på sitet. Vi sælger eller deler
               ikke data med tredjeparter til markedsføring.
             </p>
@@ -42,6 +42,10 @@ export default function CookiesSide() {
                 <p className="mt-1 text-sm">
                   Måler besøg, sidevisninger og generel adfærd. Cookies: <code className="text-gold-light">_ga</code>, <code className="text-gold-light">_ga_*</code>. Sættes kun, hvis du accepterer.
                 </p>
+              </li>
+              <li className="border-l-2 border-gold/40 pl-4">
+                <p className="label-caps text-gold">Vercel Web Analytics</p>
+                <p className="mt-1 text-sm">Måler sidevisninger og navigation uden statistik-cookies. Aktiveres her kun, når du accepterer statistik.</p>
               </li>
               <li className="border-l-2 border-gold/40 pl-4">
                 <p className="label-caps text-gold">Samtykke</p>

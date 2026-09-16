@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 }
 
-const LAST_UPDATED = '10. maj 2026'
+const LAST_UPDATED = '11. september 2026'
 
 export default function PrivatlivSide() {
   return (
@@ -75,6 +75,10 @@ export default function PrivatlivSide() {
               <li className="border-l-2 border-gold/40 pl-4">
                 <p className="text-white/85">Beskrivelse af projektet</p>
                 <p className="text-sm text-white/55">Den fritekst, du selv vælger at sende.</p>
+              </li>
+              <li className="border-l-2 border-gold/40 pl-4">
+                <p className="text-white/85">Vedhæftninger</p>
+                <p className="text-sm text-white/55">De billeder eller PDF-filer, du vælger at vedhæfte for at beskrive opgaven.</p>
               </li>
             </ul>
             <p className="mt-4 text-sm">
@@ -158,12 +162,16 @@ export default function PrivatlivSide() {
               <li className="border-l-2 border-gold/40 pl-4">
                 <p className="label-caps text-gold">Google Analytics 4 (Google Ireland Ltd.)</p>
                 <p className="mt-1 text-sm">
-                  Anonymiserede besøgs-statistikker. <strong>Aktiveres kun hvis du accepterer cookies.</strong>{' '}
+                  Besøgsstatistik. <strong>Aktiveres kun hvis du accepterer cookies.</strong>{' '}
                   Læs mere i vores{' '}
                   <Link href="/cookies" className="text-gold hover:text-gold-light underline underline-offset-4">
                     cookiepolitik
                   </Link>.
                 </p>
+              </li>
+              <li className="border-l-2 border-gold/40 pl-4">
+                <p className="label-caps text-gold">Vercel Web Analytics</p>
+                <p className="mt-1 text-sm">Måler sidevisninger og navigation uden statistik-cookies. På denne hjemmeside aktiveres det kun, hvis du accepterer statistik.</p>
               </li>
               <li className="border-l-2 border-gold/40 pl-4">
                 <p className="label-caps text-gold">Google Workspace (Gmail)</p>

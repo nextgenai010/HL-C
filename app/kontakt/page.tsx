@@ -1,3 +1,4 @@
+import { defaultOpenGraph } from '@/lib/metadata'
 import type { Metadata } from 'next'
 import { Phone, Mail, MapPin, Clock } from 'lucide-react'
 import { GoldDivider } from '@/components/ui/GoldDivider'
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
   description: `Få fat i Tømrerfirmaet H L Christiansen i ${SITE.location}. Ring ${SITE.phone} eller skriv til ${SITE.email} — vi svarer inden for 24 timer. Gratis og uforpligtende tilbud.`,
   alternates: { canonical: '/kontakt' },
   openGraph: {
+    ...defaultOpenGraph,
     url: 'https://hlchristiansen.dk/kontakt',
     title: 'Kontakt — Tømrermester H L Christiansen',
     description: `Ring ${SITE.phone} eller skriv. Vi svarer inden for 24 timer på hverdage.`,
@@ -111,9 +113,9 @@ export default function KontaktSide() {
           {/* Right — form */}
           <Reveal className="lg:col-span-7" delay={0.1}>
             <p className="label-caps text-gold mb-4">Send en besked</p>
-            <h2 className="font-display text-2xl md:text-3xl leading-tight text-white">
+            <h1 className="font-display text-2xl md:text-3xl leading-tight text-white">
               Fortæl om <span className="italic">dit projekt</span>
-            </h2>
+            </h1>
             <GoldDivider className="mt-4" />
             <p className="mt-4 text-white/65 text-sm leading-relaxed max-w-xl">
               Du behøver ikke have alle detaljer på plads. Skriv hvad du ved, så tager

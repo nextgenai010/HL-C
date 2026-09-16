@@ -18,7 +18,7 @@ export const YDELSER: Ydelse[] = [
     imageWidth: 1920,
     imageHeight: 1280,
     intro:
-      'Fra fundament til tagryg. Vi håndterer nybyg og tilbygninger med samme omhu som vores egne huse — præcision i hvert samling, korrekt materialevalg og tæt dialog gennem hele forløbet.',
+      'Fra fundament til tagryg. Vi håndterer nybyg og tilbygninger med samme omhu som vores egne huse — præcision i hver samling, korrekt materialevalg og tæt dialog gennem hele forløbet.',
     bullets: [
       'Nybyggeri af helårshuse og sommerhuse',
       'Tilbygninger og udvidelser til eksisterende boliger',

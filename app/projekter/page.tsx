@@ -1,3 +1,4 @@
+import { defaultOpenGraph } from '@/lib/metadata'
 import type { Metadata } from 'next'
 import { ProjekterGallery } from '@/components/sections/ProjekterGallery'
 import { PROJEKTER } from '@/lib/projects'
@@ -8,6 +9,7 @@ export const metadata: Metadata = {
     'Se udvalgte projekter fra Tømrerfirmaet H L Christiansen: nybyg, renovering, tag, vinduer, facader og terrasser udført i Herlev, Ballerup, Gladsaxe og det øvrige Storkøbenhavn.',
   alternates: { canonical: '/projekter' },
   openGraph: {
+    ...defaultOpenGraph,
     url: 'https://hlchristiansen.dk/projekter',
     title: 'Projekter — Tømrermester H L Christiansen',
     description:

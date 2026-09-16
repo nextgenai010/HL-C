@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useEffect, useRef, useState, useCallback } from 'react'
 
 const IMAGES = [
@@ -75,6 +76,22 @@ export function ProjekterGallery() {
     }, 240)
   }, [])
 
+  useEffect(() => {
+    if (!lbOpen) return
+    const opener = document.activeElement as HTMLElement | null
+    const modal = document.querySelector<HTMLElement>('.proj-lb')
+    const buttons = Array.from(modal?.querySelectorAll<HTMLButtonElement>('button') ?? [])
+    buttons[buttons.length - 1]?.focus()
+    const trap = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab' || !buttons.length) return
+      const first = buttons[0], last = buttons[buttons.length - 1]
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
+      if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
+    }
+    modal?.addEventListener('keydown', trap)
+    return () => { modal?.removeEventListener('keydown', trap); document.body.style.overflow = ''; opener?.focus() }
+  }, [lbOpen])
+
   // Keyboard
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -120,12 +137,12 @@ export function ProjekterGallery() {
           color: #D4AF37;
           text-transform: uppercase;
           margin-bottom: 14px;
-          font-family: 'DM Sans', sans-serif;
+          font-family: var(--font-body), sans-serif;
           animation: projFadeUp 0.6s ease forwards 0.2s;
           opacity: 0;
         }
         .proj-headline {
-          font-family: 'Cormorant Garamond', serif;
+          font-family: var(--font-display), sans-serif;
           font-size: clamp(52px, 7vw, 96px);
           font-weight: 300;
           line-height: 0.95;
@@ -159,7 +176,7 @@ export function ProjekterGallery() {
           background: #D4AF37;
         }
         .proj-count {
-          font-family: 'Cormorant Garamond', serif;
+          font-family: var(--font-display), sans-serif;
           font-size: 13px;
           letter-spacing: 0.12em;
           color: rgba(255,255,255,0.3);
@@ -171,7 +188,7 @@ export function ProjekterGallery() {
         }
         .proj-count strong {
           display: block;
-          font-family: 'Cormorant Garamond', serif;
+          font-family: var(--font-display), sans-serif;
           font-size: 48px;
           font-weight: 300;
           color: rgba(212,175,55,0.18);
@@ -316,7 +333,7 @@ export function ProjekterGallery() {
           color: rgba(255,255,255,0.3);
           min-width: 48px;
           text-align: center;
-          font-family: 'DM Sans', sans-serif;
+          font-family: var(--font-body), sans-serif;
         }
         .proj-lb-close {
           position: fixed;
@@ -371,12 +388,16 @@ export function ProjekterGallery() {
             <div
               key={src}
               className="proj-item"
+              role="button"
+              tabIndex={0}
+              aria-label={`Se billede: Tømrerprojekt ${i + 1}`}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(i) } }}
               ref={(el) => { itemRefs.current[i] = el }}
               onClick={() => openLightbox(i)}
             >
               <div className="proj-crop">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={src} alt={`Tømrerprojekt ${i + 1} udført af H L Christiansen i Storkøbenhavn`} loading="lazy" width="800" height="600" />
+                <Image src={src} alt={`Tømrerprojekt ${i + 1} udført af H L Christiansen i Storkøbenhavn`} fill sizes="(max-width: 520px) 100vw, (max-width: 900px) 50vw, 33vw" />
               </div>
             </div>
           ))}
@@ -387,6 +408,9 @@ export function ProjekterGallery() {
       {lbOpen && (
         <div
           className="proj-lb"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Projektbillede"
           style={{ opacity: lbVisible ? 1 : 0 }}
           onClick={(e) => { if (e.target === e.currentTarget) closeLightbox() }}
           onTouchStart={(e) => { txStart.current = e.touches[0].clientX }}
@@ -413,12 +437,12 @@ export function ProjekterGallery() {
           </div>
 
           <div className="proj-lb-nav" style={{ opacity: lbVisible ? 1 : 0 }}>
-            <button className="proj-lb-btn" onClick={() => navigate(-1)}>&#8592;</button>
+            <button className="proj-lb-btn" aria-label="Forrige billede" onClick={() => navigate(-1)}>&#8592;</button>
             <div className="proj-lb-counter">{lbIdx + 1} / {IMAGES.length}</div>
-            <button className="proj-lb-btn" onClick={() => navigate(1)}>&#8594;</button>
+            <button className="proj-lb-btn" aria-label="Næste billede" onClick={() => navigate(1)}>&#8594;</button>
           </div>
 
-          <button className="proj-lb-close" onClick={closeLightbox}>&#x2715;</button>
+          <button className="proj-lb-close" aria-label="Luk billede" onClick={closeLightbox}>&#x2715;</button>
         </div>
       )}
     </>
