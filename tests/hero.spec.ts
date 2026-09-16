@@ -19,7 +19,8 @@ test('hero reveals the quote on scroll and keeps the original heading', async ({
     expect(after!.x).toBeLessThan(before!.x - 100)
     expect(await page.locator('.hero-scene').evaluate(el => el.getBoundingClientRect().top)).toBeCloseTo(0, 0)
   } else {
-    await page.locator('#hero-tilbud').scrollIntoViewIfNeeded()
+    await expect(page.locator('#hero-tilbud')).toBeHidden()
+    return
   }
   await expect(page.locator('#hero-name')).toBeVisible()
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
@@ -32,12 +33,11 @@ test('hero reveals the quote on scroll and keeps the original heading', async ({
   }
 })
 
-test('quote works with keyboard, validates, and preserves input after a failed send', async ({ page }) => {
+test('quote works with keyboard, validates, and preserves input after a failed send', async ({ page }, info) => {
+  test.skip(info.project.name !== 'desktop', 'The hero quote form is desktop only')
   await page.goto('/')
-  if (await page.evaluate(() => matchMedia('(min-width: 1024px)').matches)) {
-    await page.evaluate(() => window.scrollTo({ top: innerHeight * 0.75, behavior: 'instant' }))
-    await expect(page.locator('#hero-tilbud')).toHaveAttribute('aria-hidden', 'false')
-  }
+  await page.evaluate(() => window.scrollTo({ top: innerHeight * 0.75, behavior: 'instant' }))
+  await expect(page.locator('#hero-tilbud')).toHaveAttribute('aria-hidden', 'false')
   await page.locator('#hero-name').focus()
   await expect(page.locator('#hero-name')).toBeFocused()
   const form = page.getByRole('form', { name: 'Lad os give dig et tilbud' })
@@ -56,7 +56,8 @@ test('quote works with keyboard, validates, and preserves input after a failed s
   await expect(page.getByRole('status')).toContainText('Tak for din forespørgsel')
 })
 
-test('reduced motion keeps the quote accessible without scroll animation', async ({ page }) => {
+test('reduced motion keeps the quote accessible without scroll animation', async ({ page }, info) => {
+  test.skip(info.project.name !== 'desktop', 'The hero quote form is desktop only')
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('/')
   await expect(page.locator('#hero-tilbud')).toHaveAttribute('aria-hidden', 'false')
