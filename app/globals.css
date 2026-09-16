@@ -279,6 +279,8 @@ body.cursor-hovering .cursor-ring {
   .hero-scroll { height: 200svh; }
   .hero-scene { position: sticky; top: 0; height: 100svh; }
   .hero-copy { position: absolute; inset: 0; min-height: 0; }
+  /* Server HTML renders the quote visible; hide it until the scroll animation has taken over. */
+  .hero-quote-position:not([data-ready]) { visibility: hidden; }
   .hero-quote-position { position: absolute; right: 6%; top: calc(50% + 35px); width: min(40vw, 440px); margin: 0; padding: 0; transform: translateY(-50%); }
   .hero-quote-card { max-height: calc(100svh - 160px); overflow-y: auto; }
   .hero-field { font-size: 14px; padding: 9px 10px; }

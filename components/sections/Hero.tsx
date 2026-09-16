@@ -17,6 +17,7 @@ export function Hero() {
   const quoteRef = useRef<HTMLDivElement>(null)
   const [animated, setAnimated] = useState(false)
   const [revealed, setRevealed] = useState(false)
+  const [ready, setReady] = useState(false)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] })
   const contentX = useTransform(scrollYProgress, [0, 0.65], ['0%', '-24%'])
   const contentScale = useTransform(scrollYProgress, [0, 0.65], [1, 0.9])
@@ -29,6 +30,7 @@ export function Hero() {
     const query = window.matchMedia('(min-width: 1024px) and (prefers-reduced-motion: no-preference)')
     const update = () => setAnimated(query.matches)
     update()
+    setReady(true)
     query.addEventListener('change', update)
     return () => query.removeEventListener('change', update)
   }, [])
@@ -229,7 +231,7 @@ export function Hero() {
           </motion.div>
         </motion.div>
 
-        <div id="hero-tilbud" className="hero-quote-position" ref={quoteRef} aria-hidden={!accessible}>
+        <div id="hero-tilbud" className="hero-quote-position" ref={quoteRef} aria-hidden={!accessible} data-ready={ready || undefined}>
           <motion.div style={{ x: animated ? quoteX : 0, opacity: animated ? quoteOpacity : 1, pointerEvents: accessible ? 'auto' : 'none' }}>
             <HeroQuoteForm />
           </motion.div>
