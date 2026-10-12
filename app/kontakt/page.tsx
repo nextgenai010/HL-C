@@ -1,14 +1,13 @@
 import { defaultOpenGraph } from '@/lib/metadata'
 import type { Metadata } from 'next'
-import { Phone, Mail, MapPin, Clock } from 'lucide-react'
-import { GoldDivider } from '@/components/ui/GoldDivider'
-import { ContactForm } from '@/components/ui/ContactForm'
+import { Phone, Mail, MapPin, Clock, Paperclip } from 'lucide-react'
+import { QuoteForm } from '@/components/ui/QuoteForm'
 import { Reveal } from '@/components/ui/Reveal'
 import { SITE } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: 'Kontakt — Få et tilbud fra tømrermester H L Christiansen',
-  description: `Få fat i Tømrerfirmaet H L Christiansen i ${SITE.location}. Ring ${SITE.phone} eller skriv til ${SITE.email} — vi svarer inden for 24 timer. Gratis og uforpligtende tilbud.`,
+  title: 'Kontakt – Få et gratis tilbud på tømrerarbejde',
+  description: `Ring ${SITE.phone} eller skriv til tømrermester H L Christiansen i ${SITE.location}. Gratis og uforpligtende tilbud — svar inden for 24 timer.`,
   alternates: { canonical: '/kontakt' },
   openGraph: {
     ...defaultOpenGraph,
@@ -63,109 +62,98 @@ export default function KontaktSide() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(contactLd) }} />
 
-      <section className="bg-dark pt-20 sm:pt-24 md:pt-28 pb-12 md:pb-16">
-        <div className="container-content grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-8 lg:gap-12">
+      <section className="bg-dark pb-20 pt-28 text-white md:pb-28 md:pt-40">
+        <div className="container-content grid gap-12 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-5">
+            <p className="rise eyebrow !text-gold-light" style={delay(0.05)}>Kontakt</p>
+            <h1
+              className="rise-move mt-3 font-display text-[2.75rem] font-semibold leading-[1.02] sm:text-[3.5rem] lg:text-[4.25rem]"
+              style={delay(0.12)}
+            >
+              Fortæl om <span className="text-gold-light">dit projekt.</span>
+            </h1>
+            <p className="rise lead mt-6 max-w-md text-white/70" style={delay(0.2)}>
+              Du behøver ikke have alle detaljer på plads. Skriv hvad du ved, så tager vi den videre snak på
+              telefonen.
+            </p>
 
-          {/* Left — contact info */}
-          <Reveal className="lg:col-span-5">
-            <p className="label-caps text-gold mb-4">Direkte kontakt</p>
-            <h2 className="font-display text-2xl md:text-3xl leading-tight text-white">
-              Find os her
-            </h2>
-            <GoldDivider className="mt-4" />
-
-            <ul className="mt-6 space-y-4">
-              <ContactItem icon={<Phone size={18} />} label="Telefon">
-                <a href={`tel:${SITE.phoneHref}`} className="text-white/80 hover:text-gold-light transition-colors">
-                  {SITE.phone}
-                </a>
+            <ul className="rise mt-10 space-y-5" style={delay(0.28)}>
+              <ContactItem icon={<Phone size={18} aria-hidden />} label="Telefon">
+                <a href={`tel:${SITE.phoneHref}`} className="transition-colors hover:text-gold-light">{SITE.phone}</a>
               </ContactItem>
-              <ContactItem icon={<Mail size={18} />} label="Email">
-                <a href={`mailto:${SITE.email}`} className="text-white/80 hover:text-gold-light transition-colors">
-                  {SITE.email}
-                </a>
+              <ContactItem icon={<Mail size={18} aria-hidden />} label="Email">
+                <a href={`mailto:${SITE.email}`} className="break-all transition-colors hover:text-gold-light">{SITE.email}</a>
               </ContactItem>
-              <ContactItem icon={<MapPin size={18} />} label="Adresse">
-                {SITE.location}, {SITE.address.zip}
+              <ContactItem icon={<MapPin size={18} aria-hidden />} label="Adresse">
+                {SITE.address.zip} {SITE.location}
               </ContactItem>
-              <ContactItem icon={<Clock size={18} />} label="Åbningstider">
-                <div className="space-y-1 text-white/70">
-                  <p>{SITE.hours.weekday}</p>
-                  <p>{SITE.hours.weekend}</p>
-                </div>
+              <ContactItem icon={<Clock size={18} aria-hidden />} label="Åbningstider">
+                <span className="block">{SITE.hours.weekday}</span>
+                <span className="block text-white/60">{SITE.hours.weekend}</span>
               </ContactItem>
             </ul>
 
-            <div className="mt-6 border border-gold/30 bg-white/5 p-4">
-              <p className="label-caps text-gold">CVR</p>
-              <p className="mt-1 font-body text-base text-white/80">{SITE.cvr}</p>
+            <div className="rise mt-10 grid grid-cols-2 gap-3" style={delay(0.34)}>
+              <div className="rounded-[18px] bg-white/[0.06] p-5">
+                <p className="text-[13px] text-white/50">Svartid</p>
+                <p className="mt-1 text-[15px] leading-snug text-white/85">
+                  Inden for 24 timer på hverdage — som regel hurtigere.
+                </p>
+              </div>
+              <div className="rounded-[18px] bg-white/[0.06] p-5">
+                <p className="text-[13px] text-white/50">CVR</p>
+                <p className="mt-1 font-display text-[19px] font-semibold tracking-[-0.02em]">{SITE.cvr}</p>
+              </div>
             </div>
+          </div>
 
-            <div className="mt-6 border border-gold/30 bg-white/5 p-4">
-              <p className="label-caps text-gold">✦ Svartid</p>
-              <p className="mt-1 font-body text-sm text-white/75 leading-relaxed">
-                Vi svarer alle henvendelser inden for 24 timer på hverdage —
-                som regel hurtigere.
-              </p>
-            </div>
-          </Reveal>
-
-          {/* Right — form */}
-          <Reveal className="lg:col-span-7" delay={0.1}>
-            <p className="label-caps text-gold mb-4">Send en besked</p>
-            <h1 className="font-display text-2xl md:text-3xl leading-tight text-white">
-              Fortæl om <span className="italic">dit projekt</span>
-            </h1>
-            <GoldDivider className="mt-4" />
-            <p className="mt-4 text-white/65 text-sm leading-relaxed max-w-xl">
-              Du behøver ikke have alle detaljer på plads. Skriv hvad du ved, så tager
-              vi den videre snak på telefonen.
-            </p>
-            <div className="mt-6">
-              <ContactForm dark />
-            </div>
-          </Reveal>
-
+          <div id="tilbud" className="rise scroll-mt-24 lg:col-span-7" style={delay(0.2)}>
+            <QuoteForm
+              idPrefix="contact"
+              title="Send en besked"
+              intro="Vi svarer inden for 24 timer på hverdage."
+            />
+          </div>
         </div>
       </section>
 
-      {/* Sådan kommer du i gang */}
-      <section className="bg-gray-light py-16 md:py-24 border-t border-gray-mid">
+      <section aria-labelledby="kom-i-gang-heading" className="bg-gray-light py-24 md:py-36">
         <div className="container-content">
-          <Reveal className="max-w-2xl">
-            <p className="label-caps text-gold mb-4">✦ Sådan kommer du i gang</p>
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl leading-[1.05]">
-              Fire skridt.<br />
-              <span className="italic">Ingen overraskelser.</span>
+          <Reveal className="max-w-3xl">
+            <p className="eyebrow">Sådan kommer du i gang</p>
+            <h2 id="kom-i-gang-heading" className="section-title mt-3">
+              Fire skridt. <span className="text-dark/55">Ingen overraskelser.</span>
             </h2>
-            <GoldDivider className="mt-6" />
-            <p className="mt-6 text-dark/65 leading-relaxed">
-              Vi gør det så enkelt som muligt at få en pris. Ingen formularer du skal
-              udfylde fra A til Z, før vi taler sammen — bare det vigtigste, og så
-              vender vi tilbage.
+            <p className="mt-6 max-w-2xl leading-relaxed text-dark/65">
+              Vi gør det så enkelt som muligt at få en pris. Ingen formularer du skal udfylde fra A til Z, før vi
+              taler sammen — bare det vigtigste, og så vender vi tilbage.
             </p>
           </Reveal>
 
-          <div className="mt-12 md:mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          <ol className="mt-12 grid gap-4 sm:grid-cols-2 md:mt-16 lg:grid-cols-4 lg:gap-5">
             {STEPS.map((s, i) => (
-              <Reveal key={s.nr} delay={i * 0.08}>
-                <div className="border-t border-gold pt-5 h-full">
-                  <p className="label-caps text-gold">Trin {s.nr}</p>
-                  <h3 className="mt-2 font-display text-2xl leading-tight">{s.title}</h3>
-                  <p className="mt-4 text-dark/65 leading-relaxed text-sm">{s.desc}</p>
-                </div>
+              <Reveal as="li" key={s.nr} delay={i * 0.07} className="card flex flex-col bg-white p-7">
+                <span aria-hidden className="flex h-10 w-10 items-center justify-center rounded-full bg-dark font-display text-[17px] font-semibold text-gold-light">
+                  {i + 1}
+                </span>
+                <h3 className="mt-8 font-display text-[22px] font-semibold leading-tight tracking-[-0.025em]">
+                  <span className="sr-only">Trin {i + 1}: </span>{s.title}
+                </h3>
+                <p className="mt-3 text-[15px] leading-relaxed text-dark/65">{s.desc}</p>
               </Reveal>
             ))}
-          </div>
+          </ol>
 
-          <Reveal delay={0.4}>
-            <div className="mt-12 md:mt-16 border-l-2 border-gold pl-6 max-w-2xl">
-              <p className="label-caps text-gold mb-2">Hvad du selv kan gøre klar</p>
-              <p className="text-dark/70 leading-relaxed text-sm">
-                Du kan vedhæfte billeder af opgaven, skitser eller PDF&apos;er direkte i
-                formularen — det gør den første snak hurtigere. Men det er ikke et
-                krav. Vi finder ud af det sammen.
-              </p>
+          <Reveal delay={0.1}>
+            <div className="mt-10 flex max-w-3xl gap-4 rounded-[18px] bg-white p-6 md:mt-12 md:p-7">
+              <Paperclip size={20} aria-hidden className="mt-0.5 shrink-0 text-gold" />
+              <div>
+                <h3 className="font-display text-[19px] font-semibold tracking-[-0.02em]">Hvad du selv kan gøre klar</h3>
+                <p className="mt-2 text-[15px] leading-relaxed text-dark/65">
+                  Du kan vedhæfte billeder af opgaven, skitser eller PDF&apos;er direkte i formularen — det gør den
+                  første snak hurtigere. Men det er ikke et krav. Vi finder ud af det sammen.
+                </p>
+              </div>
             </div>
           </Reveal>
         </div>
@@ -174,23 +162,17 @@ export default function KontaktSide() {
   )
 }
 
-function ContactItem({
-  icon,
-  label,
-  children,
-}: {
-  icon: React.ReactNode
-  label: string
-  children: React.ReactNode
-}) {
+const delay = (s: number) => ({ '--d': `${s}s` }) as React.CSSProperties
+
+function ContactItem({ icon, label, children }: { icon: React.ReactNode; label: string; children: React.ReactNode }) {
   return (
-    <li className="flex gap-5">
-      <span className="flex items-center justify-center w-10 h-10 border border-gold text-gold shrink-0">
+    <li className="flex items-center gap-4">
+      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/[0.08] text-gold-light">
         {icon}
       </span>
-      <div>
-        <p className="label-caps text-white/40">{label}</p>
-        <div className="mt-1 font-body text-base text-white/80">{children}</div>
+      <div className="min-w-0">
+        <p className="text-[13px] text-white/50">{label}</p>
+        <div className="text-[16px] text-white/90">{children}</div>
       </div>
     </li>
   )

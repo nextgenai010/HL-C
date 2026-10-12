@@ -1,6 +1,5 @@
 import { defaultOpenGraph } from '@/lib/metadata'
 import type { Metadata } from 'next'
-import { ScrollProgress } from '@/components/ui/ScrollProgress'
 import { Hero } from '@/components/sections/Hero'
 import { TrustBar } from '@/components/sections/TrustBar'
 import { ServicesPreview } from '@/components/sections/ServicesPreview'
@@ -37,7 +36,6 @@ export default function Home() {
 
   return (
     <>
-      <ScrollProgress />
       <Hero />
       <TrustBar />
       <ServicesPreview />

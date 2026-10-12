@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { GoldDivider } from '@/components/ui/GoldDivider'
 import { SITE } from '@/lib/site'
 
 export const metadata: Metadata = {
@@ -14,13 +13,12 @@ const LAST_UPDATED = '11. september 2026'
 
 export default function PrivatlivSide() {
   return (
-    <section className="bg-dark text-white min-h-screen pt-24 md:pt-28 pb-16 md:pb-24">
+    <section className="bg-dark text-white min-h-screen pt-32 md:pt-40 pb-20 md:pb-28">
       <div className="container-content max-w-3xl">
-        <p className="label-caps text-gold mb-4">Privatliv</p>
-        <h1 className="font-display text-3xl md:text-5xl leading-tight">
+        <p className="eyebrow !text-gold-light">Privatliv</p>
+        <h1 className="mt-3 font-display text-[2.5rem] font-semibold leading-tight md:text-[3.5rem]">
           Privatlivspolitik
         </h1>
-        <GoldDivider className="mt-4" />
         <p className="mt-6 text-sm text-white/55">
           Senest opdateret: {LAST_UPDATED}
         </p>
@@ -146,21 +144,21 @@ export default function PrivatlivSide() {
             </p>
             <ul className="mt-4 space-y-3">
               <li className="border-l-2 border-gold/40 pl-4">
-                <p className="label-caps text-gold">Vercel Inc. (USA)</p>
+                <p className="text-[13px] font-semibold text-gold-light">Vercel Inc. (USA)</p>
                 <p className="mt-1 text-sm">
                   Hoster hjemmesiden og kører serversiden, der modtager formular-data. Data behandles i EU-regionen
                   (Stockholm, ARN1). Vercel er omfattet af EU-U.S. Data Privacy Framework.
                 </p>
               </li>
               <li className="border-l-2 border-gold/40 pl-4">
-                <p className="label-caps text-gold">Resend (USA)</p>
+                <p className="text-[13px] font-semibold text-gold-light">Resend (USA)</p>
                 <p className="mt-1 text-sm">
                   Sender den email, du modtager som bekræftelse, samt vores interne notifikation. Resend opbevarer
                   email-historik i op til 30 dage med henblik på fejlsøgning.
                 </p>
               </li>
               <li className="border-l-2 border-gold/40 pl-4">
-                <p className="label-caps text-gold">Google Analytics 4 (Google Ireland Ltd.)</p>
+                <p className="text-[13px] font-semibold text-gold-light">Google Analytics 4 (Google Ireland Ltd.)</p>
                 <p className="mt-1 text-sm">
                   Besøgsstatistik. <strong>Aktiveres kun hvis du accepterer cookies.</strong>{' '}
                   Læs mere i vores{' '}
@@ -170,11 +168,11 @@ export default function PrivatlivSide() {
                 </p>
               </li>
               <li className="border-l-2 border-gold/40 pl-4">
-                <p className="label-caps text-gold">Vercel Web Analytics</p>
+                <p className="text-[13px] font-semibold text-gold-light">Vercel Web Analytics</p>
                 <p className="mt-1 text-sm">Måler sidevisninger og navigation uden statistik-cookies. På denne hjemmeside aktiveres det kun, hvis du accepterer statistik.</p>
               </li>
               <li className="border-l-2 border-gold/40 pl-4">
-                <p className="label-caps text-gold">Google Workspace (Gmail)</p>
+                <p className="text-[13px] font-semibold text-gold-light">Google Workspace (Gmail)</p>
                 <p className="mt-1 text-sm">
                   Vores indbakke modtager dine forespørgsler. Underlagt Googles databehandleraftale.
                 </p>
@@ -278,7 +276,7 @@ export default function PrivatlivSide() {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <h2 className="font-display text-2xl md:text-3xl text-white mb-4">{title}</h2>
+      <h2 className="font-display text-[24px] font-semibold tracking-[-0.025em] text-white mb-4 md:text-[28px]">{title}</h2>
       <div className="space-y-2">{children}</div>
     </div>
   )

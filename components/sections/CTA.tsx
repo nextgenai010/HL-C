@@ -1,67 +1,36 @@
-'use client'
-
 import Link from 'next/link'
-import { motion } from 'framer-motion'
-import { GoldDivider } from '@/components/ui/GoldDivider'
+import Image from 'next/image'
+import { Phone } from 'lucide-react'
 import { Reveal } from '@/components/ui/Reveal'
-
-const ease = [0.16, 1, 0.3, 1] as const
-
-const CTA_LINES = ['Har du et projekt', 'i tankerne?']
+import { Parallax } from '@/components/ui/Parallax'
+import { SITE } from '@/lib/site'
 
 export function CTA() {
   return (
-    <section className="bg-dark text-white grain relative overflow-hidden">
-      {/* Animated background glow */}
-      <motion.div
-        aria-hidden
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.5 }}
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage:
-            'radial-gradient(900px 500px at 80% 50%, rgba(184,150,12,0.12), transparent 60%)',
-        }}
-      />
-
-      <div className="container-content py-24 md:py-32 relative z-10 text-center flex flex-col items-center">
-        <Reveal>
-          <p className="label-caps text-gold-light mb-6">✦ Kom i gang</p>
-        </Reveal>
-
-        <Reveal delay={0.05}>
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05]">
-            Lad os tale om <span className="italic text-gold-light">dit projekt</span>
-          </h2>
-        </Reveal>
-
-        <Reveal delay={0.2}>
-          <GoldDivider variant="gold-light" className="mt-6" />
-        </Reveal>
-
-        <Reveal delay={0.3}>
-          <p className="mt-8 text-white/60 leading-relaxed text-lg max-w-xl">
-            Ring, skriv eller book et uforpligtende besøg. Vi svarer inden for 24 timer
-            — og kigger gerne forbi for at tale løsningen igennem på stedet.
-          </p>
-        </Reveal>
-
-        <Reveal delay={0.4}>
-          <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <Link href="/kontakt" className="btn-outline-white">
-              Få et tilbud
-            </Link>
-            <Link
-              href="/ydelser"
-              className="inline-flex items-center justify-center bg-transparent text-white/60 px-7 py-3 font-body text-sm font-medium tracking-wide transition-colors duration-300 hover:text-gold-light"
-            >
-              Se vores ydelser →
-            </Link>
-          </div>
-        </Reveal>
+    <section aria-labelledby="cta-heading" className="relative isolate overflow-hidden bg-dark text-white">
+      <div aria-hidden className="absolute inset-0 -z-10">
+        <Parallax strength={0.08}>
+          <Image src="/images/teresse-projekt.jpg" alt="" fill sizes="100vw" className="object-cover object-[50%_55%] opacity-35" />
+        </Parallax>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(35,36,38,0.55)_0%,rgba(35,36,38,0.92)_75%)]" />
       </div>
+
+      <Reveal className="container-content flex flex-col items-center py-28 text-center md:py-40">
+        <p className="eyebrow !text-gold-light">Kom i gang</p>
+        <h2 id="cta-heading" className="section-title mt-3 max-w-3xl">
+          Lad os tale om <span className="text-gold-light">dit projekt.</span>
+        </h2>
+        <p className="lead mt-6 max-w-xl text-white/70">
+          Ring, skriv eller book et uforpligtende besøg. Vi svarer inden for 24 timer — og kigger gerne forbi for
+          at tale løsningen igennem på stedet.
+        </p>
+        <div className="mt-10 flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row">
+          <Link href="/kontakt" className="btn-gold">Få et tilbud</Link>
+          <a href={`tel:${SITE.phoneHref}`} className="btn-outline-white">
+            <Phone size={16} aria-hidden /> {SITE.phone}
+          </a>
+        </div>
+      </Reveal>
     </section>
   )
 }

@@ -3,6 +3,7 @@ export type Ydelse = {
   title: string
   short: string
   image: string
+  imageAlt: string
   imageWidth: number
   imageHeight: number
   bullets: string[]
@@ -15,6 +16,7 @@ export const YDELSER: Ydelse[] = [
     title: 'Nybyg & Tilbygninger',
     short: 'Huse, carporte, udhuse, garager og overdækninger bygget fra bunden.',
     image: '/images/kategorier/nybyg-tilbygninger.jpg',
+    imageAlt: 'Træskelet til nybyg mod blå himmel',
     imageWidth: 1920,
     imageHeight: 1280,
     intro:
@@ -32,6 +34,7 @@ export const YDELSER: Ydelse[] = [
     title: 'Renovering & Ombygning',
     short: 'Indvendig renovering, vægflytning, gulve og lofter med karakter.',
     image: '/images/kategorier/renovering.png',
+    imageAlt: 'Tømrer lægger nyt trægulv under renovering',
     imageWidth: 1920,
     imageHeight: 1280,
     intro:
@@ -49,6 +52,7 @@ export const YDELSER: Ydelse[] = [
     title: 'Tag & Kviste',
     short: 'Tagudskiftning, renovering, kviste og tagterrasser.',
     image: '/images/kategorier/tag.jpeg',
+    imageAlt: 'Nyt tegltag på parcelhus',
     imageWidth: 1920,
     imageHeight: 1280,
     intro:
@@ -66,6 +70,7 @@ export const YDELSER: Ydelse[] = [
     title: 'Vinduer & Døre',
     short: 'Udskiftning og isætning — standard og specialmål.',
     image: '/images/kategorier/vinduer-doere.png',
+    imageAlt: 'Store glaspartier og skydedøre i moderne bolig',
     imageWidth: 1920,
     imageHeight: 1280,
     intro:
@@ -83,6 +88,7 @@ export const YDELSER: Ydelse[] = [
     title: 'Facader & Beklædning',
     short: 'Træbeklædning, facaderenovering og efterisolering.',
     image: '/images/kategorier/facader.png',
+    imageAlt: 'Lodret træbeklædning på facade',
     imageWidth: 1920,
     imageHeight: 1280,
     intro:
@@ -100,6 +106,7 @@ export const YDELSER: Ydelse[] = [
     title: 'Terrasser & Udendørs',
     short: 'Trædæk, pergolaer, havehuse og overdækninger.',
     image: '/images/kategorier/terrasser.png',
+    imageAlt: 'Tømrer monterer terrassebrædder i haven',
     imageWidth: 1920,
     imageHeight: 1280,
     intro:

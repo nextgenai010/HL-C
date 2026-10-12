@@ -4,16 +4,16 @@ import { ProjekterGallery } from '@/components/sections/ProjekterGallery'
 import { PROJEKTER } from '@/lib/projects'
 
 export const metadata: Metadata = {
-  title: 'Projekter — Udvalgt tømrerarbejde i Storkøbenhavn',
+  title: 'Projekter – Tømrerarbejde i Storkøbenhavn',
   description:
-    'Se udvalgte projekter fra Tømrerfirmaet H L Christiansen: nybyg, renovering, tag, vinduer, facader og terrasser udført i Herlev, Ballerup, Gladsaxe og det øvrige Storkøbenhavn.',
+    'Se udvalgte projekter fra tømrermester H L Christiansen: terrasser, tag, vinduer, nybyg og havehuse udført i Herlev og Storkøbenhavn.',
   alternates: { canonical: '/projekter' },
   openGraph: {
     ...defaultOpenGraph,
     url: 'https://hlchristiansen.dk/projekter',
     title: 'Projekter — Tømrermester H L Christiansen',
     description:
-      'Udvalgte projekter — nybyg, renovering, tag, vinduer, facader og terrasser i Herlev og omegn.',
+      'Udvalgte projekter — terrasser, tag, vinduer, nybyg og havehuse i Herlev og omegn.',
   },
 }
 
@@ -37,10 +37,11 @@ export default function ProjekterSide() {
       item: {
         '@type': 'CreativeWork',
         name: p.title,
-        description: p.description,
+        description: p.alt,
         image: `https://hlchristiansen.dk${p.image}`,
-        contentLocation: { '@type': 'Place', name: p.location },
-        dateCreated: String(p.year),
+        genre: p.kategoriLabel,
+        ...(p.location && { contentLocation: { '@type': 'Place', name: p.location } }),
+        ...(p.year && { dateCreated: String(p.year) }),
       },
     })),
   }

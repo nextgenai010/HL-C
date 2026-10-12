@@ -9,11 +9,11 @@ import { Analytics } from '@/components/analytics/Analytics'
 import { SITE } from '@/lib/site'
 
 const display = Outfit({
-  subsets: ['latin'], weight: ['400', '500', '600'],
+  subsets: ['latin'], weight: ['500', '600', '700'],
   variable: '--font-display', display: 'swap',
 })
 const body = Manrope({
-  subsets: ['latin'], weight: ['400', '500', '600'],
+  subsets: ['latin'], weight: ['400', '500', '600', '700'],
   variable: '--font-body', display: 'swap',
 })
 
@@ -28,7 +28,8 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://hlchristiansen.dk'),
   title: {
     default: `${SITE.name} — Tømrermester i ${SITE.location} & Storkøbenhavn`,
-    template: `%s · ${SITE.name}`,
+    // Short brand suffix keeps page titles under ~60 characters in search results.
+    template: '%s · H L Christiansen',
   },
   description: `Verificeret tømrermester med svendebrev i ${SITE.location}. Nybyg, renovering, tag, vinduer & terrasser i hele Storkøbenhavn. Svar inden 24 timer.`,
   applicationName: SITE.name,
@@ -76,11 +77,11 @@ export const metadata: Metadata = {
     description: `Verificeret tømrermester med svendebrev. Nybyg, renovering, tag, vinduer, facader og terrasser i ${SITE.location} og omegn.`,
     images: [
       {
-        url: '/images/kategorier/renovering.png',
+        url: '/images/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: `${SITE.name} — håndværk med svendebrev`,
-        type: 'image/png',
+        alt: `${SITE.name} — tømrermester i ${SITE.location}`,
+        type: 'image/jpeg',
       },
     ],
   },
@@ -88,7 +89,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: `${SITE.name} — Tømrermester i ${SITE.location}`,
     description: SITE.tagline,
-    images: ['/images/kategorier/renovering.png'],
+    images: ['/images/og-image.jpg'],
   },
   robots: {
     index: true,
@@ -132,7 +133,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     slogan: SITE.tagline,
     email: SITE.email,
     telephone: SITE.phoneHref,
-    image: `${SITE_URL}/images/kategorier/renovering.png`,
+    image: [
+      `${SITE_URL}/images/og-image.jpg`,
+      `${SITE_URL}/images/hero-billede.jpg`,
+      `${SITE_URL}/images/projekter/img_0281.jpg`,
+    ],
     logo: `${SITE_URL}/images/logo/logo-trans.png`,
     url: SITE_URL,
     priceRange: '$$',
@@ -246,6 +251,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="geo.placename" content="Herlev" />
         <meta name="geo.position" content="55.7311;12.4392" />
         <meta name="ICBM" content="55.7311, 12.4392" />
+        <noscript><style>{'.reveal,.rise,.rise-move{opacity:1!important;transform:none!important;animation:none!important}'}</style></noscript>
       </head>
       <body className="antialiased bg-white text-dark">
         <a href="#main" className="skip-link">Spring til indhold</a>

@@ -1,120 +1,59 @@
-'use client'
+import Image from 'next/image'
+import { Check, Phone } from 'lucide-react'
+import { QuoteForm } from '@/components/ui/QuoteForm'
+import { Reveal } from '@/components/ui/Reveal'
+import { Parallax } from '@/components/ui/Parallax'
+import { SITE } from '@/lib/site'
 
-import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
-import { ContactForm } from '@/components/ui/ContactForm'
-
-const ease = [0.16, 1, 0.3, 1] as const
-
-const HEADLINE_LINES = [
-  { text: 'Få et', italic: false },
-  { text: 'uforpligtende', italic: true },
-  { text: 'tilbud', italic: false },
-]
+const POINTS = ['Gratis og uforpligtende', 'Svar inden 24 timer', 'Verificeret tømrermester']
 
 export function QuoteCTA() {
-  const ref = useRef<HTMLElement>(null)
-  const inView = useInView(ref, { once: true, amount: 0.08 })
-
   return (
-    <section ref={ref} className="relative bg-white py-14 md:py-28 overflow-hidden">
-
-      {/* Diagonal gold accent — top left */}
-      <motion.div
-        aria-hidden
-        className="absolute top-0 left-0 w-[420px] h-[420px] pointer-events-none"
-        initial={{ opacity: 0, scale: 0.85 }}
-        animate={inView ? { opacity: 1, scale: 1 } : {}}
-        transition={{ duration: 1.4, ease, delay: 0.1 }}
-        style={{
-          background: 'radial-gradient(ellipse at 0% 0%, rgba(212,175,55,0.07) 0%, transparent 70%)',
-        }}
-      />
-
-      {/* Diagonal gold accent — bottom right */}
-      <motion.div
-        aria-hidden
-        className="absolute bottom-0 right-0 w-[480px] h-[480px] pointer-events-none"
-        initial={{ opacity: 0, scale: 0.85 }}
-        animate={inView ? { opacity: 1, scale: 1 } : {}}
-        transition={{ duration: 1.4, ease, delay: 0.25 }}
-        style={{
-          background: 'radial-gradient(ellipse at 100% 100%, rgba(212,175,55,0.06) 0%, transparent 70%)',
-        }}
-      />
-
-      <div className="container-content grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start relative z-10">
-
-        {/* Left — headline */}
-        <div className="lg:col-span-5">
-          <motion.p
-            className="label-caps text-gold mb-5"
-            initial={{ opacity: 0, y: 10 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, ease }}
-          >
-            ✦ Kom i gang
-          </motion.p>
-
-          {/* Headline — line by line */}
-          <h2 className="font-display text-4xl md:text-5xl leading-[1.05]">
-            {HEADLINE_LINES.map((line, i) => (
-              <span key={i} className="block overflow-hidden">
-                <motion.span
-                  className={`block${line.italic ? ' italic' : ''}`}
-                  initial={{ y: '110%' }}
-                  animate={inView ? { y: '0%' } : {}}
-                  transition={{ duration: 0.9, ease, delay: 0.08 + i * 0.1 }}
-                >
-                  {line.text}
-                </motion.span>
-              </span>
-            ))}
-          </h2>
-
-          <motion.div
-            className="mt-5 h-px bg-gold/50 origin-left"
-            initial={{ scaleX: 0 }}
-            animate={inView ? { scaleX: 1 } : {}}
-            transition={{ duration: 0.9, ease, delay: 0.38 }}
-            style={{ width: 64 }}
+    <section aria-labelledby="kom-i-gang-heading" className="relative isolate overflow-hidden bg-dark py-24 text-white md:py-36">
+      <div aria-hidden className="absolute inset-0 -z-10">
+        <Parallax strength={0.08}>
+          <Image
+            src="/images/teresse-projekt.jpg"
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover object-[50%_55%] opacity-40"
           />
+        </Parallax>
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#232426_0%,rgba(35,36,38,0.7)_30%,rgba(35,36,38,0.85)_100%)]" />
+      </div>
 
-          <motion.p
-            className="mt-6 text-dark/65 leading-relaxed"
-            initial={{ opacity: 0, y: 12 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, ease, delay: 0.44 }}
-          >
+      <div className="container-content grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
+        <Reveal className="lg:col-span-6">
+          <p className="eyebrow !text-gold-light">Kom i gang</p>
+          <h2 id="kom-i-gang-heading" className="section-title mt-3">
+            Få et <span className="text-gold-light">uforpligtende</span> tilbud.
+          </h2>
+          <p className="lead mt-6 max-w-lg text-white/70">
             Beskriv din opgave — vi vender tilbage inden for 24 timer med et klart og ærligt tilbud.
-          </motion.p>
-
-          {/* Trust points */}
-          <motion.ul
-            className="mt-8 space-y-3"
-            initial={{ opacity: 0, y: 12 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, ease, delay: 0.54 }}
-          >
-            {['Gratis og uforpligtende', 'Svar inden 24 timer', 'Verificeret tømrermester'].map((item) => (
-              <li key={item} className="flex items-center gap-3 text-sm text-dark/60">
-                <span className="text-gold text-xs">✦</span>
-                {item}
+          </p>
+          <ul className="mt-8 flex flex-col gap-3 text-[16px] text-white/80">
+            {POINTS.map((p) => (
+              <li key={p} className="flex items-center gap-3">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gold-light/15 text-gold-light">
+                  <Check size={13} strokeWidth={3} aria-hidden />
+                </span>
+                {p}
               </li>
             ))}
-          </motion.ul>
-        </div>
+          </ul>
+          <a href={`tel:${SITE.phoneHref}`} className="btn-outline-white mt-10">
+            <Phone size={16} aria-hidden /> Ring {SITE.phone}
+          </a>
+        </Reveal>
 
-        {/* Right — form, clips in from right */}
-        <motion.div
-          className="lg:col-span-7"
-          initial={{ opacity: 0, x: 40, clipPath: 'inset(0 0 0 8%)' }}
-          animate={inView ? { opacity: 1, x: 0, clipPath: 'inset(0 0 0 0%)' } : {}}
-          transition={{ duration: 0.95, ease, delay: 0.2 }}
-        >
-          <ContactForm />
-        </motion.div>
-
+        <Reveal delay={0.08} className="lg:col-span-6">
+          <QuoteForm
+            idPrefix="cta"
+            title="Fortæl os om opgaven"
+            intro="Udfyld formularen — det tager under et minut."
+          />
+        </Reveal>
       </div>
     </section>
   )

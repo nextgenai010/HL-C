@@ -31,54 +31,28 @@ export function CookieConsent() {
     <div
       role="dialog"
       aria-label="Cookie-samtykke"
-      className="fixed inset-x-0 bottom-0 z-[60] px-4 pb-4 md:px-6 md:pb-6 pointer-events-none"
+      className="pointer-events-none fixed inset-x-0 bottom-0 z-[60] p-3 sm:p-6"
     >
-      <div
-        className="container-content pointer-events-auto"
-        style={{ animation: 'cookie-rise 0.5s cubic-bezier(0.16,1,0.3,1) both' }}
-      >
-        <div className="bg-dark border border-gold/40 shadow-[0_20px_50px_rgba(0,0,0,0.45)] p-6 md:p-7 grid grid-cols-1 md:grid-cols-[1fr_auto] items-center gap-5 md:gap-8">
-          <div className="min-w-0">
-            <p className="label-caps text-gold">✦ Cookies</p>
-            <p className="mt-2 font-body text-sm text-white/75 leading-relaxed">
-              Vi bruger cookies til at måle besøg og forbedre siden. Du vælger selv. Læs mere i vores{' '}
-              <Link href="/cookies" className="text-gold hover:text-gold-light underline underline-offset-4">
-                cookiepolitik
-              </Link>
-              .
-            </p>
-          </div>
-          <div className="flex flex-col sm:flex-row gap-3 shrink-0">
-            <button
-              type="button"
-              onClick={() => choose('rejected')}
-              className="label-caps text-white/60 hover:text-white transition-colors px-4 py-3 sm:py-2"
-            >
-              Afvis
-            </button>
-            <button
-              type="button"
-              onClick={() => choose('accepted')}
-              className="btn-outline-white"
-            >
-              Accepter
-            </button>
-          </div>
+      <div className="float-panel pointer-events-auto mx-auto grid max-w-3xl items-center gap-4 rounded-[22px] bg-[rgba(35,36,38,0.92)] p-5 text-white shadow-[0_20px_50px_rgba(0,0,0,0.45)] backdrop-blur-xl glass-dark sm:grid-cols-[1fr_auto] sm:gap-6 sm:p-6">
+        <div className="min-w-0">
+          <p className="font-display text-[17px] font-semibold tracking-[-0.02em]">Cookies</p>
+          <p className="mt-1 text-[14px] leading-relaxed text-white/70">
+            Vi bruger cookies til at måle besøg og forbedre siden. Du vælger selv. Læs mere i vores{' '}
+            <Link href="/cookies" className="text-gold-light underline underline-offset-4 hover:text-white">
+              cookiepolitik
+            </Link>
+            .
+          </p>
+        </div>
+        <div className="grid shrink-0 grid-cols-2 gap-2">
+          <button type="button" onClick={() => choose('rejected')} className="btn-outline-white !min-h-[42px] !px-5">
+            Afvis
+          </button>
+          <button type="button" onClick={() => choose('accepted')} className="btn-gold !min-h-[42px] !px-5">
+            Accepter
+          </button>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes cookie-rise {
-          from {
-            opacity: 0;
-            transform: translateY(24px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
     </div>
   )
 }

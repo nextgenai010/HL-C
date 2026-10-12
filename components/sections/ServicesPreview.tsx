@@ -1,297 +1,96 @@
-'use client'
-
-import { useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion, useInView, type Variants } from 'framer-motion'
+import { ChevronRight } from 'lucide-react'
+import { Reveal } from '@/components/ui/Reveal'
 
 const SERVICES = [
   {
-    id: 'nybyg',
-    name: 'Nybyg og Tilbygninger',
-    description: 'Fra fundament til rejsegilde – vi opfører nye boliger og tilbygninger med fokus på solid håndværk og præcise detaljer.',
+    name: 'Nybyg & Tilbygninger',
+    description: 'Fra fundament til rejsegilde — nye boliger og tilbygninger med solidt håndværk og præcise detaljer.',
     image: '/images/ydelser/nybyg.jpg',
+    alt: 'Træskelet til nybyg mod blå himmel',
     href: '/ydelser/nybyg-tilbygninger',
-    grid: { gridColumn: '1 / 8', gridRow: '1' },
-    fontSize: '30px',
   },
   {
-    id: 'tag',
-    name: 'Tag og Kviste',
-    description: 'Nyt tag, kvistudvidelse eller tagudskiftning – vi sikrer dit hjem mod vejr og vind med kvalitetsmaterialer.',
-    image: '/images/ydelser/tag.jpeg',
-    href: '/ydelser/tag',
-    grid: { gridColumn: '8 / 13', gridRow: '1' },
-    fontSize: '22px',
-  },
-  {
-    id: 'renovering',
-    name: 'Renovering og Ombygning',
-    description: 'Vi omdanner eksisterende rum og bygninger med respekt for det originale og øje for det nye.',
+    name: 'Renovering & Ombygning',
+    description: 'Vi omdanner eksisterende rum med respekt for det originale og øje for det nye.',
     image: '/images/ydelser/renovering.png',
+    alt: 'Tømrer lægger nyt trægulv under renovering',
     href: '/ydelser/renovering',
-    grid: { gridColumn: '1 / 5', gridRow: '2' },
-    fontSize: '22px',
   },
   {
-    id: 'facader',
-    name: 'Facader og Beklædning',
-    description: 'Facaderenovering og ny beklædning i træ og komposit – der beskytter og fornyer husets udtryk.',
-    image: '/images/ydelser/facader.png',
-    href: '/ydelser/facader',
-    grid: { gridColumn: '5 / 9', gridRow: '2' },
-    fontSize: '22px',
+    name: 'Tag & Kviste',
+    description: 'Nyt tag, kvistudvidelse eller tagudskiftning — dit hjem sikret mod vejr og vind.',
+    image: '/images/ydelser/tag.jpeg',
+    alt: 'Nyt tegltag på parcelhus',
+    href: '/ydelser/tag',
   },
   {
-    id: 'terrasser',
-    name: 'Terrasser og Udendørs',
-    description: 'Smukke træterrasser og udendørs træstrukturer, bygget til det danske klima med kvalitetstræ.',
-    image: '/images/ydelser/terrasser.png',
-    href: '/ydelser/terrasser',
-    grid: { gridColumn: '9 / 13', gridRow: '2' },
-    fontSize: '22px',
-  },
-  {
-    id: 'vinduer',
-    name: 'Vinduer og Døre',
-    description: 'Montering og udskiftning af vinduer og døre med tæt pasform, energioptimering og æstetisk finish.',
+    name: 'Vinduer & Døre',
+    description: 'Montering og udskiftning med tæt pasform, energioptimering og flot finish.',
     image: '/images/ydelser/vinduer.png',
+    alt: 'Store glaspartier og skydedøre i moderne bolig',
     href: '/ydelser/vinduer-doere',
-    grid: { gridColumn: '1 / 13', gridRow: '3', height: '240px' },
-    fontSize: '22px',
+  },
+  {
+    name: 'Facader & Beklædning',
+    description: 'Ny beklædning i træ, der beskytter og fornyer husets udtryk.',
+    image: '/images/ydelser/facader.png',
+    alt: 'Lodret træbeklædning på facade',
+    href: '/ydelser/facader',
+  },
+  {
+    name: 'Terrasser & Udendørs',
+    description: 'Træterrasser og udendørs konstruktioner bygget til det danske klima.',
+    image: '/images/ydelser/terrasser.png',
+    alt: 'Tømrer monterer terrassebrædder i haven',
+    href: '/ydelser/terrasser',
   },
 ]
 
-const ease = [0.16, 1, 0.3, 1] as const
-
-const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 50, clipPath: 'inset(0 0 100% 0)' },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    clipPath: 'inset(0 0 0% 0)',
-    transition: { duration: 0.95, ease, delay: i * 0.09 },
-  }),
-}
-
-function GoldLine() {
-  const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, amount: 0.5 })
-  return (
-    <div ref={ref} style={{ display: 'flex', justifyContent: 'center', height: '1px', overflow: 'visible' }}>
-      <div style={{
-        height: '1px',
-        background: '#D4AF37',
-        width: inView ? '120px' : '0',
-        transition: 'width 1.2s cubic-bezier(0.22, 1, 0.36, 1)',
-      }} />
-    </div>
-  )
-}
-
 export function ServicesPreview() {
-  const sectionRef = useRef<HTMLElement>(null)
-  const gridRef = useRef<HTMLDivElement>(null)
-  const sectionInView = useInView(sectionRef, { once: true, amount: 0.04 })
-  const gridInView = useInView(gridRef, { once: true, amount: 0.06 })
-
   return (
-    <>
-      <style suppressHydrationWarning>{`
-        .yds-img {
-          width: 100%; height: 100%; object-fit: cover; display: block;
-          transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.5s ease;
-          filter: brightness(0.82);
-        }
-        .yds-card:hover .yds-img { transform: scale(1.05); filter: brightness(0.65); }
+    <section aria-labelledby="ydelser-heading" className="overflow-hidden bg-gray-light py-24 md:py-36">
+      <div className="container-content">
+        <Reveal className="max-w-3xl">
+          <p className="eyebrow">Hvad vi laver</p>
+          <h2 id="ydelser-heading" className="section-title mt-3">
+            Seks fagområder.<br /><span className="text-dark/55">Samme håndværk.</span>
+          </h2>
+        </Reveal>
+      </div>
 
-        .yds-arrow {
-          position: absolute; top: 24px; right: 24px;
-          width: 36px; height: 36px;
-          border: 1px solid rgba(212,175,55,0.5);
-          display: flex; align-items: center; justify-content: center;
-          color: #D4AF37;
-          opacity: 0; transform: scale(0.8);
-          transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.34,1.56,0.64,1), border-color 0.3s;
-        }
-        .yds-card:hover .yds-arrow { opacity: 1; transform: scale(1); border-color: #D4AF37; }
-
-        .yds-content {
-          position: absolute; bottom: 0; left: 0; right: 0;
-          padding: 28px 28px 24px;
-          transform: translateY(4px);
-          transition: transform 0.4s ease;
-        }
-        .yds-card:hover .yds-content { transform: translateY(0); }
-
-        .yds-eyebrow {
-          font-size: 10px; letter-spacing: 0.3em; color: #D4AF37;
-          text-transform: uppercase; margin-bottom: 6px; opacity: 0;
-          transition: opacity 0.4s ease;
-          font-family: var(--font-label), 'Barlow Condensed', sans-serif;
-        }
-        .yds-card:hover .yds-eyebrow { opacity: 1; }
-
-        .yds-gold-line {
-          width: 28px; height: 1px; background: #D4AF37;
-          margin: 10px 0 0; transform: scaleX(0); transform-origin: left;
-          transition: transform 0.35s ease 0.1s;
-        }
-        .yds-card:hover .yds-gold-line { transform: scaleX(1); }
-
-        .yds-desc {
-          font-size: 12.5px; font-weight: 300; color: rgba(255,255,255,0.72);
-          line-height: 1.6; margin-top: 8px; max-width: 340px;
-          max-height: 0; overflow: hidden;
-          transition: max-height 0.4s ease, margin-top 0.3s ease;
-          font-family: var(--font-body), 'DM Sans', sans-serif;
-        }
-        .yds-card:hover .yds-desc { max-height: 60px; }
-
-        @media (max-width: 900px) {
-          .yds-grid { grid-template-columns: 1fr 1fr !important; grid-template-rows: auto !important; gap: 8px !important; padding: 0 20px !important; }
-          .yds-cell { grid-column: auto !important; grid-row: auto !important; height: auto !important; aspect-ratio: 4 / 3 !important; }
-          .yds-cell:first-child { grid-column: 1 / -1 !important; aspect-ratio: 16 / 9 !important; }
-          .yds-section { padding: 64px 0 52px !important; }
-          .yds-intro { margin-bottom: 44px !important; }
-          .yds-cta { margin-top: 40px !important; }
-        }
-        @media (max-width: 640px) {
-          .yds-grid { grid-template-columns: 1fr !important; gap: 10px !important; padding: 0 16px !important; }
-          .yds-cell, .yds-cell:first-child { grid-column: auto !important; aspect-ratio: 4 / 3 !important; }
-          .yds-content { padding: 22px 22px 20px !important; }
-          .yds-desc { display: none !important; }
-          .yds-section { padding: 56px 0 44px !important; }
-          .yds-intro { margin-bottom: 36px !important; }
-          .yds-cta { margin-top: 32px !important; }
-        }
-      `}</style>
-
-      <motion.section
-        ref={sectionRef}
-        className="yds-section"
-        initial={{ opacity: 0, y: 32 }}
-        animate={sectionInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.9, ease }}
-        style={{ background: '#FFFFFF', padding: '100px 0 80px', overflow: 'hidden' }}
-      >
-        {/* Intro */}
-        <div className="yds-intro" style={{ textAlign: 'center', marginBottom: '60px', padding: '0 20px' }}>
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={sectionInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, ease, delay: 0.1 }}
-            style={{
-              fontFamily: 'var(--font-label, "Barlow Condensed", sans-serif)',
-              fontSize: '11px', fontWeight: 500, letterSpacing: '0.35em',
-              color: '#D4AF37', textTransform: 'uppercase', marginBottom: '16px',
-            }}
-          >
-            Hvad vi laver
-          </motion.p>
-          <div style={{ overflow: 'hidden' }}>
-            <motion.h2
-              initial={{ y: '110%' }}
-              animate={sectionInView ? { y: '0%' } : {}}
-              transition={{ duration: 0.9, ease, delay: 0.18 }}
-              style={{
-                fontFamily: 'var(--font-display, "Cormorant Garamond", serif)',
-                fontSize: 'clamp(42px, 5vw, 64px)', fontWeight: 300,
-                color: '#232426', lineHeight: 1.05, marginBottom: '24px',
-              }}
-            >
-              Vores ydelser
-            </motion.h2>
-          </div>
-          <GoldLine />
-        </div>
-
-        {/* Photo grid */}
-        <div
-          ref={gridRef}
-          className="yds-grid"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(12, 1fr)',
-            gridTemplateRows: '360px 260px auto',
-            gap: '3px',
-            maxWidth: '1400px',
-            margin: '0 auto',
-            padding: '0 40px',
-          }}
-        >
-          {SERVICES.map((s, i) => (
-            <motion.div
-              key={s.id}
-              className="yds-cell"
-              custom={i}
-              variants={cardVariants}
-              initial="hidden"
-              animate={gridInView ? 'visible' : 'hidden'}
-              style={{ ...s.grid, position: 'relative', overflow: 'hidden', background: '#232426' }}
-            >
-              <Link href={s.href} className="yds-card" style={{ position: 'absolute', inset: 0, display: 'block' }}>
+      <ul className="rail mt-12 md:mx-auto md:mt-16 md:grid md:max-w-content md:grid-flow-row md:grid-cols-2 md:gap-5 md:overflow-visible md:px-10 lg:grid-cols-3">
+        {SERVICES.map((s, i) => (
+          <Reveal as="li" key={s.href} delay={(i % 3) * 0.08}>
+            <Link href={s.href} className="group card flex h-full flex-col bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-shadow duration-500 hover:shadow-[0_24px_60px_-24px_rgba(35,36,38,0.35)]">
+              <div className="relative aspect-[4/3] overflow-hidden bg-gray-mid">
                 <Image
                   src={s.image}
-                  alt={s.name}
+                  alt={s.alt}
                   fill
-                  sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 840px"
-                  className="yds-img"
-                  style={{ objectFit: 'cover' }}
+                  sizes="(max-width: 768px) 82vw, (max-width: 1024px) 50vw, 400px"
+                  className="zoom-img object-cover"
                 />
-                <div style={{
-                  position: 'absolute', inset: 0,
-                  background: 'linear-gradient(to top, rgba(15,12,10,0.85) 0%, rgba(15,12,10,0.1) 55%, transparent 100%)',
-                  pointerEvents: 'none',
-                }} />
-                <div className="yds-arrow">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M7 17L17 7M17 7H7M17 7v10" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </div>
-                <div className="yds-content">
-                  <p className="yds-eyebrow">Ydelse 0{i + 1}</p>
-                  <h3 style={{
-                    fontFamily: 'var(--font-display, "Cormorant Garamond", serif)',
-                    fontSize: s.fontSize, fontWeight: 400,
-                    color: '#fff', lineHeight: 1.15, letterSpacing: '0.01em',
-                  }}>
-                    {s.name}
-                  </h3>
-                  <div className="yds-gold-line" />
-                  <p className="yds-desc">{s.description}</p>
-                </div>
-              </Link>
-            </motion.div>
-          ))}
-        </div>
+              </div>
+              <div className="flex flex-1 flex-col p-6 md:p-7">
+                <h3 className="font-display text-[22px] font-semibold leading-tight tracking-[-0.025em] md:text-[24px]">{s.name}</h3>
+                <p className="mt-2 flex-1 text-[15px] leading-relaxed text-dark/65">{s.description}</p>
+                <span className="link-more mt-5 !text-[15px]">
+                  <span>Læs mere</span>
+                  <ChevronRight size={16} strokeWidth={2.5} aria-hidden />
+                </span>
+              </div>
+            </Link>
+          </Reveal>
+        ))}
+      </ul>
 
-        {/* CTA */}
-        <motion.div
-          className="yds-cta"
-          initial={{ opacity: 0, y: 16 }}
-          animate={gridInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease, delay: 0.7 }}
-          style={{ textAlign: 'center', marginTop: '56px' }}
-        >
-          <Link
-            href="/ydelser"
-            style={{
-              display: 'inline-block',
-              fontFamily: 'var(--font-label, "Barlow Condensed", sans-serif)',
-              fontSize: '12px', fontWeight: 500, letterSpacing: '0.3em',
-              textTransform: 'uppercase', color: '#D4AF37',
-              border: '1px solid #D4AF37', borderRadius: 6, padding: '14px 38px',
-              textDecoration: 'none', transition: 'background 0.25s, color 0.25s',
-              whiteSpace: 'nowrap',
-            }}
-            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#D4AF37'; (e.currentTarget as HTMLElement).style.color = '#fff' }}
-            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'transparent'; (e.currentTarget as HTMLElement).style.color = '#D4AF37' }}
-          >
-            Se alle ydelser
-          </Link>
-        </motion.div>
-      </motion.section>
-    </>
+      <div className="container-content mt-12 md:mt-16">
+        <Reveal>
+          <Link href="/ydelser" className="btn-primary">Se alle ydelser</Link>
+        </Reveal>
+      </div>
+    </section>
   )
 }

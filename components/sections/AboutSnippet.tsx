@@ -1,133 +1,56 @@
-'use client'
-
 import Link from 'next/link'
 import Image from 'next/image'
-import { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { GoldDivider } from '@/components/ui/GoldDivider'
-import { SvendebrevBadge } from '@/components/ui/Badge'
+import { BadgeCheck } from 'lucide-react'
 import { Reveal } from '@/components/ui/Reveal'
-
-const ease = [0.16, 1, 0.3, 1] as const
-
-const BODY_LINES = [
-  'Jonatan er uddannet tømrer med svendebrev og har ført Tømrerfirmaet H L Christiansen frem som et værksted der tager hver opgave seriøst — fra det første målebånd til den sidste liste er på plads.',
-  'Vi tror på klar kommunikation, rene linjer og arbejde der holder. Ikke hurtige løsninger, men ordentlige dem.',
-]
-
-const HEADLINE_LINES = [
-  { text: 'Håndværk med', italic: false },
-  { text: 'ansvar og rygrad.', italic: true },
-]
+import { Parallax } from '@/components/ui/Parallax'
 
 export function AboutSnippet() {
-  const sectionRef = useRef<HTMLElement>(null)
-
-  // Scroll-linked parallax for the image
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start end', 'end start'],
-  })
-  const imageY = useTransform(scrollYProgress, [0, 1], ['-10%', '10%'])
-  const imageScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.06, 1.03, 1.0])
-
   return (
-    <section ref={sectionRef} className="bg-white py-16 md:py-32 overflow-hidden">
-      <div className="container-content grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+    <section aria-labelledby="om-heading" className="overflow-hidden bg-white py-24 md:py-36">
+      <div className="container-content grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
+        <Reveal className="lg:col-span-5">
+          <div className="card relative mx-auto aspect-[4/5] max-w-[520px] bg-gray-light">
+            <Parallax strength={0.06}>
+              <Image
+                src="/images/hero-billede.jpg"
+                alt="Tømrermester Jonatan Hintze Ladewig Christiansen bearbejder en stolpe med overfræser"
+                fill
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                className="object-cover object-[50%_40%]"
+              />
+            </Parallax>
+          </div>
+        </Reveal>
 
-        {/* Image — parallax container */}
-        <div className="lg:col-span-5 relative aspect-[4/3] md:aspect-[4/4] lg:aspect-[4/5] bg-gray-light overflow-hidden">
-          {/* Image loads normally — parallax via scale+y transform only */}
-          <motion.div
-            style={{ y: imageY, scale: imageScale }}
-            className="absolute inset-0 origin-center"
-          >
-            <Image
-              src="/images/hero-billede.jpg"
-              alt="Tømrermester H.L. Christiansen i arbejde"
-              fill
-              sizes="(max-width: 1024px) 100vw, 42vw"
-              className="object-cover"
-              style={{ objectPosition: 'center 40%' }}
-            />
-          </motion.div>
-
-          {/* Dark curtain that slides upward to reveal the image */}
-          <motion.div
-            aria-hidden
-            className="absolute inset-0 bg-gray-light z-10 origin-bottom"
-            initial={{ scaleY: 1 }}
-            whileInView={{ scaleY: 0 }}
-            viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 1.1, ease }}
-          />
-
-          {/* Gold corner accent */}
-          <motion.div
-            className="absolute bottom-0 left-0 w-16 h-16 pointer-events-none z-20"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.9 }}
-          >
-            <div className="absolute bottom-0 left-0 w-[2px] h-10 bg-gold" />
-            <div className="absolute bottom-0 left-0 w-10 h-[2px] bg-gold" />
-          </motion.div>
-        </div>
-
-        {/* Text */}
-        <div className="lg:col-span-7">
-          <Reveal delay={0.1}>
-            <p className="label-caps text-gold mb-4">✦ Om firmaet</p>
+        <div className="lg:col-span-6 lg:col-start-7">
+          <Reveal>
+            <p className="eyebrow">Om firmaet</p>
+            <h2 id="om-heading" className="section-title mt-3">
+              Håndværk med <span className="text-dark/55">ansvar og rygrad.</span>
+            </h2>
           </Reveal>
-
-          {/* Headline — line by line */}
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] mb-0">
-            {HEADLINE_LINES.map((line, i) => (
-              <span key={i} className="block overflow-hidden">
-                <motion.span
-                  className={`block${line.italic ? ' italic' : ''}`}
-                  initial={{ y: '110%' }}
-                  whileInView={{ y: '0%' }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 0.95, ease, delay: 0.2 + i * 0.12 }}
-                >
-                  {line.text}
-                </motion.span>
-              </span>
-            ))}
-          </h2>
-
-          <Reveal delay={0.3}>
-            <h3 className="font-display text-2xl md:text-3xl text-dark mt-5">
-              Jonatan Hintze Ladewig Christiansen
-            </h3>
+          <Reveal delay={0.08}>
+            <p className="lead mt-8 text-dark/80">
+              Jonatan er uddannet tømrer med svendebrev og har ført Tømrerfirmaet H L Christiansen frem som et
+              værksted, der tager hver opgave seriøst — fra det første målebånd til den sidste liste er på plads.
+            </p>
+            <p className="mt-5 max-w-xl leading-relaxed text-dark/65">
+              Vi tror på klar kommunikation, rene linjer og arbejde, der holder. Ikke hurtige løsninger, men
+              ordentlige.
+            </p>
           </Reveal>
-
-          <Reveal delay={0.38}>
-            <GoldDivider className="mt-5" />
-          </Reveal>
-
-          {/* Body — paragraph by paragraph */}
-          {BODY_LINES.map((para, i) => (
-            <Reveal key={i} delay={0.45 + i * 0.1}>
-              <p className={`text-dark/75 leading-relaxed max-w-xl ${i === 0 ? 'mt-8' : 'mt-4'}`}>
-                {para}
-              </p>
-            </Reveal>
-          ))}
-
-          <Reveal delay={0.62}>
-            <div className="mt-10">
-              <SvendebrevBadge />
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.7}>
-            <div className="mt-10 flex flex-wrap gap-4">
-              <Link href="/om-os" className="btn-outline">
-                Læs mere om os
-              </Link>
+          <Reveal delay={0.14}>
+            <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-5">
+              <div data-testid="svendebrev-badge" className="flex items-center gap-3">
+                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-gold-light/15 text-gold">
+                  <BadgeCheck size={22} aria-hidden />
+                </span>
+                <span>
+                  <span className="block font-display text-[17px] font-semibold tracking-[-0.02em]">Jonatan Hintze Ladewig Christiansen</span>
+                  <span className="block text-[14px] text-dark/55">Verificeret tømrermester · Svendebrev</span>
+                </span>
+              </div>
+              <Link href="/om-os" className="btn-outline">Læs mere om os</Link>
             </div>
           </Reveal>
         </div>

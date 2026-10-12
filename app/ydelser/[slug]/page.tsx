@@ -3,10 +3,9 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { ArrowUpRight } from 'lucide-react'
+import { Check, ChevronRight, Phone } from 'lucide-react'
 import { YDELSER } from '@/lib/services'
 import { SITE } from '@/lib/site'
-import { GoldDivider } from '@/components/ui/GoldDivider'
 import { Reveal } from '@/components/ui/Reveal'
 import { CTA } from '@/components/sections/CTA'
 import { PageHero } from '@/components/sections/PageHero'
@@ -21,7 +20,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const { slug } = await params
   const y = YDELSER.find((y) => y.slug === slug)
   if (!y) return {}
-  const title = `${y.title} — Tømrermester i ${SITE.location} & Storkøbenhavn`
+  const title = `${y.title} – Tømrer i ${SITE.location}`
   const description = `${y.short} Udført af verificeret tømrermester med svendebrev — i ${SITE.location} og hele Storkøbenhavn.`
   const url = `https://hlchristiansen.dk/ydelser/${y.slug}`
   return {
@@ -38,7 +37,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
           url: y.image,
           width: y.imageWidth,
           height: y.imageHeight,
-          alt: y.title,
+          alt: y.imageAlt,
         },
       ],
     },
@@ -110,33 +109,30 @@ export default async function YdelseSide({ params }: { params: Params }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
 
-      <PageHero eyebrow={`Ydelse · ${y.title}`} title={y.title} description={y.intro} />
+      <PageHero eyebrow="Ydelse" title={y.title} description={y.intro} image={y.image} imageAlt={y.imageAlt}>
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <Link href="/kontakt" className="btn-gold">Få et tilbud</Link>
+          <a href={`tel:${SITE.phoneHref}`} className="btn-outline-white">
+            <Phone size={16} aria-hidden /> {SITE.phone}
+          </a>
+        </div>
+      </PageHero>
 
-      <section className="bg-white py-14 sm:py-20 md:py-28">
-        <div className="container-content grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-12 lg:gap-16">
-          <div className="lg:col-span-7">
-            <Reveal>
-              <div className="relative aspect-[16/10] bg-gray-light overflow-hidden">
-                <Image
-                  src={y.image}
-                  alt={`${y.title} udført af tømrermester H L Christiansen`}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 58vw"
-                  className="object-cover"
-                  priority
-                />
-              </div>
-            </Reveal>
-          </div>
-          <Reveal className="lg:col-span-5" delay={0.1}>
-            <p className="label-caps text-gold mb-4">Hvad vi laver</p>
-            <h2 className="font-display text-3xl md:text-4xl leading-tight">
-              Opgaver inden for <span className="italic">{y.title}</span>
+      <section className="bg-white py-24 md:py-32">
+        <div className="container-content grid gap-12 lg:grid-cols-12 lg:gap-16">
+          <Reveal className="lg:col-span-5">
+            <p className="eyebrow">Hvad vi laver</p>
+            <h2 className="section-title mt-3">
+              Opgaver inden for <span className="text-dark/55">{y.title.toLowerCase()}.</span>
             </h2>
-            <GoldDivider className="mt-6" />
-            <ul className="mt-8 space-y-3 text-dark/80">
+          </Reveal>
+          <Reveal delay={0.08} className="lg:col-span-7">
+            <ul className="divide-y divide-dark/10 border-y border-dark/10">
               {y.bullets.map((b) => (
-                <li key={b} className="gold-star leading-relaxed">
+                <li key={b} className="flex items-center gap-4 py-5 text-[17px] md:text-[19px]">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gold-light/15 text-gold">
+                    <Check size={15} strokeWidth={2.75} aria-hidden />
+                  </span>
                   {b}
                 </li>
               ))}
@@ -145,45 +141,38 @@ export default async function YdelseSide({ params }: { params: Params }) {
         </div>
       </section>
 
-      <section className="bg-gray-light py-14 sm:py-20 md:py-28">
+      <section className="bg-gray-light py-24 md:py-32">
         <div className="container-content">
-          <Reveal className="max-w-xl">
-            <p className="label-caps text-gold mb-4">Proces</p>
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl leading-[1.05]">
-              Fire trin. <span className="italic">Klar rytme.</span>
+          <Reveal className="max-w-3xl">
+            <p className="eyebrow">Proces</p>
+            <h2 className="section-title mt-3">
+              Fire trin. <span className="text-dark/55">Klar rytme.</span>
             </h2>
-            <GoldDivider className="mt-6" />
           </Reveal>
-          <div className="mt-10 sm:mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+          <ol className="mt-12 grid grid-cols-2 gap-4 md:mt-14 md:grid-cols-4 md:gap-5">
             {PROCESS.map((p, i) => (
-              <Reveal key={p.nr} delay={i * 0.1}>
-                <div className="border-t border-gold pt-5">
-                  <p className="label-caps text-gold">{p.nr}</p>
-                  <p className="mt-2 font-display text-2xl">{p.label}</p>
-                </div>
+              <Reveal as="li" key={p.nr} delay={i * 0.07} className="card bg-white p-6 md:p-7">
+                <span aria-hidden className="flex h-9 w-9 items-center justify-center rounded-full bg-dark font-display text-[15px] font-semibold text-gold-light">
+                  {i + 1}
+                </span>
+                <p className="mt-6 font-display text-[20px] font-semibold leading-tight tracking-[-0.025em] md:text-[22px]">{p.label}</p>
               </Reveal>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
-      <section className="bg-white py-16 md:py-20 border-b border-gray-mid">
-        <div className="container-content flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-          <div>
-            <p className="label-caps text-gold mb-2">Næste ydelse</p>
-            <h3 className="font-display text-3xl md:text-4xl">
-              {next.title}
-            </h3>
-          </div>
-          <Link
-            href={`/ydelser/${next.slug}`}
-            className="inline-flex items-center gap-2 label-caps text-dark group"
-          >
-            <span className="link-underline">Udforsk</span>
-            <ArrowUpRight
-              size={16}
-              className="text-gold transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-            />
+      <section className="bg-white py-16 md:py-20">
+        <div className="container-content">
+          <Link href={`/ydelser/${next.slug}`} className="group card flex items-center gap-5 bg-gray-light p-4 pr-6 transition-colors hover:bg-gray-mid md:gap-8 md:p-5 md:pr-10">
+            <div className="relative h-24 w-32 shrink-0 overflow-hidden rounded-[14px] md:h-32 md:w-48">
+              <Image src={next.image} alt="" fill sizes="192px" className="zoom-img object-cover" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-[13px] font-semibold text-dark/65">Næste ydelse</p>
+              <p className="mt-1 font-display text-[24px] font-semibold leading-tight tracking-[-0.03em] md:text-[36px]">{next.title}</p>
+            </div>
+            <ChevronRight size={28} aria-hidden className="shrink-0 text-gold transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
         </div>
       </section>
