@@ -8,9 +8,9 @@ test.beforeEach(async ({ page }) => {
 
 test('hero shows the heading at once and the quote form on every screen size', async ({ page }, info) => {
   await page.goto('/')
-  await expect(page.locator('h1')).toHaveText('Håndværk med karakter.')
+  await expect(page.locator('h1')).toHaveText('Tømrer i Herlev og Storkøbenhavn')
   await expect(page.locator('h1')).toBeVisible()
-  const form = page.getByRole('form', { name: 'Lad os give dig et tilbud' })
+  const form = page.getByRole('form', { name: 'Få et gratis tilbud fra en tømrer i Herlev' })
   await form.scrollIntoViewIfNeeded()
   await expect(form).toBeVisible()
   await expect(form.getByLabel('Navn', { exact: true })).toBeVisible()
@@ -20,7 +20,7 @@ test('hero shows the heading at once and the quote form on every screen size', a
 
 test('hero quote works with keyboard, validates, and preserves input after a failed send', async ({ page }) => {
   await page.goto('/')
-  const form = page.getByRole('form', { name: 'Lad os give dig et tilbud' })
+  const form = page.getByRole('form', { name: 'Få et gratis tilbud fra en tømrer i Herlev' })
   await form.getByLabel('Navn', { exact: true }).focus()
   await expect(form.getByLabel('Navn', { exact: true })).toBeFocused()
   await form.getByRole('button', { name: 'Få et uforpligtende tilbud' }).click()

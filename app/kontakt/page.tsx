@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Phone, Mail, MapPin, Clock, Paperclip } from 'lucide-react'
 import { QuoteForm } from '@/components/ui/QuoteForm'
 import { Reveal } from '@/components/ui/Reveal'
+import { MapEmbed } from '@/components/ui/MapEmbed'
 import { SITE } from '@/lib/site'
 
 export const metadata: Metadata = {
@@ -67,10 +68,10 @@ export default function KontaktSide() {
           <div className="lg:col-span-5">
             <p className="rise eyebrow !text-gold-light" style={delay(0.05)}>Kontakt</p>
             <h1
-              className="rise-move mt-3 font-display text-[2.75rem] font-semibold leading-[1.02] sm:text-[3.5rem] lg:text-[4.25rem]"
+              className="rise-move mt-3 font-display text-[2.25rem] font-semibold leading-[1.04] sm:text-[3.25rem] lg:text-[3.5rem]"
               style={delay(0.12)}
             >
-              Fortæl om <span className="text-gold-light">dit projekt.</span>
+              Kontakt tømrer i Herlev – <span className="text-gold-light">få et gratis tilbud</span>
             </h1>
             <p className="rise lead mt-6 max-w-md text-white/70" style={delay(0.2)}>
               Du behøver ikke have alle detaljer på plads. Skriv hvad du ved, så tager vi den videre snak på
@@ -155,6 +156,24 @@ export default function KontaktSide() {
                 </p>
               </div>
             </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section aria-labelledby="omraade-heading" className="bg-white py-24 md:py-32">
+        <div className="container-content grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
+          <Reveal className="lg:col-span-5">
+            <p className="eyebrow">Hvor vi arbejder</p>
+            <h2 id="omraade-heading" className="section-title mt-3">
+              Tømrer i Herlev <span className="text-dark/55">og omegn.</span>
+            </h2>
+            <p className="mt-6 max-w-md leading-relaxed text-dark/65">
+              Vi har base i {SITE.address.zip} {SITE.location} og arbejder i Herlev, Ballerup, Gladsaxe, Lyngby og
+              resten af Storkøbenhavn.
+            </p>
+          </Reveal>
+          <Reveal delay={0.08} className="lg:col-span-7">
+            <MapEmbed query={`${SITE.address.zip} ${SITE.location}`} title={`Kort over ${SITE.location}, hvor ${SITE.name} har base`} />
           </Reveal>
         </div>
       </section>

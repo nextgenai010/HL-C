@@ -41,10 +41,13 @@ export function Hero() {
           </p>
           <h1
             id="hero-heading"
-            className="rise-move mt-3 font-display text-[3.1rem] font-semibold leading-[0.98] sm:text-[4.25rem] lg:text-[min(5.25rem,10.5vh)] xl:text-[min(5.75rem,10.5vh)]"
+            className="rise-move mt-3 font-display text-[2.5rem] font-semibold leading-[1] sm:text-[3.75rem] lg:text-[min(4.5rem,9vh)] xl:text-[min(5rem,9.5vh)]"
           >
-            Håndværk med <span className="text-gold-light">karakter.</span>
+            Tømrer i Herlev og <span className="text-gold-light">Storkøbenhavn</span>
           </h1>
+          <p className="rise mt-4 font-display text-[1.5rem] font-semibold leading-tight tracking-[-0.02em] text-white/90 sm:text-[1.875rem]" style={delay(0.17)}>
+            Håndværk med <span className="text-gold-light">karakter.</span>
+          </p>
           <p className="rise lead mt-5 max-w-[34rem] text-white/80 md:mt-6" style={delay(0.22)}>
             Tømrermester med svendebrev i Herlev og hele Storkøbenhavn. Fra nybyg til renovering — og svar inden for 24 timer.
           </p>
@@ -61,7 +64,7 @@ export function Hero() {
         </div>
 
         <div id="tilbud" className="rise scroll-mt-24 lg:col-span-6 lg:self-center xl:col-span-5" style={delay(0.3)}>
-          <QuoteForm />
+          <QuoteForm title="Få et gratis tilbud fra en tømrer i Herlev" />
           <ul className="mt-6 flex flex-col gap-2.5 text-[15px] text-white/75 lg:mt-5 lg:flex-row lg:flex-wrap lg:justify-center lg:gap-x-4 lg:gap-y-1 lg:text-[13px] lg:text-white/65 [@media(min-width:1024px)_and_(max-height:820px)]:hidden">
             {POINTS.map((p) => (
               <li key={p} className="flex items-center gap-2.5 lg:gap-1.5">

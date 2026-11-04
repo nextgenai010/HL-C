@@ -10,6 +10,7 @@ const SERVICES = [
     image: '/images/ydelser/nybyg.jpg',
     alt: 'Træskelet til nybyg mod blå himmel',
     href: '/ydelser/nybyg-tilbygninger',
+    more: 'Læs mere om nybyg og tilbygninger',
   },
   {
     name: 'Renovering & Ombygning',
@@ -17,6 +18,7 @@ const SERVICES = [
     image: '/images/ydelser/renovering.png',
     alt: 'Tømrer lægger nyt trægulv under renovering',
     href: '/ydelser/renovering',
+    more: 'Læs mere om renovering',
   },
   {
     name: 'Tag & Kviste',
@@ -24,6 +26,7 @@ const SERVICES = [
     image: '/images/ydelser/tag.jpeg',
     alt: 'Nyt tegltag på parcelhus',
     href: '/ydelser/tag',
+    more: 'Læs mere om tag og kviste',
   },
   {
     name: 'Vinduer & Døre',
@@ -31,6 +34,7 @@ const SERVICES = [
     image: '/images/ydelser/vinduer.png',
     alt: 'Store glaspartier og skydedøre i moderne bolig',
     href: '/ydelser/vinduer-doere',
+    more: 'Læs mere om vinduer og døre',
   },
   {
     name: 'Facader & Beklædning',
@@ -38,6 +42,7 @@ const SERVICES = [
     image: '/images/ydelser/facader.png',
     alt: 'Lodret træbeklædning på facade',
     href: '/ydelser/facader',
+    more: 'Læs mere om facader',
   },
   {
     name: 'Terrasser & Udendørs',
@@ -45,6 +50,7 @@ const SERVICES = [
     image: '/images/ydelser/terrasser.png',
     alt: 'Tømrer monterer terrassebrædder i haven',
     href: '/ydelser/terrasser',
+    more: 'Læs mere om terrasser',
   },
 ]
 
@@ -55,7 +61,7 @@ export function ServicesPreview() {
         <Reveal className="max-w-3xl">
           <p className="eyebrow">Hvad vi laver</p>
           <h2 id="ydelser-heading" className="section-title mt-3">
-            Seks fagområder.<br /><span className="text-dark/55">Samme håndværk.</span>
+            Tømrerarbejde i Herlev <span className="text-dark/55">– vores ydelser</span>
           </h2>
         </Reveal>
       </div>
@@ -77,7 +83,7 @@ export function ServicesPreview() {
                 <h3 className="font-display text-[22px] font-semibold leading-tight tracking-[-0.025em] md:text-[24px]">{s.name}</h3>
                 <p className="mt-2 flex-1 text-[15px] leading-relaxed text-dark/65">{s.description}</p>
                 <span className="link-more mt-5 !text-[15px]">
-                  <span>Læs mere</span>
+                  <span>{s.more}</span>
                   <ChevronRight size={16} strokeWidth={2.5} aria-hidden />
                 </span>
               </div>

@@ -34,7 +34,7 @@ export const FAQ_HOME: FaqItem[] = [
   },
   {
     q: 'Hvilken garanti giver I på arbejdet?',
-    a: 'Opdager du en mangel, skal du kontakte os hurtigst muligt. Frister og eventuelle garantier afhænger af aftalen og de gældende regler. Vi gennemgår vilkårene i tilbuddet og kommer tilbage og ser på konkrete problemer efter aflevering. Læs mere om klagefrister på forbrug.dk.',
+    a: 'Opdager du en mangel, skal du kontakte os hurtigst muligt. Frister og eventuelle garantier afhænger af aftalen og de gældende regler. Vi gennemgår vilkårene i tilbuddet og kommer tilbage og ser på konkrete problemer efter aflevering. Læs mere om klagefrister på [forbrug.dk](https://forbrug.dk).',
   },
   {
     q: 'Hvad sker der, efter jeg har sendt en forespørgsel?',
@@ -42,7 +42,7 @@ export const FAQ_HOME: FaqItem[] = [
   },
   {
     q: 'Kan jeg trække noget fra i skat for arbejdet?',
-    a: 'Visse grønne forbedringer i din bolig kan give håndværkerfradrag. Det er en anden ordning end servicefradraget. Vi udsteder faktura med tydelig angivelse af arbejdsløn, så du kan indberette korrekt til SKAT. Konkrete regler ændrer sig — tjek altid de aktuelle satser på skat.dk.',
+    a: 'Visse grønne forbedringer i din bolig kan give håndværkerfradrag. Det er en anden ordning end servicefradraget. Vi udsteder faktura med tydelig angivelse af arbejdsløn, så du kan indberette korrekt til SKAT. Konkrete regler ændrer sig — tjek altid de aktuelle satser på [skat.dk](https://skat.dk).',
   },
 ]
 
@@ -98,7 +98,7 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
       },
       {
         q: 'Kan jeg bruge håndværkerfradrag?',
-        a: 'Visse grønne forbedringer kan give håndværkerfradrag, fx udskiftning af vinduer eller isolering. Håndværkerfradrag og servicefradrag er forskellige ordninger. Vi udsteder faktura med tydelig angivelse af arbejdsløn, så du kan indberette korrekt. De konkrete regler og beløb ændrer sig — tjek altid de aktuelle satser på skat.dk.',
+        a: 'Visse grønne forbedringer kan give håndværkerfradrag, fx udskiftning af vinduer eller isolering. Håndværkerfradrag og servicefradrag er forskellige ordninger. Vi udsteder faktura med tydelig angivelse af arbejdsløn, så du kan indberette korrekt. De konkrete regler og beløb ændrer sig — tjek altid de aktuelle satser på [skat.dk](https://skat.dk).',
       },
       {
         q: 'Hvad sker der, hvis der dukker noget uventet op undervejs?',
@@ -121,7 +121,7 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
       },
       {
         q: 'Hvilken garanti giver I?',
-        a: 'Garantier aftales konkret og fremgår af tilbuddet. Der kan også være producentgaranti på fx tag eller vinduer. Dine lovbestemte rettigheder gælder uanset en eventuel garanti. Kontakt os hurtigst muligt, hvis du opdager en mangel, og læs om de gældende klagefrister på forbrug.dk.',
+        a: 'Garantier aftales konkret og fremgår af tilbuddet. Der kan også være producentgaranti på fx tag eller vinduer. Dine lovbestemte rettigheder gælder uanset en eventuel garanti. Kontakt os hurtigst muligt, hvis du opdager en mangel, og læs om de gældende klagefrister på [forbrug.dk](https://forbrug.dk).',
       },
       {
         q: 'Hvad sker der, hvis jeg ikke er tilfreds med arbejdet?',

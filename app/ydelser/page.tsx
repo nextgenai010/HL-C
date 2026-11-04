@@ -48,7 +48,8 @@ export default function YdelserOversigt() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListLd) }} />
       <PageHero
         eyebrow="Ydelser"
-        title="Seks fagområder.<br /><em>Samme håndværk.</em>"
+        title="Tømrerydelser i Herlev og <em>Storkøbenhavn</em>"
+        subtitle="Seks fagområder. Samme håndværk."
         description="Vi tager os af hele spektret fra nybyg til tag, facader og terrasser. Hvert område har sin egen disciplin, men udgangspunktet er det samme: rent arbejde, tætte samlinger og et hold der forstår at bygge med tid."
       />
 

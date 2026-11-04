@@ -36,7 +36,7 @@ export const YDELSER: Ydelse[] = [
   {
     slug: 'nybyg-tilbygninger',
     title: 'Nybyg & Tilbygninger',
-    short: 'Huse, carporte, udhuse, garager og overdækninger bygget fra bunden.',
+    short: 'Huse, carporte, udhuse, garager og overdækninger bygget fra bunden. Vi står for hele tømrerarbejdet fra fundament og bærende konstruktion til tag og de sidste lister. Har du brug for mere plads, bygger vi tilbygningen, så den passer til resten af huset.',
     image: '/images/kategorier/nybyg-tilbygninger.jpg',
     imageAlt: 'Træskelet til nybyg mod blå himmel',
     imageWidth: 1920,
@@ -119,7 +119,7 @@ export const YDELSER: Ydelse[] = [
   {
     slug: 'renovering',
     title: 'Renovering & Ombygning',
-    short: 'Indvendig renovering, vægflytning, gulve og lofter med karakter.',
+    short: 'Indvendig renovering, vægflytning, gulve og lofter med karakter. Vi giver ældre huse og lejligheder nyt liv med respekt for det originale byggeri. Dukker der noget uventet op bag overfladen, taler vi om det, før vi går videre.',
     image: '/images/kategorier/renovering.png',
     imageAlt: 'Tømrer lægger nyt trægulv under renovering',
     imageWidth: 1920,
@@ -198,7 +198,7 @@ export const YDELSER: Ydelse[] = [
   {
     slug: 'tag',
     title: 'Tag & Kviste',
-    short: 'Tagudskiftning, renovering, kviste og tagterrasser.',
+    short: 'Tagudskiftning, tagrenovering, kviste og tagterrasser. Et tæt og velisoleret tag beskytter hele huset og sænker varmeregningen. Vi hjælper også med at udnytte tagetagen bedre med nye kviste og ovenlysvinduer.',
     image: '/images/kategorier/tag.jpeg',
     imageAlt: 'Nyt tegltag på parcelhus',
     imageWidth: 1920,
@@ -277,7 +277,7 @@ export const YDELSER: Ydelse[] = [
   {
     slug: 'vinduer-doere',
     title: 'Vinduer & Døre',
-    short: 'Udskiftning og isætning — standard og specialmål.',
+    short: 'Udskiftning og isætning af vinduer og døre i både standard- og specialmål. Vi monterer med tætte fuger og korrekt isolering, så du undgår træk og fugt. Nye energivinduer kan samtidig give et lavere energiforbrug.',
     image: '/images/kategorier/vinduer-doere.png',
     imageAlt: 'Store glaspartier og skydedøre i moderne bolig',
     imageWidth: 1920,
@@ -356,7 +356,7 @@ export const YDELSER: Ydelse[] = [
   {
     slug: 'facader',
     title: 'Facader & Beklædning',
-    short: 'Træbeklædning, facaderenovering og efterisolering.',
+    short: 'Træbeklædning, facaderenovering og efterisolering. En ny facade beskytter huset mod vejr og vind og giver det et frisk udtryk. Vi rådgiver om træsorter og løsninger, der holder i det danske klima.',
     image: '/images/kategorier/facader.png',
     imageAlt: 'Lodret træbeklædning på facade',
     imageWidth: 1920,
@@ -435,7 +435,7 @@ export const YDELSER: Ydelse[] = [
   {
     slug: 'terrasser',
     title: 'Terrasser & Udendørs',
-    short: 'Trædæk, pergolaer, havehuse og overdækninger.',
+    short: 'Trædæk, terrasser, pergolaer, havehuse og overdækninger. Vi bygger udendørs konstruktioner på et solidt fundament med træ, der kan tåle det danske vejr. Resultatet er et udeliv, der holder i mange år.',
     image: '/images/kategorier/terrasser.png',
     imageAlt: 'Tømrer monterer terrassebrædder i haven',
     imageWidth: 1920,

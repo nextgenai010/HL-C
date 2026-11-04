@@ -86,7 +86,8 @@ export default function OmOs() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personLd) }} />
       <PageHero
         eyebrow="Om firmaet"
-        title="En tømrer.<br /><em>Et svendebrev.</em><br />Et ord der holder."
+        title="Om tømrermester Jonatan Christiansen i <em>Herlev</em>"
+        subtitle="En tømrer. Et svendebrev. Et ord der holder."
         description={`Tømrerfirmaet H L Christiansen er drevet af Jonatan Hintze Ladewig Christiansen — uddannet tømrer med svendebrev og rod i ${SITE.location}. Vi påtager os både det store nybyg og den lille reparation, og tager samme ansvar uanset omfang.`}
       />
 
@@ -114,7 +115,7 @@ export default function OmOs() {
               tagudskiftning eller en enkelt dør, der skal sidde rigtigt.
             </p>
             <p className="mt-5 leading-relaxed text-dark/65">
-              Vi har vores rødder i {SITE.location} og kører dagligt ud til opgaver i hele Storkøbenhavn. I dag
+              Vi arbejder i Herlev, Ballerup, Gladsaxe, Lyngby og resten af Storkøbenhavn. I dag
               arbejder vi med alt fra nybyg og tilbygninger til tag, facader, vinduer, døre og terrasser — altid
               med udgangspunkt i godt håndværk og klare aftaler.
             </p>

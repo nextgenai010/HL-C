@@ -7,6 +7,7 @@ import { Reveal } from '@/components/ui/Reveal'
 import { CTA } from '@/components/sections/CTA'
 import { FAQ_CATEGORIES, FAQ_ALL } from '@/lib/faq'
 import { SITE } from '@/lib/site'
+import { plainText } from '@/components/ui/RichText'
 
 export const metadata: Metadata = {
   title: 'Ofte stillede spørgsmål om tømrerarbejde',
@@ -29,7 +30,7 @@ export default function FAQPage() {
     mainEntity: FAQ_ALL.map((item) => ({
       '@type': 'Question',
       name: item.q,
-      acceptedAnswer: { '@type': 'Answer', text: item.a },
+      acceptedAnswer: { '@type': 'Answer', text: plainText(item.a) },
     })),
   }
   const breadcrumbLd = {
@@ -53,7 +54,8 @@ export default function FAQPage() {
 
       <PageHero
         eyebrow="Ofte stillede spørgsmål"
-        title="Spørgsmål.<br /><em>Klare svar.</em>"
+        title="Ofte stillede spørgsmål om <em>tømrerarbejde</em>"
+        subtitle="Spørgsmål. Klare svar."
         description="Vi har samlet de spørgsmål, vi oftest får — om tilbud, pris, proces, garanti og områder. Finder du ikke svar her, så ring eller skriv. Vi vender tilbage inden for 24 timer."
       />
 

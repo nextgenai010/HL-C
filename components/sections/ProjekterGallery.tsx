@@ -50,8 +50,8 @@ export function ProjekterGallery() {
         <div className="container-content flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="rise eyebrow !text-gold-light">Tidligere arbejde</p>
-            <h1 className="rise-move mt-3 font-display text-[2.75rem] font-semibold leading-[1.02] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[5rem]" style={{ '--d': '0.08s' } as React.CSSProperties}>
-              Vores <span className="text-gold-light">projekter.</span>
+            <h1 className="rise-move mt-3 max-w-3xl font-display text-[2.25rem] font-semibold leading-[1.04] sm:text-[3.25rem] md:text-[4rem] lg:text-[4.5rem]" style={{ '--d': '0.08s' } as React.CSSProperties}>
+              Tømrerprojekter i Herlev og <span className="text-gold-light">Storkøbenhavn</span>
             </h1>
           </div>
           <p className="rise max-w-sm text-[17px] leading-relaxed text-white/60" style={{ '--d': '0.16s' } as React.CSSProperties}>

@@ -6,6 +6,8 @@ type Props = {
   eyebrow: string
   /** May contain <br /> and an <em> for the gold accent half. */
   title: string
+  /** Short slogan shown right under the h1. */
+  subtitle?: string
   description?: string
   image?: string
   imageAlt?: string
@@ -15,7 +17,7 @@ type Props = {
 
 const delay = (s: number) => ({ '--d': `${s}s` }) as React.CSSProperties
 
-export function PageHero({ eyebrow, title, description, image, imageAlt = '', className, children }: Props) {
+export function PageHero({ eyebrow, title, subtitle, description, image, imageAlt = '', className, children }: Props) {
   return (
     <section
       className={cn(
@@ -35,10 +37,15 @@ export function PageHero({ eyebrow, title, description, image, imageAlt = '', cl
       <div className="container-content w-full">
         <p className="rise eyebrow !text-gold-light" style={delay(0.05)}>{eyebrow}</p>
         <h1
-          className="rise-move accent-em mt-3 max-w-4xl font-display text-[2.75rem] font-semibold leading-[1.02] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[5rem]"
+          className="rise-move accent-em mt-3 max-w-4xl font-display text-[2.25rem] font-semibold leading-[1.04] sm:text-[3.25rem] md:text-[4rem] lg:text-[4.5rem]"
           style={delay(0.12)}
           dangerouslySetInnerHTML={{ __html: title }}
         />
+        {subtitle && (
+          <p className="rise mt-4 font-display text-[1.375rem] font-semibold leading-tight tracking-[-0.02em] text-white/85 sm:text-[1.75rem]" style={delay(0.18)}>
+            {subtitle}
+          </p>
+        )}
         {description && (
           <p className="rise lead mt-6 max-w-2xl text-white/75" style={delay(0.22)}>
             {description}

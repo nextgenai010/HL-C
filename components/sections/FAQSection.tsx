@@ -11,7 +11,7 @@ export function FAQSection() {
         <Reveal className="lg:col-span-5">
           <p className="eyebrow">Det får vi spurgt om</p>
           <h2 id="faq-heading" className="section-title mt-3">
-            Ofte stillede <span className="text-dark/55">spørgsmål.</span>
+            Ofte stillede spørgsmål <span className="text-dark/55">om tømrerarbejde</span>
           </h2>
           <p className="mt-6 max-w-md leading-relaxed text-dark/65">
             Vi har samlet de mest stillede spørgsmål om tilbud, proces, områder og garanti. Finder du ikke svar

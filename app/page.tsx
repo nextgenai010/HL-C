@@ -10,6 +10,7 @@ import { FAQSection } from '@/components/sections/FAQSection'
 import { QuoteCTA } from '@/components/sections/QuoteCTA'
 import { SITE } from '@/lib/site'
 import { FAQ_HOME } from '@/lib/faq'
+import { plainText } from '@/components/ui/RichText'
 
 export const metadata: Metadata = {
   title: { absolute: `Tømrermester i ${SITE.location} – Svendebrev & 24 timers svar` },
@@ -30,7 +31,7 @@ export default function Home() {
     mainEntity: FAQ_HOME.map((item) => ({
       '@type': 'Question',
       name: item.q,
-      acceptedAnswer: { '@type': 'Answer', text: item.a },
+      acceptedAnswer: { '@type': 'Answer', text: plainText(item.a) },
     })),
   }
 

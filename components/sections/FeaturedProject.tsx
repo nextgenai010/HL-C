@@ -34,7 +34,7 @@ export function FeaturedProject() {
           <Reveal>
             <p className="eyebrow !text-gold-light">Udvalgt arbejde</p>
             <h2 id="udvalgt-heading" className="section-title mt-3">
-              Terrasse med <span className="text-gold-light">haveudsigt.</span>
+              Seneste projekt: <span className="text-gold-light">Trædæk ved vinterhave</span>
             </h2>
           </Reveal>
           <Reveal delay={0.08}>

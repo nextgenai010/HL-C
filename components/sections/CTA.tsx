@@ -8,11 +8,17 @@ import { SITE } from '@/lib/site'
 export function CTA() {
   return (
     <section aria-labelledby="cta-heading" className="relative isolate overflow-hidden bg-dark text-white">
-      <div aria-hidden className="absolute inset-0 -z-10">
+      <div className="absolute inset-0 -z-10">
         <Parallax strength={0.08}>
-          <Image src="/images/teresse-projekt.jpg" alt="" fill sizes="100vw" className="object-cover object-[50%_55%] opacity-35" />
+          <Image
+            src="/images/teresse-projekt.jpg"
+            alt="Nyt trædæk med trapper bygget af Tømrerfirmaet H L Christiansen ved et parcelhus"
+            fill
+            sizes="100vw"
+            className="object-cover object-[50%_55%] opacity-35"
+          />
         </Parallax>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(35,36,38,0.55)_0%,rgba(35,36,38,0.92)_75%)]" />
+        <div aria-hidden className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(35,36,38,0.55)_0%,rgba(35,36,38,0.92)_75%)]" />
       </div>
 
       <Reveal className="container-content flex flex-col items-center py-28 text-center md:py-40">
